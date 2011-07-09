@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block extrahead %}
+<script language="javascript" type="text/javascript" src="/media/edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+    id : "id_conf"       // textarea id
+    ,syntax: "bash"          // syntax to be uses for highgliting
+    ,start_highlight: true      // to display with highlight mode on start-up
+});
+</script>
+{% endblock %}
+
+{% block title %}{% trans "Edit backup profile:" %} {{ profile.name }}{% endblock %}
+{% block branding %}<h1>{% trans "Edit backup profile:" %} {{ profile.name }}</h1>{% endblock %}
+
+{% block content %}
+
+    {% if conf_backup_error %}
+    <div class=error>
+        {% trans "Configure backup failed" %}: {{ conf_backup_error }}
+    </div>
+    {% endif %}
+    
+    <form method="POST" action="">
+    {% csrf_token %}
+    {{ conf_backup_form.non_field_errors }}
+        <div class=conf_backup>
+            <h2>{% trans "Profile description" %}</h2>
+
+            <table>
+            <tr><th>{% trans "Name" %}:</th><td>
+                {{ conf_backup_form.name.errors }}
+                {{ conf_backup_form.name }}
+                {{ profile.name }}
+            </td></tr>
+            <tr><th>{% trans "Source path" %}:</th><td>
+                {{ conf_backup_form.source.errors }}
+                {{ conf_backup_form.source }}
+                {{ profile.source }}
+            </td></tr>
+            <tr><th>{% trans "Descrption" %}:</th>
+                <td>
+                {{ conf_backup_form.descr.errors }}
+                {{ conf_backup_form.descr }}
+                </td>
+            </tr>
+            <tr><th>{% trans "Notes" %}:</th>
+                <td>
+                {{ conf_backup_form.notes.errors }}
+                {{ conf_backup_form.notes }}
+                </td>
+            </tr>
+            </table>
+            <input type="submit" name="submit" value="{% trans "Save configuration" %}" id="submit">
+            <a href=/show/{{ profile.name }}/>{% trans "Cancel" %}</a>
+        </div>
+        <div class=conf_config>
+            <h2>{% trans "Profile config" %}</h2>
+            <p>
+            {% trans "Usually you don't have to edit this config file" %}
+            <br/>{% trans "Instead try to tune" %} <a href=/edit_config/>{% trans "the global configuration" %}</a>
+            </p>
+            {{ conf_backup_form.conf.errors }}
+            {{ conf_backup_form.conf }}
+        </div>
+    </form>
+
+{% endblock content %}

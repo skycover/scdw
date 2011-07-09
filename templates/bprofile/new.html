@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block title %}{% trans "Configure new backup in" %} {{ confhome }}{% endblock %}
+{% block branding %}<h1>{% trans "Create new backup for" %} {{ source }}</h1>{% endblock %}
+
+{% block content %}
+
+    <div class=conf_backup>
+        {% if new_backup_error %}
+        <div class=error>
+            {% trans "Create backup failed" %}: {{ new_backup_error }}
+        </div>
+        {% endif %}
+        
+        <h2>{% trans "Specify parameters" %}</h2>
+
+        <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+        <tr><th>{% trans "Source path" %}:</th><td><a href=/filelist/{{ action_new }}/{{ source_enc }}/>{{ source }}</a></td></tr>
+        {{ new_backup_form.as_table }}
+        </table>
+        <input type="submit" name="submit" value="{% trans "Save configuration" %}" id="submit">
+        <a href=/>{% trans "Cancel" %}</a>
+        </form>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block title %}{% trans "Delete backup profile:" %} {{ name }}{% endblock %}
+{% block branding %}<h1>{% trans "Delete backup profile:" %} {{ name }}</h1>{% endblock %}
+
+{% block content %}
+
+    <p>{% trans "Delete is very dangerous process because you can lost the credentials to aceess to important backups!" %}</p>
+    <p>{% trans "You have to delete configuration manually on the filesystem." %}</p>
+    
+    <a href=/show/{{ name }}/>{% trans "Return" %}</a>
+
+{% endblock content %}

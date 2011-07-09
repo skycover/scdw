@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block title %}{% trans "Backup profile: " %} {{ profile.name }}{% endblock %}
+{% block branding %}<h1>{% trans "Backup profile:" %} {{ profile.name }}</h1>{% endblock %}
+
+{% block content %}
+
+    <div class=bprofile>
+        {% if profile_error %}
+        <div class=error>
+            {% trans "Profile read error" %}: {{ profile_error }}
+        </div>
+        {% endif %}
+        
+        <h2>{% trans "Profile description" %}</h2>
+
+        <div class=buttons>
+        <a href=/edit/{{ profile.name }}>{% trans "Edit" %}</a>
+        <a href=/delete/{{ profile.name }}>{% trans "Delete" %}</a>
+        <a href=/>{% trans "Return" %}</a>
+        </div>
+        <table>
+        <tr><th>{% trans "Name" %}:</th><td>{{ profile.name }}</td></tr>
+        <tr><th>{% trans "Source path" %}:</th><td>{{ profile.source }}</td></tr>
+        <tr><th>{% trans "Description" %}:</th><td>{{ profile.descr }}</td></tr>
+        <tr><th>{% trans "Notes" %}:</th><td><pre>{{ profile.notes }}</pre></td></tr>
+        </table>
+    </div>
+    <div class=conf_exclude>
+        <h2>{% trans "Exceptions globbing list" %}</h2>
+        {% if exception_error %}
+        <div class=error>
+            {% trans "Error" %}: {{ exception_error }}
+        </div>
+        {% endif %}
+        <form method="POST" action="">
+        {% csrf_token %}
+        <a href=/filelist/{{ action_show }}/{{ source_enc }}>{% trans "Chose file" %}</a><br/>
+        {{ add_exception_form.non_field_errors }}
+        {{ add_exception_form.source.errors }}
+        {{ profile.source }}/{{ add_exception_form.source }}
+        <br/>
+        <input type="submit" name="submit_add_minus" value="{% trans "Add exclusion" %}" id="submit">
+        <input type="submit" name="submit_add_plus" value="{% trans "Add inclusion" %}" id="submit">
+        </form>
+        <table>
+        {% for s in exclude_enc %}
+            <tr>
+                <td>{{ s.plain }}</td>
+                <td><a href=/excl/rem/{{ profile.name }}/{{ s.encoded }}/>{% trans "remove" %}</a></td>
+                <td><a href=/excl/up/{{ profile.name }}/{{ s.encoded }}/>{% trans "up" %}</a></td>
+                <td><a href=/excl/down/{{ profile.name }}/{{ s.encoded }}/>{% trans "down" %}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block extrahead %}
+<script language="javascript" type="text/javascript" src="/media/edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+    id : "id_conf"       // textarea id
+    ,syntax: "bash"          // syntax to be uses for highgliting
+    ,start_highlight: true      // to display with highlight mode on start-up
+});
+</script>
+{% endblock %}
+
+{% block title %}{% trans "Edit Global config in" %} {{ confhome }}{% endblock %}
+{% block branding %}<h1>{% trans "Edit Global config in" %} {{ confhome }}</h1>{% endblock %}
+
+{% block content %}
+
+    {% if global_conf_error %}
+    <div class=error>
+        {% trans "Write config failed" %}: {{ global_conf_error }}
+    </div>
+    {% endif %}
+    
+    <form method="POST" action="">
+    {% csrf_token %}
+    {{ global_conf_form.non_field_errors }}
+    {{ global_conf_form.conf.errors }}
+    {{ global_conf_form.conf }}
+    <input type="submit" name="submit" value="{% trans "Save config" %}" id="submit">
+    <a href=/>{% trans "Cancel" %}</a>
+    </form>
+
+{% endblock content %}
