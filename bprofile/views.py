@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 from django.views.generic.simple import direct_to_template
 from django.http import HttpResponseRedirect
 from forms import *
 from bprofile import *
 
+@login_required()
 def init_backend(request, **kwargs):
     targs = {}
     if (request.method == 'POST') and  ('submit' in request.POST):
@@ -17,6 +19,7 @@ def init_backend(request, **kwargs):
 
     return direct_to_template(request, 'bprofile/init.html', targs)
 
+@login_required()
 def list_bprofiles(request, **kwargs):
     confhome = find_confhome()
     if confhome:
@@ -30,10 +33,12 @@ def list_bprofiles(request, **kwargs):
     else:
         return HttpResponseRedirect('/init/')
 
+@login_required()
 def delete_bprofile(request, **kwargs):
     name = kwargs['name']
     return direct_to_template(request, 'bprofile/delete.html', {'name': name,})
 
+@login_required()
 def show_bprofile(request, **kwargs):
     from django.conf import settings
 
@@ -78,6 +83,7 @@ def show_bprofile(request, **kwargs):
     targs['add_exception_form'] = add_exception_form
     return direct_to_template(request, 'bprofile/show.html', targs)
 
+@login_required()
 def excl_action(request, **kwargs):
     name = kwargs['name']
     action = kwargs['action']
@@ -103,6 +109,7 @@ def excl_action(request, **kwargs):
 
     return HttpResponseRedirect('/show/%s/' % name)
 
+@login_required()
 def edit_bprofile(request, **kwargs):
     confhome = find_confhome()
     name = kwargs['name']
@@ -134,6 +141,7 @@ def edit_bprofile(request, **kwargs):
     targs['conf_backup_form'] = conf_backup_form
     return direct_to_template(request, 'bprofile/edit.html', targs)
 
+@login_required()
 def new_bprofile(request, **kwargs):
     import os
     from django.conf import settings
@@ -170,6 +178,7 @@ def new_bprofile(request, **kwargs):
     targs['new_backup_form'] = new_backup_form
     return direct_to_template(request, 'bprofile/new.html', targs)
 
+@login_required()
 def edit_conf(request, **kwargs):
     confhome = find_confhome()
     pr = read_gconf(confhome)

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "User login" %}{% endblock %}
+{% block branding %}<h1>{% trans "User login" %}</h1>{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<p>
+{% trans "You are algeady logged in as" %} {{ user.username }}.
+</p>
+{% else %}
+
+{% if form.non_field_errors %}
+{{ form.non_field_errors }}
+{% endif %}
+
+<form method="post" action="">
+{% csrf_token %}
+<dl class="register">  
+{% for field in form %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd class="clearfix">{{ field }}
+    {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
+    {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+    </dd>
+{% endfor %}
+</dl>
+<input type="submit" value="{% trans "Login" %}" / class="clearfix">
+</form>
+   
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+
+{% endif %}
+{% endblock %}

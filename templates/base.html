@@ -30,10 +30,9 @@
             {% block userlinks %}
                 {% if user.is_active %}
                     &nbsp;&nbsp;<strong>{{ user.username }}</strong>
-                    | <a href="/accounts/profile/">{% trans 'Profile' %}</a>
                     | <a href="/accounts/logout/">{% trans 'Log out' %}</a>
                 {% else %}
-                    <a href="/accounts/login/">{% trans 'Log in' %}</a>
+                    <a href="/accounts/login?next=/">{% trans 'Log in' %}</a>
                 {% endif %}
                 | <a target="_blank" href="/help/">{% trans 'Help' %}</a>
             {% endblock %}

@@ -4,6 +4,7 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 admin.autodiscover()
 
+from django.contrib.auth.views import login, logout
 from bprofile.views import *
 from filelist.views import *
 from django.conf import settings
@@ -28,6 +29,9 @@ urlpatterns = patterns('',
     (r'^excl/(?P<action>.*)/(?P<name>.*)/(?P<excpt_enc>.*)/$', excl_action),
     (r'^init/$', init_backend),
     (r'^filelist/(?P<action>.*)/(?P<path>.*)/$', filelist),
+    (r'^accounts/login/$','django.contrib.auth.views.login'),
+    #(r'^accounts/login/$', login),
+    url(r'^accounts/logout/$', logout, dict( template_name = 'registration/logout.html',), name='logout',),
 )
 
 urlpatterns += patterns('',
