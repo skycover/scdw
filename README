@@ -74,3 +74,10 @@ Or you may run "scdw PORT" to listen another PORT.
 
 You can use the above method on the trusted network, but much better is to setup
 apache-ssl + mod_wsgi web site.
+
+LANGUAGE ENVIRONMENT
+
+The default encoding is utf8. Use "grep -r utf8 ." to find what should be changed.
+iso8859-1 users can simply remove utf8 preamble in files.
+
+The default language is ru-RU. You can change this in "settings.py".
