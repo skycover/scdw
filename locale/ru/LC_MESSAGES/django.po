@@ -1,0 +1,262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-10 17:31+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: templates/base.html:33
+msgid "Log out"
+msgstr "Выйти"
+
+#: templates/base.html:35
+msgid "Log in"
+msgstr "Войти"
+
+#: templates/base.html:37
+msgid "Help"
+msgstr "Помощь"
+
+#: templates/bprofile/delete.html:8 templates/bprofile/delete.html.py:9
+msgid "Delete backup profile:"
+msgstr "Удалить профиль бэкапа"
+
+#: templates/bprofile/delete.html:13
+msgid ""
+"Delete is very dangerous process because you can lost the credentials to "
+"aceess to important backups!"
+msgstr ""
+"Удаление - это очень опасный процесс, потому что Вы можете навсегда "
+"потерятьключи и пароли доступа к важным резервным копиям!"
+
+#: templates/bprofile/delete.html:14
+msgid "You have to delete configuration manually on the filesystem."
+msgstr "Вам придется удалить конфигурацию вручную н файловой системе."
+
+#: templates/bprofile/delete.html:16 templates/bprofile/show.html:25
+msgid "Return"
+msgstr "Возврат"
+
+#: templates/bprofile/edit.html:19 templates/bprofile/edit.html.py:20
+msgid "Edit backup profile:"
+msgstr "Редактировать профиль бэкапа:"
+
+#: templates/bprofile/edit.html:26
+msgid "Configure backup failed"
+msgstr "Настройка бэкапа не удалась"
+
+#: templates/bprofile/edit.html:34 templates/bprofile/show.html:20
+msgid "Profile description"
+msgstr "Описание профиля"
+
+#: templates/bprofile/edit.html:37 templates/bprofile/list.html:24
+#: templates/bprofile/show.html:28 templates/filelist/filelist.html:45
+msgid "Name"
+msgstr "Имя"
+
+#: templates/bprofile/edit.html:42 templates/bprofile/new.html:25
+#: templates/bprofile/show.html:29
+msgid "Source path"
+msgstr "Путь источника"
+
+#: templates/bprofile/edit.html:47
+msgid "Descrption"
+msgstr "Описание"
+
+#: templates/bprofile/edit.html:53 templates/bprofile/show.html:31
+msgid "Notes"
+msgstr "Заметки"
+
+#: templates/bprofile/edit.html:60 templates/bprofile/new.html:28
+msgid "Save configuration"
+msgstr "Сохранить настройки"
+
+#: templates/bprofile/edit.html:61 templates/bprofile/edit_conf.html:36
+#: templates/bprofile/new.html:29
+msgid "Cancel"
+msgstr "Отмена"
+
+#: templates/bprofile/edit.html:64
+msgid "Profile config"
+msgstr "Настройки профиля"
+
+#: templates/bprofile/edit.html:66
+msgid "Usually you don't have to edit this config file"
+msgstr "Обычно Вам не требуется редактировать этот файл настроек"
+
+#: templates/bprofile/edit.html:67
+msgid "Instead try to tune"
+msgstr "Вместо этого попробуйте отредактировать"
+
+#: templates/bprofile/edit.html:67
+msgid "the global configuration"
+msgstr "глобальные настройки"
+
+#: templates/bprofile/edit_conf.html:19 templates/bprofile/edit_conf.html:20
+msgid "Edit Global config in"
+msgstr "Редактировать глобальный файл настроек в"
+
+#: templates/bprofile/edit_conf.html:26
+msgid "Write config failed"
+msgstr "Запись настроек не удалась"
+
+#: templates/bprofile/edit_conf.html:35
+msgid "Save config"
+msgstr "Сохранить файл настроек"
+
+#: templates/bprofile/init.html:8 templates/bprofile/init.html.py:9
+msgid "Initialize Backup"
+msgstr "Инициализировать бэкап"
+
+#: templates/bprofile/init.html:15
+msgid "Initialization error"
+msgstr "Ошибка инициализации"
+
+#: templates/bprofile/init.html:19
+msgid "Backup configuration directory not found."
+msgstr "Конфигурационный каталог бэкапа не найден."
+
+#: templates/bprofile/init.html:24
+msgid "Initialize"
+msgstr "Инициализировать"
+
+#: templates/bprofile/list.html:8 templates/bprofile/list.html.py:9
+msgid "Configured backups in"
+msgstr "Настроенные бэкапы в"
+
+#: templates/bprofile/list.html:18
+msgid "Create new backup profile"
+msgstr "Создать новый профиль бэкапа"
+
+#: templates/bprofile/list.html:19
+msgid "Edit global config"
+msgstr "Редактировать глобальные настройки"
+
+#: templates/bprofile/list.html:25
+msgid "Source"
+msgstr "Источник"
+
+#: templates/bprofile/list.html:26 templates/bprofile/show.html:30
+msgid "Description"
+msgstr "Описание"
+
+#: templates/bprofile/new.html:8 templates/bprofile/new.html.py:9
+msgid "Create new backup profile for"
+msgstr "Создать новый профиль бэкапа для"
+
+#: templates/bprofile/new.html:16
+msgid "Create backup profile failed"
+msgstr "Создание профиля не удалось"
+
+#: templates/bprofile/new.html:20
+msgid "Specify parameters"
+msgstr "Укажите параметры"
+
+#: templates/bprofile/show.html:8 templates/bprofile/show.html.py:9
+msgid "Backup profile"
+msgstr "Профиль бэкапа"
+
+#: templates/bprofile/show.html:16
+msgid "Profile read error"
+msgstr "Ошибка чтения профиля"
+
+#: templates/bprofile/show.html:23
+msgid "Edit"
+msgstr "Редактировать"
+
+#: templates/bprofile/show.html:24
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/bprofile/show.html:35
+msgid "Exceptions globbing list"
+msgstr ""
+
+#: templates/bprofile/show.html:38
+msgid "Error"
+msgstr "Ошибка"
+
+#: templates/bprofile/show.html:43
+msgid "Chose file"
+msgstr "Выберите файл"
+
+#: templates/bprofile/show.html:48
+msgid "Add exclusion"
+msgstr "Добавить исключение"
+
+#: templates/bprofile/show.html:49
+msgid "Add inclusion"
+msgstr "Добавить включение"
+
+#: templates/bprofile/show.html:55
+msgid "remove"
+msgstr "убрать"
+
+#: templates/bprofile/show.html:56
+msgid "up"
+msgstr "вверх"
+
+#: templates/bprofile/show.html:57
+msgid "down"
+msgstr "вниз"
+
+#: templates/filelist/filelist.html:8 templates/filelist/filelist.html.py:9
+msgid "Select file or directory in"
+msgstr "Выбор файла или каталога в"
+
+#: templates/filelist/filelist.html:20
+msgid "Select path failed"
+msgstr "Выбор пути не удался"
+
+#: templates/filelist/filelist.html:27
+msgid "Go there"
+msgstr "Перейти туда"
+
+#: templates/filelist/filelist.html:37
+msgid "Select this folder"
+msgstr "Выбрать этот каталог"
+
+#: templates/filelist/filelist.html:38
+msgid "Go to"
+msgstr "Перейти"
+
+#: templates/filelist/filelist.html:38
+msgid "Home directory"
+msgstr "Домашний каталог"
+
+#: templates/filelist/filelist.html:39
+msgid "Documents"
+msgstr "Документы"
+
+#: templates/registration/login.html:3 templates/registration/login.html:4
+msgid "User login"
+msgstr "Вход в систему"
+
+#: templates/registration/login.html:10
+msgid "You are algeady logged in as"
+msgstr "Вы уже подключены как"
+
+#: templates/registration/login.html:29
+msgid "Login"
+msgstr "Вход"
+
+#: templates/registration/logout.html:3 templates/registration/logout.html:4
+msgid "Logout"
+msgstr "Выход"
+
+#: templates/registration/logout.html:6
+msgid "The Main Page"
+msgstr "Главная страница"
