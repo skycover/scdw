@@ -45,7 +45,7 @@ def read_bprofile(confhome, name, full = True):
         f.close()
         try:
             f = open(excfile, 'r')
-            ff['exclude'] = [s.strip() for s in f.readlines() ]
+            ff['exclude'] = [s.strip() for s in f.readlines() if s.strip() != '']
             f.close()
         except:
             ff['exclude']=[]
@@ -80,33 +80,41 @@ def write_bprofile(confhome, cd):
     confdir = os.path.join(confhome, cd['name'])
     if not os.path.isdir(confdir):
         return "Profile not found in %s'" % confdir
-    f = open(os.path.join(confdir, "conf"),'w')
-    f.write(cd.get('conf',"# Empty config file. Use global settings.\n"))
+    write_safe(os.path.join(confdir, "conf"),
+        cd.get('conf',"# Empty config file. Use global settings.\n").replace('\r',''))
+    write_safe(os.path.join(confdir, "source"),
+        cd['source']+'\n')
+    if cd.get('exclude'):
+        write_exclude(confhome, cd)
+    write_safe(os.path.join(confdir, "descr"),
+        cd.get('descr','')+'\n'+cd.get('notes','').replace('\r',''))
+
+def write_safe(fname, data):
+    import os
+    ftemp = fname+'.tmp'
+    f = open(ftemp, 'w')
+    f.write(data)
     f.close()
-    f = open(os.path.join(confdir, "source"),'w')
-    f.write(cd['source']+'\n')
-    f.close()
-    f = open(os.path.join(confdir, "exclude"),'w')
-    f.write('\n'.join(cd.get('exclude',[])))
-    f.close()
-    f = open(os.path.join(confdir, "descr"),'w')
-    f.write(cd.get('descr','')+'\n')
-    f.write(cd.get('notes',''))
-    f.close()
+    os.rename(ftemp, fname)
 
 def write_exclude(confhome, profile):
     import os
     # XXX possibly race when the user is mad ;)
-    ef = os.path.join(confhome, profile['name'], 'exclude')
-    eftemp = ef+'.tmp'
-    f = open(eftemp, 'w')
-    f.write('\n'.join(profile['exclude']))
-    f.close()
-    os.rename(eftemp, ef)
-    return None
+    write_safe(
+        os.path.join(confhome, profile['name'], 'exclude'),
+        '\n'.join(profile['exclude'])+'\n'
+    )
 
 def add_exclude(confhome, profile, source, sign):
-    profile['exclude'].append("%s%s/%s" % (sign, profile['source'], source))
+    if source == '**':
+        src = '**'
+    else:
+        src = "%s/%s" % (profile['source'], source)
+    if sign:
+        s = "%s %s" % (sign, src)
+    else:
+        s = src
+    profile['exclude'].append(s)
     return write_exclude(confhome, profile)
 
 def enum_profiles(confhome):
@@ -133,7 +141,4 @@ def read_gconf(confhome):
 
 def write_gconf(confhome, conf):
     import os
-    cnffile = os.path.join(confhome, 'conf')
-    f = open(cnffile,'w')
-    f.write(conf)
-    f.close()
+    write_safe(os.path.join(confhome, 'conf'), conf.replace('\r',''))
