@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-10 17:31+0400\n"
+"POT-Creation-Date: 2011-07-11 01:37+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,7 +183,7 @@ msgstr "Удалить"
 
 #: templates/bprofile/show.html:35
 msgid "Exceptions globbing list"
-msgstr ""
+msgstr "Список шаблонов-исключений"
 
 #: templates/bprofile/show.html:38
 msgid "Error"
@@ -201,15 +201,30 @@ msgstr "Добавить исключение"
 msgid "Add inclusion"
 msgstr "Добавить включение"
 
+#: templates/bprofile/show.html:53
+msgid "Shell patterns '*', '?' and '[...]' may be used (read 'man duplicity')."
+msgstr ""
+"Можно использовать файловые шаблоны '*', '?' и '[...]' (читайте 'man "
+"duplicity')."
+
+#: templates/bprofile/show.html:54
+msgid "The inclusions in the list should preceed exclusions."
+msgstr "Включения должны предшествовать исключениям."
+
 #: templates/bprofile/show.html:55
+msgid "To exclude all by default, add '**' exclusion at the end of the list."
+msgstr ""
+"Чтобы поумолчанию все исключить, добавьте исключение '**' в конец списка."
+
+#: templates/bprofile/show.html:62
 msgid "remove"
 msgstr "убрать"
 
-#: templates/bprofile/show.html:56
+#: templates/bprofile/show.html:63
 msgid "up"
 msgstr "вверх"
 
-#: templates/bprofile/show.html:57
+#: templates/bprofile/show.html:64
 msgid "down"
 msgstr "вниз"
 

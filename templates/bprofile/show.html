@@ -48,6 +48,13 @@
         <input type="submit" name="submit_add_minus" value="{% trans "Add exclusion" %}" id="submit">
         <input type="submit" name="submit_add_plus" value="{% trans "Add inclusion" %}" id="submit">
         </form>
+        <div class=note>
+            <ul>
+            <li>{% trans "Shell patterns '*', '?' and '[...]' may be used (read 'man duplicity')." %}</li>
+            <li>{% trans "The inclusions in the list should preceed exclusions." %}</li>
+            <li>{% trans "To exclude all by default, add '**' exclusion at the end of the list." %}</li>
+            </ul>
+        </div>
         <table>
         {% for s in exclude_enc %}
             <tr>
