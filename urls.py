@@ -29,8 +29,7 @@ urlpatterns = patterns('',
     (r'^excl/(?P<action>.*)/(?P<name>.*)/(?P<excpt_enc>.*)/$', excl_action),
     (r'^init/$', init_backend),
     (r'^filelist/(?P<action>.*)/(?P<path>.*)/$', filelist),
-    (r'^accounts/login/$','django.contrib.auth.views.login'),
-    #(r'^accounts/login/$', login),
+    (r'^accounts/login/$', login),
     url(r'^accounts/logout/$', logout, dict( template_name = 'registration/logout.html',), name='logout',),
 )
 
