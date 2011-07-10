@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import base64
-
-def encode(s):
-    return base64.b64encode(s)
-
-def decode(s):
-    return base64.b64decode(s)
+from urlenc import encode, decode
 
 def find_confhome():
     import os
@@ -101,10 +95,14 @@ def write_bprofile(confhome, cd):
     f.close()
 
 def write_exclude(confhome, profile):
-    # XXX should actually write to tempfile then move
-    f = open("%s/%s/exclude" % (confhome, profile['name']), 'w')
+    import os
+    # XXX possibly race when the user is mad ;)
+    ef = os.path.join(confhome, profile['name'], 'exclude')
+    eftemp = ef+'.tmp'
+    f = open(eftemp, 'w')
     f.write('\n'.join(profile['exclude']))
     f.close()
+    os.rename(eftemp, ef)
     return None
 
 def add_exclude(confhome, profile, source, sign):

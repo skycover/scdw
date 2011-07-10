@@ -58,9 +58,9 @@ def show_bprofile(request, **kwargs):
         if add_exception_form.is_valid():
             cd = add_exception_form.cleaned_data
             if ('submit_add_plus' in request.POST):
-                ret = add_exclude(confhome, pr, cd['source'], '+')
+                ret = add_exclude(confhome, pr, cd['source'].encode('utf8'), '+')
             elif ('submit_add_minus' in request.POST):
-                ret = add_exclude(confhome, pr, cd['source'], '-')
+                ret = add_exclude(confhome, pr, cd['source'].encode('utf8'), '-')
             if ret:
                 targs['exception_error'] = ret
             else:

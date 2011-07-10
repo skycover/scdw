@@ -4,13 +4,8 @@
 from django.views.generic.simple import direct_to_template
 from django.http import HttpResponseRedirect
 from forms import *
-import base64
 
-def encode(s):
-    return base64.b64encode(s)
-
-def decode(s):
-    return base64.b64decode(s)
+from urlenc import encode, decode
 
 def list_files(path):
     import os
