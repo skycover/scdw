@@ -30,10 +30,14 @@
     <div class=path>
     <a href="/filelist/{{ action.encoded }}/{{ root.encoded }}">{{ root.decoded }}</a>
     {% for p in path_list %}
-        <a href="/filelist/{{ action.encoded }}/{{ p.encoded }}">{{ p.decoded }}</a> /
+        &ndash;&gt; <a href="/filelist/{{ action.encoded }}/{{ p.encoded }}">{{ p.decoded }}</a>
     {% endfor %}
     </div>
-    <a href="{{ action.decoded }}/{{ path.encoded }}">{% trans "Select here" %}</a>: {{ path.decoded }}
+    <div class=buttons>
+        <a href="{{ action.decoded }}/{{ path.encoded }}">{% trans "Select this folder" %}</a>
+        | {% trans "Go to" %}: <a href="/filelist/{{ action.encoded }}/{{ home.encoded }}">{% trans "Home directory" %}</a>
+        <a href="/filelist/{{ action.encoded }}/{{ documents.encoded }}">{% trans "Documents" %}</a>
+    </div>
     <div class=file_list>
         <table>
             <tr>

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Create your views here.
 from django.views.generic.simple import direct_to_template
 from django.http import HttpResponseRedirect
@@ -20,6 +22,7 @@ def list_files(path):
         if os.path.isdir(ffull):
               ff['type'] = '+'
         flist.append(ff)
+    flist.sort()
     return flist
 
 def split_path(pth, pl = []):
@@ -39,12 +42,15 @@ def filelist(request, **kwargs):
     ae = kwargs['action']
     pe = kwargs['path']
     pd = decode(pe)
+    home = os.path.expanduser('~')
 
     targs = {
-        'action': {'encoded': ae, 'decoded': decode(ae)},
-        'path': {'encoded': pe, 'decoded': pd},
+        'action': {'encoded': ae, 'decoded': decode(ae),},
+        'path': {'encoded': pe, 'decoded': pd,},
         'path_list': split_path(pd),
-        'root': {'encoded': encode('/'), 'decoded': '/'},
+        'root': {'encoded': encode('/'), 'decoded': '/',},
+        'home': {'encoded': encode(home),},
+        'documents': {'encoded': encode(home),},
         'file_list': list_files(decode(pe)),
     }
 
