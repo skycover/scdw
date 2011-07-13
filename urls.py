@@ -11,7 +11,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^scduplyw/', include('scduplyw.foo.urls')),
+    # (r'^scdw/', include('scdw.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),

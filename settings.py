@@ -1,4 +1,4 @@
-# Django settings for scduplyw project.
+# Django settings for scdw project.
 
 import os
 def rel(*x):
@@ -91,7 +91,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
 )
 
-ROOT_URLCONF = 'scduplyw.urls'
+ROOT_URLCONF = 'scdw.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
