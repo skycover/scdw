@@ -5,15 +5,15 @@
 <link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
 {% endblock %}
 
-{% block title %}{% trans "Create new backup profile for" %} {{ source }}{% endblock %}
-{% block branding %}<h1>{% trans "Create new backup profile for" %} {{ source }}</h1>{% endblock %}
+{% block title %}{% trans "Create new job" %}{% endblock %}
+{% block branding %}<h1>{% trans "Create new job" %}</h1>{% endblock %}
 
 {% block content %}
 
     <div class=conf_backup>
         {% if new_backup_error %}
         <div class=error>
-            {% trans "Create backup profile failed" %}: {{ new_backup_error }}
+            {% trans "Create job failed" %}: {{ new_backup_error }}
         </div>
         {% endif %}
         

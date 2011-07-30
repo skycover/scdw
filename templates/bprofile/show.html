@@ -5,19 +5,19 @@
 <link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
 {% endblock %}
 
-{% block title %}{% trans "Backup profile" %}: {{ profile.name }}{% endblock %}
-{% block branding %}<h1>{% trans "Backup profile" %}: {{ profile.name }}</h1>{% endblock %}
+{% block title %}{% trans "Backup job" %}: {{ profile.name }}{% endblock %}
+{% block branding %}<h1>{% trans "Backup job" %}: {{ profile.name }}</h1>{% endblock %}
 
 {% block content %}
 
     <div class=bprofile>
         {% if profile_error %}
         <div class=error>
-            {% trans "Profile read error" %}: {{ profile_error }}
+            {% trans "Job read error" %}: {{ profile_error }}
         </div>
         {% endif %}
         
-        <h2>{% trans "Profile description" %}</h2>
+        <h2>{% trans "Job description" %}</h2>
 
         <div class=buttons>
         <a href=/edit/{{ profile.name }}>{% trans "Edit" %}</a>
@@ -31,7 +31,7 @@
         <tr><th>{% trans "Notes" %}:</th><td><pre>{{ profile.notes }}</pre></td></tr>
         <tr><th>{% trans "Last Full" %}:</th><td>{{ profile.logs.full.0 }}</td></tr>
         <tr><th>{% trans "Last Incremental" %}:</th><td>{{ profile.logs.inc.0 }}</td></tr>
-        <tr><th>{% trans "Last Error" %}:</th><td>{{ profile.logs.err.0 }}</td></tr>
+        <tr><th>{% trans "Last Failed" %}:</th><td>{{ profile.logs.err.0 }}</td></tr>
         </table>
     </div>
     <div class=conf_exclude>

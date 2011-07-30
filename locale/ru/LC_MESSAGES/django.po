@@ -1,13 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# SkyCover Duply Web translation
+# Copyright (C) 2011, Dmitry Chernyak
+# This file is distributed under the same license as the scdw package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-11 01:37+0400\n"
+"POT-Creation-Date: 2011-07-31 01:50+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,8 +31,8 @@ msgid "Help"
 msgstr "Помощь"
 
 #: templates/bprofile/delete.html:8 templates/bprofile/delete.html.py:9
-msgid "Delete backup profile:"
-msgstr "Удалить профиль бэкапа"
+msgid "Delete job"
+msgstr "Удалить задание"
 
 #: templates/bprofile/delete.html:13
 msgid ""
@@ -44,54 +44,56 @@ msgstr ""
 
 #: templates/bprofile/delete.html:14
 msgid "You have to delete configuration manually on the filesystem."
-msgstr "Вам придется удалить конфигурацию вручную н файловой системе."
+msgstr "Вам придется удалить конфигурацию вручную на файловой системе."
 
 #: templates/bprofile/delete.html:16 templates/bprofile/show.html:25
 msgid "Return"
 msgstr "Возврат"
 
 #: templates/bprofile/edit.html:19 templates/bprofile/edit.html.py:20
-msgid "Edit backup profile:"
-msgstr "Редактировать профиль бэкапа:"
+msgid "Edit job"
+msgstr "Редактировать задание"
 
 #: templates/bprofile/edit.html:26
-msgid "Configure backup failed"
-msgstr "Настройка бэкапа не удалась"
+msgid "Configure job failed"
+msgstr "Настройка задания не удалась"
 
-#: templates/bprofile/edit.html:34 templates/bprofile/show.html:20
-msgid "Profile description"
-msgstr "Описание профиля"
+#: templates/bprofile/edit.html:34 templates/bprofile/gqconf.html:22
+#: templates/bprofile/new.html:27
+msgid "Save configuration"
+msgstr "Сохранить настройки"
 
-#: templates/bprofile/edit.html:37 templates/bprofile/list.html:24
+#: templates/bprofile/edit.html:35 templates/bprofile/edit_conf.html:25
+#: templates/bprofile/gqconf.html:23 templates/bprofile/new.html:28
+#: templates/bprofile/new.html.py:35
+msgid "Cancel"
+msgstr "Отмена"
+
+#: templates/bprofile/edit.html:36 templates/bprofile/show.html:20
+msgid "Job description"
+msgstr "Описание задания"
+
+#: templates/bprofile/edit.html:39 templates/bprofile/list.html:25
 #: templates/bprofile/show.html:28 templates/filelist/filelist.html:45
 msgid "Name"
 msgstr "Имя"
 
-#: templates/bprofile/edit.html:42 templates/bprofile/new.html:25
-#: templates/bprofile/show.html:29
+#: templates/bprofile/edit.html:44 templates/bprofile/new.html:24
+#: templates/bprofile/new.html.py:32 templates/bprofile/show.html:29
 msgid "Source path"
 msgstr "Путь источника"
 
-#: templates/bprofile/edit.html:47
+#: templates/bprofile/edit.html:49
 msgid "Descrption"
 msgstr "Описание"
 
-#: templates/bprofile/edit.html:53 templates/bprofile/show.html:31
+#: templates/bprofile/edit.html:55 templates/bprofile/show.html:31
 msgid "Notes"
 msgstr "Заметки"
 
-#: templates/bprofile/edit.html:60 templates/bprofile/new.html:28
-msgid "Save configuration"
-msgstr "Сохранить настройки"
-
-#: templates/bprofile/edit.html:61 templates/bprofile/edit_conf.html:36
-#: templates/bprofile/new.html:29
-msgid "Cancel"
-msgstr "Отмена"
-
 #: templates/bprofile/edit.html:64
-msgid "Profile config"
-msgstr "Настройки профиля"
+msgid "Job config"
+msgstr "Настройки задания"
 
 #: templates/bprofile/edit.html:66
 msgid "Usually you don't have to edit this config file"
@@ -109,17 +111,34 @@ msgstr "глобальные настройки"
 msgid "Edit Global config in"
 msgstr "Редактировать глобальный файл настроек в"
 
-#: templates/bprofile/edit_conf.html:26
-msgid "Write config failed"
-msgstr "Запись настроек не удалась"
-
-#: templates/bprofile/edit_conf.html:35
+#: templates/bprofile/edit_conf.html:24
 msgid "Save config"
 msgstr "Сохранить файл настроек"
 
+#: templates/bprofile/edit_conf.html:28
+msgid "Write config failed"
+msgstr "Запись настроек не удалась"
+
+#: templates/bprofile/gqconf.html:8 templates/bprofile/gqconf.html.py:9
+#: templates/bprofile/list.html:19
+msgid "Quick Settings"
+msgstr "Быстрая настройка"
+
+#: templates/bprofile/gqconf.html:16
+msgid "Quick Settings error"
+msgstr "Ошибка быстрой настройки"
+
+#: templates/bprofile/gqconf.html:28
+msgid "Help on TARGET format"
+msgstr "Информация по формату TARGET"
+
+#: templates/bprofile/gqconf.html:29
+msgid "en"
+msgstr "ru"
+
 #: templates/bprofile/init.html:8 templates/bprofile/init.html.py:9
-msgid "Initialize Backup"
-msgstr "Инициализировать бэкап"
+msgid "Initialize Backup System"
+msgstr "Инициализировать систему резервного копировния"
 
 #: templates/bprofile/init.html:15
 msgid "Initialization error"
@@ -134,44 +153,52 @@ msgid "Initialize"
 msgstr "Инициализировать"
 
 #: templates/bprofile/list.html:8 templates/bprofile/list.html.py:9
-msgid "Configured backups in"
-msgstr "Настроенные бэкапы в"
+msgid "Configured jobs in"
+msgstr "Настроенные задания в"
 
 #: templates/bprofile/list.html:18
-msgid "Create new backup profile"
-msgstr "Создать новый профиль бэкапа"
+msgid "Create new jobs"
+msgstr "Создать новое задание"
 
-#: templates/bprofile/list.html:19
-msgid "Edit global config"
-msgstr "Редактировать глобальные настройки"
+#: templates/bprofile/list.html:20
+msgid "Edit Config"
+msgstr "Редактировать настройки"
 
-#: templates/bprofile/list.html:25
+#: templates/bprofile/list.html:26 templates/bprofile/show.html:32
+msgid "Last Full"
+msgstr "Последний полный"
+
+#: templates/bprofile/list.html:27 templates/bprofile/show.html:33
+msgid "Last Incremental"
+msgstr "Последний инкрементальный"
+
+#: templates/bprofile/list.html:28 templates/bprofile/show.html:34
+msgid "Last Failed"
+msgstr "Последний неудачный"
+
+#: templates/bprofile/list.html:29
 msgid "Source"
 msgstr "Источник"
 
-#: templates/bprofile/list.html:26 templates/bprofile/show.html:30
+#: templates/bprofile/list.html:30 templates/bprofile/show.html:30
 msgid "Description"
 msgstr "Описание"
 
 #: templates/bprofile/new.html:8 templates/bprofile/new.html.py:9
-msgid "Create new backup profile for"
-msgstr "Создать новый профиль бэкапа для"
+msgid "Create new job"
+msgstr "Создать новое задание"
 
 #: templates/bprofile/new.html:16
-msgid "Create backup profile failed"
-msgstr "Создание профиля не удалось"
-
-#: templates/bprofile/new.html:20
-msgid "Specify parameters"
-msgstr "Укажите параметры"
+msgid "Create job failed"
+msgstr "Создание задания не удалось"
 
 #: templates/bprofile/show.html:8 templates/bprofile/show.html.py:9
-msgid "Backup profile"
-msgstr "Профиль бэкапа"
+msgid "Backup job"
+msgstr "Задание резервного копирования"
 
 #: templates/bprofile/show.html:16
-msgid "Profile read error"
-msgstr "Ошибка чтения профиля"
+msgid "Job read error"
+msgstr "Ошибка чтения задания"
 
 #: templates/bprofile/show.html:23
 msgid "Edit"
@@ -181,50 +208,50 @@ msgstr "Редактировать"
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/bprofile/show.html:35
+#: templates/bprofile/show.html:38
 msgid "Exceptions globbing list"
 msgstr "Список шаблонов-исключений"
 
-#: templates/bprofile/show.html:38
+#: templates/bprofile/show.html:41
 msgid "Error"
 msgstr "Ошибка"
 
-#: templates/bprofile/show.html:43
+#: templates/bprofile/show.html:46
 msgid "Chose file"
 msgstr "Выберите файл"
 
-#: templates/bprofile/show.html:48
+#: templates/bprofile/show.html:51
 msgid "Add exclusion"
 msgstr "Добавить исключение"
 
-#: templates/bprofile/show.html:49
+#: templates/bprofile/show.html:52
 msgid "Add inclusion"
 msgstr "Добавить включение"
 
-#: templates/bprofile/show.html:53
+#: templates/bprofile/show.html:56
 msgid "Shell patterns '*', '?' and '[...]' may be used (read 'man duplicity')."
 msgstr ""
 "Можно использовать файловые шаблоны '*', '?' и '[...]' (читайте 'man "
 "duplicity')."
 
-#: templates/bprofile/show.html:54
+#: templates/bprofile/show.html:57
 msgid "The inclusions in the list should preceed exclusions."
 msgstr "Включения должны предшествовать исключениям."
 
-#: templates/bprofile/show.html:55
+#: templates/bprofile/show.html:58
 msgid "To exclude all by default, add '**' exclusion at the end of the list."
 msgstr ""
 "Чтобы поумолчанию все исключить, добавьте исключение '**' в конец списка."
 
-#: templates/bprofile/show.html:62
+#: templates/bprofile/show.html:65
 msgid "remove"
 msgstr "убрать"
 
-#: templates/bprofile/show.html:63
+#: templates/bprofile/show.html:66
 msgid "up"
 msgstr "вверх"
 
-#: templates/bprofile/show.html:64
+#: templates/bprofile/show.html:67
 msgid "down"
 msgstr "вниз"
 

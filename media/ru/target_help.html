@@ -1,12 +1,12 @@
 <pre>
-SYNTAX
+СИНТАКСИС
   scheme://[user:password@]host[:port]/[/]path
 
-USEFUL EXAMPLES
+ПОЛЕЗНЫЕ ПРИМЕРЫ
   file:///var/lib/backups
   ssh://USER@bkp1.skycover.ru:2222
 
-ALL STORAGE BACKENDS
+ВСЕ ВАРИАНТЫ ХРАНИЛИЩ
   file:///some_dir
   ftp://user[:password]@other.host[:port]/some_dir
   hsi://user[:password]@other.host/some_dir
@@ -25,8 +25,8 @@ ALL STORAGE BACKENDS
   webdav://user[:password]@other.host/some_dir
   webdavs://user[:password]@other.host/some_dir 
 
-ATTENTION
-  characters other than A-Za-z0-9.-_.~ in user,password,path have 
-  to be replaced by their url encoded pendants, see
+ВНИМАНИЕ
+  Символы, отличные от A-Za-z0-9.-_.~ для элементов user,password,path
+  должны быть заменены их url-encoded вариантами, смотрите
   http://en.wikipedia.org/wiki/Url_encoding 
 </pre>

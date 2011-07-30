@@ -16,14 +16,14 @@ editAreaLoader.init({
 </script>
 {% endblock %}
 
-{% block title %}{% trans "Edit backup profile:" %} {{ profile.name }}{% endblock %}
-{% block branding %}<h1>{% trans "Edit backup profile:" %} {{ profile.name }}</h1>{% endblock %}
+{% block title %}{% trans "Edit job" %}: {{ profile.name }}{% endblock %}
+{% block branding %}<h1>{% trans "Edit job" %}: {{ profile.name }}</h1>{% endblock %}
 
 {% block content %}
 
     {% if conf_backup_error %}
     <div class=error>
-        {% trans "Configure backup failed" %}: {{ conf_backup_error }}
+        {% trans "Configure job failed" %}: {{ conf_backup_error }}
     </div>
     {% endif %}
     
@@ -33,7 +33,7 @@ editAreaLoader.init({
         <div class=conf_backup>
             <input type="submit" name="submit" value="{% trans "Save configuration" %}" id="submit">
             <a href=/show/{{ profile.name }}/>{% trans "Cancel" %}</a>
-            <h2>{% trans "Profile description" %}</h2>
+            <h2>{% trans "Job description" %}</h2>
 
             <table>
             <tr><th>{% trans "Name" %}:</th><td>
@@ -61,7 +61,7 @@ editAreaLoader.init({
             </table>
         </div>
         <div class=conf_config>
-            <h2>{% trans "Profile config" %}</h2>
+            <h2>{% trans "Job config" %}</h2>
             <p>
             {% trans "Usually you don't have to edit this config file" %}
             <br/>{% trans "Instead try to tune" %} <a href=/edit_config/>{% trans "the global configuration" %}</a>

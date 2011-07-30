@@ -5,8 +5,8 @@
 <link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
 {% endblock %}
 
-{% block title %}{% trans "Configured backups in" %} {{ confhome }}{% endblock %}
-{% block branding %}<h1>{% trans "Configured backups in" %} {{ confhome }}</h1>{% endblock %}
+{% block title %}{% trans "Configured jobs in" %} {{ confhome }}{% endblock %}
+{% block branding %}<h1>{% trans "Configured jobs in" %} {{ confhome }}</h1>{% endblock %}
 
 {% block content %}
 
@@ -15,7 +15,7 @@
     {% else %}
 
     <div class=buttons>
-        <a href=/new/{{ path_new }}/ }}>{% trans "Create new backup profile" %}</a>
+        <a href=/new/{{ path_new }}/ }}>{% trans "Create new jobs" %}</a>
         <a href=/edit_quick/ }}>{% trans "Quick Settings" %}</a>
         <a href=/edit_config/ }}>{% trans "Edit Config" %}</a>
     </div>
@@ -24,8 +24,8 @@
             <tr>
             <th>{% trans "Name" %}</th>
             <th>{% trans "Last Full" %}</th>
-            <th>{% trans "Last Inc" %}</th>
-            <th>{% trans "Last Error" %}</th>
+            <th>{% trans "Last Incremental" %}</th>
+            <th>{% trans "Last Failed" %}</th>
             <th>{% trans "Source" %}</th>
             <th>{% trans "Description" %}</th>
             </tr>
