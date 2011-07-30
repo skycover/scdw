@@ -44,6 +44,61 @@ def scduply_create(name):
     else:
         return None
 
+def nicedate(d):
+    from datetime import datetime
+
+    dd = datetime.strptime(d, '%Y%m%dT%H%M%SZ')
+
+    return dd.strftime('%Y-%m-%d %H:%M:%S')
+
+def read_logs(confhome, name):
+    import os
+
+    # XXX some ugly euristics
+    if confhome == '/etc/scduply':
+        logdir = os.path.join('/var/log/scduply', name)
+    else:
+        logdir = os.path.join(confhome, 'log', name)
+
+    full = ''
+    fullf = ''
+    inc = ''
+    incf = ''
+    err = ''
+    errf = ''
+    for f in [ l for l in os.listdir(logdir) if l.startswith('duplicity-log.') ]:
+        m = f.split('.')
+        d = m[-2]
+        if m[1] == 'err':
+            if err < d:
+                err = d
+                errf = f
+        elif m[-3] == 'to':
+            if inc < d:
+                inc = d
+                incf = f
+        else:
+            if full < d:
+                full = d
+                fullf = f
+    
+    if inc < full:
+        inc = ''
+        incf = ''
+    if full:
+        full = nicedate(full)
+        fullf = os.path.join(logdir, fullf)
+    if inc:
+        inc = nicedate(inc)
+        incf = os.path.join(logdir, incf)
+    if err:
+        err = nicedate(err)
+        errf = os.path.join(logdir, errf)
+
+    return {'full': (full, fullf), 'inc': (inc, incf), 'err': (err, errf)}
+
+        
+
 def read_bprofile(confhome, name, full = True):
     import os
 
@@ -73,6 +128,9 @@ def read_bprofile(confhome, name, full = True):
         except:
             ff['descr'] = ''
             ff['notes']=''
+
+        ff['logs'] = read_logs(confhome, name)
+
         return ff
     else:
         return None
