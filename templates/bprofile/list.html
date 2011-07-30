@@ -23,20 +23,20 @@
         <table>
             <tr>
             <th>{% trans "Name" %}</th>
-            <th>{% trans "Source" %}</th>
-            <th>{% trans "Description" %}</th>
             <th>{% trans "Last Full" %}</th>
             <th>{% trans "Last Inc" %}</th>
             <th>{% trans "Last Error" %}</th>
+            <th>{% trans "Source" %}</th>
+            <th>{% trans "Description" %}</th>
             </tr>
             {% for b in bprofiles %}
             <tr>
                 <td><a href="/show/{{ b.name }}/">{{ b.name }}</a></td>
-                <td>{{ b.source }}</td>
-                <td>{{ b.descr }}</td>
                 <td>{{ b.logs.full.0 }}</td>
                 <td>{{ b.logs.inc.0 }}</td>
                 <td>{{ b.logs.err.0 }}</td>
+                <td>{{ b.source }}</td>
+                <td>{{ b.descr }}</td>
             </tr>
             {% endfor %}
         </table>
