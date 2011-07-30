@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block title %}{% trans "Quick Settings" %} {{ source }}{% endblock %}
+{% block branding %}<h1>{% trans "Quick Settings" %} {{ source }}</h1>{% endblock %}
+
+{% block content %}
+
+    <div class=conf_backup>
+        {% if quick_settings_error %}
+        <div class=error>
+            {% trans "Quick Settings error" %}: {{ quick_settings_error }}
+        </div>
+        {% endif %}
+        
+        <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" name="submit" value="{% trans "Save configuration" %}" id="submit">
+        <a href=/>{% trans "Cancel" %}</a>
+        <table>
+        {{ quick_settings_form.as_table }}
+        </table>
+        </form>
+<h3>{% trans "Help on TARGET format" %}</h3>
+<iframe width=600px height=300px src="/media/{% trans 'en' %}/target_help.html"/>
+    </div>
+
+{% endblock content %}

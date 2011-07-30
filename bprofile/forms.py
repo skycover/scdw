@@ -70,3 +70,10 @@ class AddExceptionForm(forms.Form):
 
 class GlobalConfigForm(forms.Form):
     conf = forms.CharField(label='Global config', widget=forms.Textarea(attrs={'rows': 30, 'cols': 120}))
+
+from bprofile import list_keys
+
+class QuickSettingsForm(forms.Form):
+    password = forms.CharField(required=False,max_length=250, label='GPG_PW', widget=forms.TextInput(attrs={'size':'60'}))
+    key = forms.ChoiceField(required=False,label='GPG_KEY', choices=[('',"<don't use key>")]+list_keys())
+    target = forms.CharField(required=False,max_length=500, label='TARGET', widget=forms.TextInput(attrs={'size':'60'}))

@@ -1,0 +1,34 @@
+<pre>
+SYNTAX
+  scheme://[user:password@]host[:port]/[/]path
+
+USEFUL EXAMPLES
+  file:///var/lib/backups
+  ssh://USER@bkp1.skycover.ru:2222
+
+ALL STORAGE BACKENDS
+  file:///some_dir
+  ftp://user[:password]@other.host[:port]/some_dir
+  hsi://user[:password]@other.host/some_dir
+  cf+http://container_name
+  imap://user[:password]@host.com[/from_address_prefix]
+  imaps://user[:password]@host.com[/from_address_prefix]
+  rsync://user[:password]@other.host[:port]::/module/some_dir
+  rsync://user[:password]@other.host[:port]/relative_path
+  rsync://user[:password]@other.host[:port]//absolute_path
+  # for the s3 user/password are AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY
+  s3://[user:password]@host/bucket_name[/prefix]
+  s3+http://[user:password]@bucket_name[/prefix]
+  scp://user[:password]@other.host[:port]/some_dir
+  ssh://user[:password]@other.host[:port]/some_dir
+  tahoe://alias/directory
+  webdav://user[:password]@other.host/some_dir
+  webdavs://user[:password]@other.host/some_dir 
+
+ATTENTION
+  characters other than A-Za-z0-9.-_.~ in user,password,path have 
+  to be replaced by their url encoded pendants, see
+  http://en.wikipedia.org/wiki/Url_encoding 
+  if you define the credentials as TARGET_USER, TARGET_PASS below 
+  duply will url_encode them for you
+</pre>

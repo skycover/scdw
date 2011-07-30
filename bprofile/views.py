@@ -218,3 +218,71 @@ def edit_conf(request, **kwargs):
     targs['global_conf_form'] = global_conf_form
     return direct_to_template(request, 'bprofile/edit_conf.html', targs)
 
+def list_keys():
+    from commands import getoutput
+    res = []
+    for l in getoutput("gpg --list-secret-keys").split('\n'):
+        m = l.split()
+        if m:
+            if m[0] == 'sec':
+                key = m[1].split('/')[1]
+                date = m[2]
+            elif m[0] == 'uid':
+                uid = ' '.join(m[1:])
+                res.append([key, "%s (%s, %s)" % (key, date, uid)])
+    return res
+
+def read_qconf(confdir):
+    import os
+    res = {}
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    if os.path.isdir(confdir) and os.path.isfile(qcnffile):
+        f = open(qcnffile, 'r')
+        for l in [ s.strip() for s in f.readlines() ]:
+            m = l.split("='")
+            if m:
+                if m[0] == 'TARGET':
+                    res['target'] = m[1].strip("'")
+                elif m[0] == 'GPG_KEY':
+                    res['key'] = m[1].strip("'")
+                elif m[0] == 'GPG_PW':
+                    res['password'] = m[1].strip("'")
+        f.close()
+    return res
+
+def write_qconf(confdir,qconf):
+    import os
+    from bprofile import write_safe
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    s=''
+    if qconf.get('target'):
+        s+="%s='%s'\n" % ('TARGET', qconf.get('target'))
+    if qconf.get('key'):
+        s+="%s='%s'\n" % ('GPG_KEY', qconf.get('key'))
+    if qconf.get('password'):
+        s+="%s='%s'\n" % ('GPG_PW', qconf.get('password'))
+    write_safe(qcnffile, s)
+
+@login_required()
+def edit_quick(request, **kwargs):
+    confhome = find_confhome()
+    pr = read_gconf(confhome)
+    keys = list_keys()
+    targs = {
+        'confhome': confhome,
+    }
+
+    if (request.method == 'POST') and ('submit' in request.POST):
+        quick_settings_form = QuickSettingsForm(request.POST)
+        if quick_settings_form.is_valid():
+            cd = quick_settings_form.cleaned_data
+            write_qconf(confhome, cd)
+            return HttpResponseRedirect('/')
+        else:
+            targs['quick_settings_error'] = "Saving failed"
+    else:
+        quick_settings_form = QuickSettingsForm( initial=read_qconf(confhome),)
+
+    targs['quick_settings_form'] = quick_settings_form
+    return direct_to_template(request, 'bprofile/gqconf.html', targs)
+

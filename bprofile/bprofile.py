@@ -158,3 +158,18 @@ def read_gconf(confhome):
 def write_gconf(confhome, conf):
     import os
     write_safe(os.path.join(confhome, 'conf'), conf.replace('\r',''))
+
+def list_keys():
+    from commands import getoutput
+    res = []
+    for l in getoutput("gpg --list-secret-keys").split('\n'):
+        m = l.split()
+        if m:
+            if m[0] == 'sec':
+                key = m[1].split('/')[1]
+                date = m[2]
+            elif m[0] == 'uid':
+                uid = ' '.join(m[1:])
+                res.append([key, "%s (%s, %s)" % (key, date, uid)])
+    return res
+
