@@ -173,3 +173,33 @@ def list_keys():
                 res.append([key, "%s (%s, %s)" % (key, date, uid)])
     return res
 
+def read_qconf(confdir):
+    import os
+    res = {}
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    if os.path.isdir(confdir) and os.path.isfile(qcnffile):
+        f = open(qcnffile, 'r')
+        for l in [ s.strip() for s in f.readlines() ]:
+            m = l.split("='")
+            if m:
+                if m[0] == 'TARGET':
+                    res['target'] = m[1].strip("'")
+                elif m[0] == 'GPG_KEY':
+                    res['key'] = m[1].strip("'")
+                elif m[0] == 'GPG_PW':
+                    res['password'] = m[1].strip("'")
+        f.close()
+    return res
+
+def write_qconf(confdir,qconf):
+    import os
+    from bprofile import write_safe
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    s=''
+    if qconf.get('target'):
+        s+="%s='%s'\n" % ('TARGET', qconf.get('target'))
+    if qconf.get('key'):
+        s+="%s='%s'\n" % ('GPG_KEY', qconf.get('key'))
+    if qconf.get('password'):
+        s+="%s='%s'\n" % ('GPG_PW', qconf.get('password'))
+    write_safe(qcnffile, s)
