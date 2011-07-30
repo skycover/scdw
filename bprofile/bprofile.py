@@ -66,34 +66,35 @@ def read_logs(confhome, name):
     incf = ''
     err = ''
     errf = ''
-    for f in [ l for l in os.listdir(logdir) if l.startswith('duplicity-log.') ]:
-        m = f.split('.')
-        d = m[-2]
-        if m[1] == 'err':
-            if err < d:
-                err = d
-                errf = f
-        elif m[-3] == 'to':
-            if inc < d:
-                inc = d
-                incf = f
-        else:
-            if full < d:
-                full = d
-                fullf = f
-    
-    if inc < full:
-        inc = ''
-        incf = ''
-    if full:
-        full = nicedate(full)
-        fullf = os.path.join(logdir, fullf)
-    if inc:
-        inc = nicedate(inc)
-        incf = os.path.join(logdir, incf)
-    if err:
-        err = nicedate(err)
-        errf = os.path.join(logdir, errf)
+    if os.path.exists(logdir):
+        for f in [ l for l in os.listdir(logdir) if l.startswith('duplicity-log.') ]:
+            m = f.split('.')
+            d = m[-2]
+            if m[1] == 'err':
+                if err < d:
+                    err = d
+                    errf = f
+            elif m[-3] == 'to':
+                if inc < d:
+                    inc = d
+                    incf = f
+            else:
+                if full < d:
+                    full = d
+                    fullf = f
+        
+        if inc < full:
+            inc = ''
+            incf = ''
+        if full:
+            full = nicedate(full)
+            fullf = os.path.join(logdir, fullf)
+        if inc:
+            inc = nicedate(inc)
+            incf = os.path.join(logdir, incf)
+        if err:
+            err = nicedate(err)
+            errf = os.path.join(logdir, errf)
 
     return {'full': (full, fullf), 'inc': (inc, incf), 'err': (err, errf)}
 
