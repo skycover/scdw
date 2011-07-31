@@ -241,3 +241,16 @@ def edit_quick(request, **kwargs):
     targs['quick_settings_form'] = quick_settings_form
     return direct_to_template(request, 'bprofile/gqconf.html', targs)
 
+@login_required()
+def show_log(request, **kwargs):
+    from commands import getoutput
+
+    targs = {
+        'logstuff': getoutput("zcat '%s'" % decode(kwargs['log_enc'])),
+        'name': kwargs['name'],
+        'type': kwargs['type'],
+        'date': kwargs['date'],
+    }
+
+    return direct_to_template(request, 'bprofile/log.html', targs)
+

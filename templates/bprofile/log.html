@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+{% endblock %}
+
+{% block title %}{% trans "Log" %} {{ type }} {% trans "for job" %} '{{ name }}' {% trans "for date" %} {{ date }}{% endblock %}
+{% block branding %}<h1>{% trans "Log" %} {{ type }} {% trans "for job" %} '{{ name }}' {% trans "for date" %} {{ date }}</h1>{% endblock %}
+
+{% block content %}
+
+    <a href=/>{% trans "Jobs List" %}</a>
+    | <a href=/show/{{ name }}/>{% trans "Show Job" %} '<b>{{ name }}</b>'</a>
+    <pre>
+    {{ logstuff }}
+    </pre>
+
+{% endblock content %}

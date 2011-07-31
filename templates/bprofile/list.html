@@ -32,9 +32,9 @@
             {% for b in bprofiles %}
             <tr>
                 <td><a href="/show/{{ b.name }}/">{{ b.name }}</a></td>
-                <td>{{ b.logs.full.0 }}</td>
-                <td>{{ b.logs.inc.0 }}</td>
-                <td>{{ b.logs.err.0 }}</td>
+                <td><a href="/log/{{ b.name }}/Full/{{ b.logs.full.0 }}/{{ b.logs.full.1 }}/">{{ b.logs.full.0 }}</td>
+                <td><a href="/log/{{ b.name }}/Incremental/{{ b.logs.inc.0 }}/{{ b.logs.inc.1 }}/">{{ b.logs.inc.0 }}</td>
+                <td><a href="/log/{{ b.name }}/Failed/{{ b.logs.err.0 }}/{{ b.logs.err.1 }}/">{{ b.logs.err.0 }}</td>
                 <td>{{ b.source }}</td>
                 <td>{{ b.descr }}</td>
             </tr>

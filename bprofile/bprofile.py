@@ -88,13 +88,13 @@ def read_logs(confhome, name):
             incf = ''
         if full:
             full = nicedate(full)
-            fullf = os.path.join(logdir, fullf)
+            fullf = encode(os.path.join(logdir, fullf))
         if inc:
             inc = nicedate(inc)
-            incf = os.path.join(logdir, incf)
+            incf = encode(os.path.join(logdir, incf))
         if err:
             err = nicedate(err)
-            errf = os.path.join(logdir, errf)
+            errf = encode(os.path.join(logdir, errf))
 
     return {'full': (full, fullf), 'inc': (inc, incf), 'err': (err, errf)}
 
