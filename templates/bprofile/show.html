@@ -43,7 +43,7 @@
         {% endif %}
         <form method="POST" action="">
         {% csrf_token %}
-        <a href=/filelist/{{ action_show }}/{{ source_enc }}>{% trans "Chose file" %}</a><br/>
+        <a href=/filelist/{{ action_show }}/{{ source_enc }}>{% trans "Chose file or folder" %}</a><br/>
         {{ add_exception_form.non_field_errors }}
         {{ add_exception_form.source.errors }}
         {{ profile.source }}/{{ add_exception_form.source }}
