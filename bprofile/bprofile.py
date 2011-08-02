@@ -223,7 +223,11 @@ def list_keys():
     res = []
     for l in getoutput("gpg --list-secret-keys").split('\n'):
         m = l.split()
-        if m:
+        # XXX here is some strange bug under CygWin:
+        # If I use "m" instead of "len(m)>0" then "m" evaluates to False
+        # But if I write "print m", or simple "pass" before the "if" statement
+        # Then "m" becames True and all goes fine
+        if len(m)>0:
             if m[0] == 'sec':
                 key = m[1].split('/')[1]
                 date = m[2]
