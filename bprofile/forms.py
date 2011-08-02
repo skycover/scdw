@@ -66,7 +66,7 @@ class ConfigureBackupForm(forms.Form):
             raise forms.ValidationError("File or directory not found: '%s'" % source)
 
 class AddExceptionForm(forms.Form):
-    source = forms.CharField(max_length=250)
+    source = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'size':'60'}))
 
 class GlobalConfigForm(forms.Form):
     conf = forms.CharField(label='Global config', widget=forms.Textarea(attrs={'rows': 30, 'cols': 120}))

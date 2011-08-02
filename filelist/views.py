@@ -70,7 +70,7 @@ def filelist(request, **kwargs):
         if select_path_form.is_valid():
             cd = select_path_form.cleaned_data
             if os.path.isdir(cd['source']):
-                return HttpResponseRedirect('/filelist/%s/%s/' % (ae, encode(cd['source'])))
+                return HttpResponseRedirect('/filelist/%s/%s/' % (ae, encode(cd['source'].encode('utf8'))))
     else:
         select_path_form = SelectPathForm(initial={'source': pd})
 
