@@ -47,7 +47,8 @@ def scduply_create(name):
 def nicedate(d):
     from datetime import datetime
 
-    dd = datetime.strptime(d, '%Y%m%dT%H%M%SZ')
+    uu = datetime.strptime(d, '%Y%m%dT%H%M%SZ')
+    dd = uu + (datetime.now() - datetime.utcnow())
 
     return dd.strftime('%Y-%m-%d %H:%M:%S')
 
