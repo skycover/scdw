@@ -1,2 +1,12 @@
 *.pyc
 *.swp
+db.sqlite3
+.ropeproject
+*/.ropeproject
+*/migrations
+*/migrations/*
+.vscode
+.idea
+*/.idea
+static
+old_version

@@ -13,9 +13,41 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from filelist.views import filelist
+from bprofile.views import (
+    init_backend, list_bprofiles, delete_bprofile, show_bprofile,
+    excl_action, edit_bprofile, new_bprofile, edit_conf, edit_quick,
+    show_log
+)
+from django.contrib.auth.views import login, logout
+from django.conf.urls.static import static
+import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', list_bprofiles),
+    url(r'^list/$', list_bprofiles),
+    url(r'^show/(?P<name>.*)/(?P<excpt_enc>.*)/$', show_bprofile),
+    url(r'^show/(?P<name>.*)/$', show_bprofile),
+    url(r'^new/(?P<source_enc>.*)/$', new_bprofile),
+    url(r'^edit/(?P<name>.*)/$', edit_bprofile),
+    url(r'^delete/(?P<name>.*)/$', delete_bprofile),
+    url(r'^log/(?P<name>.*)/(?P<type>.*)/(?P<date>.*)/(?P<log_enc>.*)/$',
+        show_log),
+    url(r'^edit_config/$', edit_conf),
+    url(r'^edit_quick/$', edit_quick),
+    url(r'^excl/(?P<action>.*)/(?P<name>.*)/(?P<excpt_enc>.*)/$', excl_action),
+    url(r'^init/$', init_backend),
+    url(r'^filelist/(?P<action>.*)/(?P<path>.*)/$', filelist),
+    url(r'^accounts/login/$', login),
+    url(r'^accounts/logout/$', logout,
+        dict(template_name='registration/logout.html',),
+        name='logout', ),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
