@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
+{% endblock %}
+
+{% block title %}{% trans "Configured jobs in" %} {{ confhome }}{% endblock %}
+{% block branding %}<h1>{% trans "Configured jobs in" %} {{ confhome }}</h1>{% endblock %}
+
+{% block content %}
+
+    {% if herror %}
+        {{ herror }}
+    {% else %}
+
+    <div class=buttons>
+        <a href="/new/{{ path_new }}/">{% trans "Create new jobs" %}</a>
+        <a href="/edit_quick/">{% trans "Quick Settings" %}</a>
+        <a href="/edit_config/">{% trans "Edit Config" %}</a>
+    </div>
+    <div class=conf_backups>
+        <table>
+            <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Last Full" %}</th>
+            <th>{% trans "Incremental" %}</th>
+            <th>{% trans "Failed" %}</th>
+            <th>{% trans "Source" %}</th>
+            <th>{% trans "Description" %}</th>
+            </tr>
+            {% for b in bprofiles %}
+            <tr>
+                <td><a href="/show/{{ b.name }}/">{{ b.name }}</a></td>
+                <td><a href="/log/{{ b.name }}/Full/{{ b.logs.full.0 }}/{{ b.logs.full.1 }}/">{{ b.logs.full.0 }}</a></td>
+                <td><a href="/log/{{ b.name }}/Incremental/{{ b.logs.inc.0 }}/{{ b.logs.inc.1 }}/">{{ b.logs.inc.0 }}</a></td>
+                <td><a href="/log/{{ b.name }}/Failed/{{ b.logs.err.0 }}/{{ b.logs.err.1 }}/">{{ b.logs.err.0 }}</a></td>
+                <td>{{ b.source }}</td>
+                <td>{{ b.descr }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% endif %}
+{% endblock content %}
