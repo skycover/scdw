@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "codemirror/lib/codemirror.css" %}" />
+{% endblock %}
+
+{% block extrahead %}
+    <script language="javascript" type="text/javascript" src="{% static "codemirror/lib/codemirror.js" %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "codemirror/mode/shell/shell.js" %}"></script>
+{% endblock %}
+
+{% block title %}{% trans "Edit Global config in" %} {{ confhome }}{% endblock %}
+{% block branding %}<h1>{% trans "Edit Global config in" %} {{ confhome }}</h1>{% endblock %}
+
+{% block content %}
+    <form method="POST" action="">
+    <input type="submit" name="submit" value="{% trans "Save config" %}" id="submit">
+    <a href='/'>{% trans "Cancel" %}</a>
+    {% if global_conf_error %}
+    <div class=error>
+        {% trans "Write config failed" %}: {{ global_conf_error }}
+    </div>
+    {% endif %}
+    
+
+    {% csrf_token %}
+    {{ global_conf_form.non_field_errors }}
+    {{ global_conf_form.conf.errors }}
+    {{ global_conf_form.conf }}
+    </form>
+    <script language="javascript" type="text/javascript">
+    var editor = CodeMirror.fromTextArea(document.getElementById('id_conf'), {
+        mode: 'shell',
+        lineNumbers: true
+    });
+    </script>
+{% endblock content %}

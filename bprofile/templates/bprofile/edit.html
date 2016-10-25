@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/chlist.css"%}" />
+    <link rel="stylesheet" type="text/css" href="{% static "codemirror/lib/codemirror.css" %}" />
+{% endblock %}
+
+{% block extrahead %}
+    <script language="javascript" type="text/javascript" src="{% static "codemirror/lib/codemirror.js" %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "codemirror/mode/shell/shell.js" %}"></script>
+{% endblock %}
+
+{% block title %}{% trans "Edit job" %}: {{ profile.name }}{% endblock %}
+{% block branding %}<h1>{% trans "Edit job" %}: {{ profile.name }}</h1>{% endblock %}
+
+{% block content %}
+
+    {% if conf_backup_error %}
+    <div class=error>
+        {% trans "Configure job failed" %}: {{ conf_backup_error }}
+    </div>
+    {% endif %}
+    
+    <form method="POST" action="">
+    {% csrf_token %}
+    {{ conf_backup_form.non_field_errors }}
+        <div class=conf_backup>
+            <input type="submit" name="submit" value="{% trans "Save configuration" %}" id="submit">
+            <a href=/show/{{ profile.name }}/>{% trans "Cancel" %}</a>
+            <h2>{% trans "Job description" %}</h2>
+
+            <table>
+            <tr><th>{% trans "Name" %}:</th><td>
+                {{ conf_backup_form.name.errors }}
+                {{ conf_backup_form.name }}
+                {{ profile.name }}
+            </td></tr>
+            <tr><th>{% trans "Source path" %}:</th><td>
+                {{ conf_backup_form.source.errors }}
+                {{ conf_backup_form.source }}
+                {{ profile.source }}
+            </td></tr>
+            <tr><th>{% trans "Descrption" %}:</th>
+                <td>
+                {{ conf_backup_form.descr.errors }}
+                {{ conf_backup_form.descr }}
+                </td>
+            </tr>
+            <tr><th>{% trans "Notes" %}:</th>
+                <td>
+                {{ conf_backup_form.notes.errors }}
+                {{ conf_backup_form.notes }}
+                </td>
+            </tr>
+            </table>
+        </div>
+        <div class=conf_config>
+            <h2>{% trans "Job config" %}</h2>
+            <p>
+            {% trans "Usually you don't have to edit this config file" %}
+            <br/>{% trans "Instead try to tune" %} <a href=/edit_config/>{% trans "the global configuration" %}</a>
+            </p>
+            {{ conf_backup_form.conf.errors }}
+            {{ conf_backup_form.conf }}
+        </div>
+    </form>
+    <script language="javascript" type="text/javascript">
+    var editor = CodeMirror.fromTextArea(document.getElementById('id_conf'), {
+        mode: 'shell',
+        lineNumbers: true
+    });
+    </script>
+{% endblock content %}

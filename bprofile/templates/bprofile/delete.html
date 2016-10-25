@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
+{% endblock %}
+
+{% block title %}{% trans "Delete job" %}: {{ name }}{% endblock %}
+{% block branding %}<h1>{% trans "Delete job" %}: {{ name }}</h1>{% endblock %}
+
+{% block content %}
+
+    <p>{% trans "Delete is very dangerous process because you can lost the credentials to aceess to important backups!" %}</p>
+    <p>{% trans "You have to delete configuration manually on the filesystem." %}</p>
+    
+    <a href=/show/{{ name }}/>{% trans "Return" %}</a>
+
+{% endblock content %}
