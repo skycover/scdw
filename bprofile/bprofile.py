@@ -16,7 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from urlenc import encode, decode
+import base64
+
+
+def encode(s):
+    return base64.b64encode(s).replace('+', '-').replace('/', '_')
+
+
+def decode(s):
+    m = s.replace('-', '+').replace('_', '/')
+    return base64.b64decode(m)
+
 
 def find_confhome():
     import os
@@ -28,6 +38,7 @@ def find_confhome():
     else:
         return None
 
+
 def scduply_init():
     import commands
     (status, output) = commands.getstatusoutput("scduply init")
@@ -35,6 +46,7 @@ def scduply_init():
         return output
     else:
         return None
+
 
 def scduply_create(name):
     import commands
@@ -44,6 +56,7 @@ def scduply_create(name):
     else:
         return None
 
+
 def nicedate(d):
     from datetime import datetime
 
@@ -51,6 +64,7 @@ def nicedate(d):
     dd = uu + (datetime.now() - datetime.utcnow())
 
     return dd.strftime('%Y-%m-%d %H:%M:%S')
+
 
 def read_logs(confhome, name):
     import os
@@ -68,7 +82,8 @@ def read_logs(confhome, name):
     err = ''
     errf = ''
     if os.path.exists(logdir):
-        for f in [ l for l in os.listdir(logdir) if l.startswith('duplicity-log.') ]:
+        for f in [l for l in os.listdir(logdir)
+                  if l.startswith('duplicity-log.')]:
             m = f.split('.')
             d = m[-2]
             if m[1] == 'err':
@@ -100,8 +115,7 @@ def read_logs(confhome, name):
     return {'full': (full, fullf), 'inc': (inc, incf), 'err': (err, errf)}
 
         
-
-def read_bprofile(confhome, name, full = True):
+def read_bprofile(confhome, name, full=True):
     import os
 
     confdir = os.path.join(confhome, name)
@@ -118,24 +132,28 @@ def read_bprofile(confhome, name, full = True):
         f.close()
         try:
             f = open(excfile, 'r')
-            ff['exclude'] = [s.strip() for s in f.readlines() if s.strip() != '']
+            ff['exclude'] = [
+                s.strip() for s in f.readlines()
+                if s.strip() != ''
+            ]
             f.close()
         except:
-            ff['exclude']=[]
+            ff['exclude'] = []
         try:
             f = open(dscfile, 'r')
             ff['descr'] = f.readline().strip()
-            ff['notes']=f.read()
+            ff['notes'] = f.read()
             f.close()
         except:
             ff['descr'] = ''
-            ff['notes']=''
+            ff['notes'] = ''
 
         ff['logs'] = read_logs(confhome, name)
 
         return ff
     else:
         return None
+
 
 def create_bprofile(confhome, name, source):
     import os
@@ -146,10 +164,11 @@ def create_bprofile(confhome, name, source):
             return ret
         if not os.path.isdir(confdir):
             return "scduply hasn't created profile in %s' % confdir"
-    f = open(os.path.join(confdir, "source"),'w')
+    f = open(os.path.join(confdir, "source"), 'w')
     f.write(source+'\n')
     f.close()
     return None
+
 
 def write_bprofile(confhome, cd):
     import os
@@ -157,13 +176,17 @@ def write_bprofile(confhome, cd):
     if not os.path.isdir(confdir):
         return "Profile not found in %s'" % confdir
     write_safe(os.path.join(confdir, "conf"),
-        cd.get('conf',"# Empty config file. Use global settings.\n").replace('\r',''))
+        cd.get(
+            'conf',
+            "# Empty config file. Use global settings.\n"
+        ).replace('\r', ''))
     write_safe(os.path.join(confdir, "source"),
         cd['source']+'\n')
     if cd.get('exclude'):
         write_exclude(confhome, cd)
     write_safe(os.path.join(confdir, "descr"),
-        cd.get('descr','')+'\n'+cd.get('notes','').replace('\r',''))
+        cd.get('descr', '')+'\n'+cd.get('notes', '').replace('\r', ''))
+
 
 def write_safe(fname, data):
     import os
@@ -173,6 +196,7 @@ def write_safe(fname, data):
     f.close()
     os.rename(ftemp, fname)
 
+
 def write_exclude(confhome, profile):
     import os
     # XXX possibly race when the user is mad ;)
@@ -180,6 +204,7 @@ def write_exclude(confhome, profile):
         os.path.join(confhome, profile['name'], 'exclude'),
         '\n'.join(profile['exclude'])+'\n'
     )
+
 
 def add_exclude(confhome, profile, source, sign):
     if source == '**':
@@ -193,6 +218,7 @@ def add_exclude(confhome, profile, source, sign):
     profile['exclude'].append(s)
     return write_exclude(confhome, profile)
 
+
 def enum_profiles(confhome):
     import os
 
@@ -202,6 +228,7 @@ def enum_profiles(confhome):
         if ff:
             blist.append(ff)
     return blist
+
 
 def read_gconf(confhome):
     import os
@@ -215,9 +242,11 @@ def read_gconf(confhome):
     else:
         return ''
 
+
 def write_gconf(confhome, conf):
     import os
-    write_safe(os.path.join(confhome, 'conf'), conf.replace('\r',''))
+    write_safe(os.path.join(confhome, 'conf'), conf.replace('\r', ''))
+
 
 def list_keys():
     from commands import getoutput
@@ -237,13 +266,14 @@ def list_keys():
                 res.append([key, "%s (%s, %s)" % (key, date, uid)])
     return res
 
+
 def read_qconf(confdir):
     import os
     res = {}
     qcnffile = os.path.join(confdir, 'conf.scdw')
     if os.path.isdir(confdir) and os.path.isfile(qcnffile):
         f = open(qcnffile, 'r')
-        for l in [ s.strip() for s in f.readlines() ]:
+        for l in [s.strip() for s in f.readlines()]:
             m = l.split("='")
             if m:
                 if m[0] == 'TARGET':
@@ -255,15 +285,15 @@ def read_qconf(confdir):
         f.close()
     return res
 
-def write_qconf(confdir,qconf):
+
+def write_qconf(confdir, qconf):
     import os
-    from bprofile import write_safe
     qcnffile = os.path.join(confdir, 'conf.scdw')
     s=''
     if qconf.get('target'):
-        s+="%s='%s'\n" % ('TARGET', qconf.get('target'))
+        s += "%s='%s'\n" % ('TARGET', qconf.get('target'))
     if qconf.get('key'):
-        s+="%s='%s'\n" % ('GPG_KEY', qconf.get('key'))
+        s += "%s='%s'\n" % ('GPG_KEY', qconf.get('key'))
     if qconf.get('password'):
-        s+="%s='%s'\n" % ('GPG_PW', qconf.get('password'))
+        s += "%s='%s'\n" % ('GPG_PW', qconf.get('password'))
     write_safe(qcnffile, s)

@@ -17,11 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Create your views here.
-from django.views.generic.simple import direct_to_template
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from forms import *
 
-from urlenc import encode, decode
+from bprofile.bprofile import encode, decode
+
 
 def list_files(path):
     import os
@@ -36,7 +37,8 @@ def list_files(path):
     flist.sort()
     return flist
 
-def split_path(pth, pl = []):
+
+def split_path(pth, pl=[]):
     import os
     (fp, fn) = os.path.split(pth)
     if fn:
@@ -44,11 +46,10 @@ def split_path(pth, pl = []):
     else:
         pl.reverse()
         return pl
-    
+
+
 def filelist(request, **kwargs):
-    import logging
-    import re, os
-    from django.conf import settings
+    import os
 
     ae = kwargs['action']
     pe = kwargs['path']
@@ -65,14 +66,15 @@ def filelist(request, **kwargs):
         'file_list': list_files(decode(pe)),
     }
 
-    if (request.method == 'POST') and ('submit' in request.POST):
+    if request.method == 'POST' and 'submit' in request.POST:
         select_path_form = SelectPathForm(request.POST)
         if select_path_form.is_valid():
             cd = select_path_form.cleaned_data
             if os.path.isdir(cd['source']):
-                return HttpResponseRedirect('/filelist/%s/%s/' % (ae, encode(cd['source'].encode('utf8'))))
+                return HttpResponseRedirect('/filelist/%s/%s/' % (
+                    ae, encode(cd['source'].encode('utf8'))))
     else:
         select_path_form = SelectPathForm(initial={'source': pd})
 
     targs['select_path_form'] = select_path_form
-    return direct_to_template(request, 'filelist/filelist.html', targs)
+    return render(request, 'filelist/filelist.html', targs)
