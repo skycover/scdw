@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0464eede-5fb8-4974-bf75-d983c5de97c3" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/README" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bprofile/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bprofile/bprofile.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bprofile/forms.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bprofile/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bprofile/tests.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bprofile/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/db/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/editarea_0_8_2.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/filelist/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/filelist/forms.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/filelist/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/filelist/tests.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/filelist/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/install.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.mo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.po" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/css/chlist.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/autocompletion.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area_compressor.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area_full.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area_full.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area_functions.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/edit_area_loader.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/elements_functions.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/highlight.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/autocompletion.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/close.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/fullscreen.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/go_to_line.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/help.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/highlight.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/load.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/move.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/newdocument.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/opacity.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/processing.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/redo.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/reset_highlight.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/save.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/search.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/smooth_selection.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/spacer.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/statusbar_resize.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/undo.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/images/word_wrap.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/keyboard.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/bg.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/cs.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/de.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/dk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/en.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/eo.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/es.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/fi.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/fr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/hr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/it.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/ja.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/mk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/nl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/pl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/pt.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/ru.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/sk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/langs/zh.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/license_apache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/license_bsd.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/license_lgpl.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/manage_area.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/charmap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/css/charmap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/images/charmap.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/jscripts/map.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/bg.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/cs.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/de.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/dk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/en.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/eo.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/es.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/fr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/hr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/it.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/ja.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/mk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/nl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/pl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/pt.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/ru.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/sk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/langs/zh.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/charmap/popup.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/css/test.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/images/Thumbs.db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/images/test.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/bg.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/cs.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/de.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/dk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/en.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/eo.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/es.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/fr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/hr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/it.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/ja.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/mk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/nl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/pl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/pt.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/ru.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/sk.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/langs/zh.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/test.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/plugins/test/test2.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/bash.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/basic.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/brainfuck.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/c.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/coldfusion.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/cpp.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/css.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/html.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/java.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/js.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/pas.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/perl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/php.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/python.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/robotstxt.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/ruby.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/sql.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/tsql.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/vb.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/reg_syntax/xml.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/regexp.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/resize_area.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/search_replace.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/edit_area/template.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/en/target_help.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/ru/target_help.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/settings.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/conf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/dmi-pbank/conf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/dmi-pbank/descr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/dmi-pbank/exclude" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/dmi-pbank/source" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/dmi-pbank1/conf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/dmi-pbank1/source" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/local/conf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/local/descr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/local/source" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/mplayer/conf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/mplayer/descr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/mplayer/exclude" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/mplayer/source" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/test/conf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/test/descr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/test/exclude" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/test/gpgkey.B4FD4A57.asc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/test/saved.env" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/.scduply/test/source" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/delete.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/edit.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/edit_conf.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/gqconf.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/init.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/log.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/new.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/bprofile/show.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/filelist/filelist.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/registration/login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/registration/logout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/urlenc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/urls.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.py" afterPath="$PROJECT_DIR$/manage.py" />
+    </list>
+    <ignored path="scdw.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="scdw" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1280" />
+    <option name="width" value="1918" />
+    <option name="height" value="1045" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="old_version" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scdw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="old_version" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$USER_HOME$/venv/scdw/bin/python2.7" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunManager" selected="Django server.scdw">
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="scdw" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="false" name="scdw" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="scdw" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Django server.scdw" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0464eede-5fb8-4974-bf75-d983c5de97c3" name="Default" comment="" />
+      <created>1477378893535</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1477378893535</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1280" y="0" width="1918" height="1045" extended-state="5" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+</project>
