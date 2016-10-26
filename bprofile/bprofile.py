@@ -157,6 +157,7 @@ def read_bprofile(confhome, name, full=True):
 
 def create_bprofile(confhome, name, source):
     import os
+    from codecs import open
     confdir = os.path.join(confhome, name)
     if not os.path.isdir(confdir):
         ret = scduply_create(name)
@@ -164,7 +165,7 @@ def create_bprofile(confhome, name, source):
             return ret
         if not os.path.isdir(confdir):
             return "scduply hasn't created profile in %s' % confdir"
-    f = open(os.path.join(confdir, "source"), 'w')
+    f = open(os.path.join(confdir, "source"), 'w', encoding='utf-8')
     f.write(source+'\n')
     f.close()
     return None
@@ -297,3 +298,18 @@ def write_qconf(confdir, qconf):
     if qconf.get('password'):
         s += "%s='%s'\n" % ('GPG_PW', qconf.get('password'))
     write_safe(qcnffile, s)
+
+
+def get_consolecodepage():
+    from commands import getoutput
+    from sys import platform
+    codepage = 'utf-8'
+    exclude_list = {
+        '65001': 'utf-8'
+    }
+    if platform == 'cygwin':
+        output = getoutput('cmd /c chcp')
+        console_codepage = output[:-1].split(' ')[-1]
+        codepage = exclude_list.get(console_codepage, 'cp%s' % console_codepage)
+    return codepage
+
