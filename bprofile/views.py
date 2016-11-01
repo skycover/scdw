@@ -68,10 +68,12 @@ def delete_bprofile(request, **kwargs):
 
 @login_required()
 def show_bprofile(request, **kwargs):
-    from django.conf import settings
-
+    from bprofile import list_conf
+    from django.http import HttpResponseNotFound
     confhome = find_confhome()
     name = kwargs['name']
+    if name not in list_conf():
+        return HttpResponseRedirect('/')
     pr = read_bprofile(confhome, name)
     targs = {
         'confhome': confhome,
@@ -284,3 +286,12 @@ def show_log(request, **kwargs):
 
     return render(request, 'bprofile/log.html', targs)
 
+
+@login_required()
+def start_job(request, profile):
+    """ start job """
+    targs = {
+
+    }
+
+    return render(request, 'bprofile/start_job.html', targs)

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block extrastyle %}
-<link rel="stylesheet" type="text/css" href="/media/css/chlist.css" />
+<link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
 {% endblock %}
 
 {% block title %}{% trans "Select file or directory in" %} {{ path.decoded }}{% endblock %}
 {% block branding %}<h1>{% trans "Select file or directory in" %} {{ path.decoded }}</h1>{% endblock %}
 
 {% block content %}
-
     {% if path_error %}
         {{ path_error }}
     {% else %}
@@ -28,15 +28,15 @@
         </form>
     </div>
     <div class=path>
-    <a href="/filelist/{{ action.encoded }}/{{ root.encoded }}">{{ root.decoded }}</a>
+    <a href="{% url p_url action.encoded root.encoded %}">{{ root.decoded }}</a>
     {% for p in path_list %}
-        &ndash;&gt; <a href="/filelist/{{ action.encoded }}/{{ p.encoded }}">{{ p.decoded }}</a>
+        &ndash;&gt; <a href="{% url p_url action.encoded  p.encoded %}">{{ p.decoded }}</a>
     {% endfor %}
     </div>
     <div class=buttons>
         <a href="{{ action.decoded }}/{{ path.encoded }}">{% trans "Select this folder" %}</a>
-        | {% trans "Go to" %}: <a href="/filelist/{{ action.encoded }}/{{ home.encoded }}">{% trans "Home directory" %}</a>
-        <a href="/filelist/{{ action.encoded }}/{{ documents.encoded }}">{% trans "Documents" %}</a>
+        | {% trans "Go to" %}: <a href="{% url p_url action.encoded home.encoded %}">{% trans "Home directory" %}</a>
+        <a href="{% url p_url action.encoded documents.encoded %}">{% trans "Documents" %}</a>
     </div>
     <div class=file_list>
         <table>
@@ -49,7 +49,7 @@
             <tr>
                 <th>{{ f.type }}</th>
                 <td>
-                    {% if f.type == "+" %}<a href="/filelist/{{ action.encoded }}/{{ f.encoded }}">{{ f.decoded }}</a>
+                    {% if f.type == "+" %}<a href="{% if dirsOnly %}{% url 'ListDirs' action.encoded f.encoded %}{% else %}{% url 'ListFiles' action.encoded f.encoded %}{% endif %}">{{ f.decoded }}</a>
                     {% else %} {{ f.decoded }}
                     {% endif %}
                 </td>

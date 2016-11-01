@@ -1,0 +1,36 @@
+div.jobs {
+    display: block;
+    position: relative;
+    float: left;
+    min-width: 150px;
+    width: 50%;
+    max-width: inherit;
+}
+
+.jobs td {
+    border: none
+}
+
+.jobs > div {
+    margin-left: 22px;
+}
+
+.jobs .buttons {
+    max-width: inherit;
+    width: 100%;
+    min-width: 150px;
+}
+
+.jobs .buttons a {
+    display: block;
+    position: relative;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+img.lock, img.run {
+    float: right;
+    display: none;
+    margin-left: 5px;
+}

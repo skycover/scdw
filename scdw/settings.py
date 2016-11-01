@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'registration',
     'bprofile',
     'filelist',
+    'jobs',
 ]
 
 MIDDLEWARE = [
@@ -126,10 +127,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "bprofile/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATIC_DIRS = (
     os.path.join(BASE_DIR, 'bprofile', 'static'),
+    os.path.join(BASE_DIR, 'jobs', 'static'),
 )
 #     os.path.join(BASE_DIR, 'controller', 'static'),
 #     os.path.join(BASE_DIR, 'subsystem', 'static'),

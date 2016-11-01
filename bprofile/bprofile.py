@@ -16,16 +16,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import base64
-
 
 def encode(s):
-    return base64.b64encode(s).replace('+', '-').replace('/', '_')
+    import base64
+    try:
+        return base64.b64encode(s.encode('utf-8')).replace('+', '-').replace('/', '_')
+    except:
+        return base64.b64encode(s).replace('+', '-').replace('/', '_')
 
 
 def decode(s):
+    import base64
     m = s.replace('-', '+').replace('_', '/')
-    return base64.b64decode(m)
+    try:
+        return unicode(base64.b64decode(m), encoding='utf-8')
+    except:
+        return base64.b64decode(m)
 
 
 def find_confhome():
@@ -83,7 +89,7 @@ def read_logs(confhome, name):
     errf = ''
     if os.path.exists(logdir):
         for f in [l for l in os.listdir(logdir)
-                  if l.startswith('duplicity-log.')]:
+                  if l.startswith('duplicity-log.') or l.startswith('duplicity-cmdlog-pre_full_post.')]:
             m = f.split('.')
             d = m[-2]
             if m[1] == 'err':
@@ -117,21 +123,33 @@ def read_logs(confhome, name):
         
 def read_bprofile(confhome, name, full=True):
     import os
-
+    from codecs import open
+    from jobs.scduply import is_running
     confdir = os.path.join(confhome, name)
     srcfile = os.path.join(confdir, 'source')
     dscfile = os.path.join(confdir, 'descr')
     cnffile = os.path.join(confdir, 'conf')
     excfile = os.path.join(confdir, 'exclude')
+    lockfile = os.path.join(
+        os.getenv('HOME'), '.cache', 'duplicity', name, 'lockfile.lock'
+    )
     if os.path.isdir(confdir) and os.path.isfile(srcfile):
         f = open(srcfile, 'r')
-        ff = {'name': name, 'source': f.readline().strip(), }
+        try:
+            ff = {
+                'name': name,
+                'source': unicode(f.readline().strip(), encoding='utf-8')
+            }
+        except:
+            ff = {'name': name, 'source': f.readline().strip(), }
+
+        ff['source']
         f.close()
-        f = open(cnffile, 'r')
+        f = open(cnffile, 'r', encoding='utf-8')
         ff['conf'] = f.read()
         f.close()
         try:
-            f = open(excfile, 'r')
+            f = open(excfile, 'r', encoding='utf-8')
             ff['exclude'] = [
                 s.strip() for s in f.readlines()
                 if s.strip() != ''
@@ -140,7 +158,7 @@ def read_bprofile(confhome, name, full=True):
         except:
             ff['exclude'] = []
         try:
-            f = open(dscfile, 'r')
+            f = open(dscfile, 'r', encoding='utf-8')
             ff['descr'] = f.readline().strip()
             ff['notes'] = f.read()
             f.close()
@@ -149,7 +167,10 @@ def read_bprofile(confhome, name, full=True):
             ff['notes'] = ''
 
         ff['logs'] = read_logs(confhome, name)
-
+        ff['locking'] = os.path.exists(
+            lockfile
+        )
+        ff['running'] = is_running(name)
         return ff
     else:
         return None
@@ -191,8 +212,9 @@ def write_bprofile(confhome, cd):
 
 def write_safe(fname, data):
     import os
-    ftemp = fname+'.tmp'
-    f = open(ftemp, 'w')
+    from codecs import open
+    ftemp = fname + '.tmp'
+    f = open(ftemp, 'w', encoding='utf-8')
     f.write(data)
     f.close()
     os.rename(ftemp, fname)
@@ -211,7 +233,7 @@ def add_exclude(confhome, profile, source, sign):
     if source == '**':
         src = '**'
     else:
-        src = "%s/%s" % (profile['source'], source)
+        src = "%s/%s" % (profile['source'], unicode(source, encoding='utf-8'))
     if sign:
         s = "%s %s" % (sign, src)
     else:
@@ -313,3 +335,13 @@ def get_consolecodepage():
         codepage = exclude_list.get(console_codepage, 'cp%s' % console_codepage)
     return codepage
 
+
+def list_conf():
+    import os
+    home = find_confhome()
+    ret = [
+        d for d in os.listdir(home)
+        if os.path.isdir(os.path.join(home, d)) and not d == 'log' and
+        os.path.exists(os.path.join(home, d, 'conf'))
+    ]
+    return ret

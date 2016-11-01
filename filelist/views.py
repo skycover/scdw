@@ -18,19 +18,23 @@
 
 # Create your views here.
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from forms import *
 
 from bprofile.bprofile import encode, decode
 
 
-def list_files(path):
+def list_files(path, dirsOnly=False):
     import os
 
     flist = []
-    for f in os.listdir(path):
+    dirlist = [
+        d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))
+    ] if dirsOnly else os.listdir(path)
+    for f in dirlist:
         ffull = os.path.join(path, f)
-        ff = {'type': '', 'encoded': encode(ffull), 'decoded': f }
+        ff = {'type': '', 'encoded': encode(ffull), 'decoded': f}
         if os.path.isdir(ffull):
               ff['type'] = '+'
         flist.append(ff)
@@ -53,17 +57,20 @@ def filelist(request, **kwargs):
 
     ae = kwargs['action']
     pe = kwargs['path']
+    dirsOnly = kwargs.get('dirsOnly', False)
     pd = decode(pe)
     home = os.path.expanduser('~')
 
     targs = {
-        'action': {'encoded': ae, 'decoded': decode(ae),},
-        'path': {'encoded': pe, 'decoded': pd,},
+        'action': {'encoded': ae, 'decoded': decode(ae)},
+        'path': {'encoded': pe, 'decoded': pd},
         'path_list': split_path(pd),
-        'root': {'encoded': encode('/'), 'decoded': '/',},
-        'home': {'encoded': encode(home),},
-        'documents': {'encoded': encode(home),},
-        'file_list': list_files(decode(pe)),
+        'root': {'encoded': encode('/'), 'decoded': '/'},
+        'home': {'encoded': encode(home)},
+        'documents': {'encoded': encode(home)},
+        'file_list': list_files(decode(pe), dirsOnly),
+        'dirsOnly': dirsOnly,
+        'p_url': 'ListDirs' if dirsOnly else 'ListFiles'
     }
 
     if request.method == 'POST' and 'submit' in request.POST:
@@ -71,8 +78,12 @@ def filelist(request, **kwargs):
         if select_path_form.is_valid():
             cd = select_path_form.cleaned_data
             if os.path.isdir(cd['source']):
-                return HttpResponseRedirect('/filelist/%s/%s/' % (
-                    ae, encode(cd['source'].encode('utf8'))))
+                return HttpResponseRedirect(
+                    reverse(
+                        'ListDirs' if dirsOnly else 'ListFiles',
+                        args=(ae, encode(cd['source'].encode('utf8')))
+                    )
+                )
     else:
         select_path_form = SelectPathForm(initial={'source': pd})
 

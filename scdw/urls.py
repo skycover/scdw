@@ -41,11 +41,14 @@ urlpatterns = [
     url(r'^edit_quick/$', edit_quick),
     url(r'^excl/(?P<action>.*)/(?P<name>.*)/(?P<excpt_enc>.*)/$', excl_action),
     url(r'^init/$', init_backend),
-    url(r'^filelist/(?P<action>.*)/(?P<path>.*)/$', filelist),
+    url(r'^filelist/(?P<action>.*)/(?P<path>.*)/dirs$', filelist,
+        name='ListDirs', kwargs={'dirsOnly': True}),
+    url(r'^filelist/(?P<action>.*)/(?P<path>.*)/$', filelist, name='ListFiles'),
     url(r'^accounts/login/$', login),
     url(r'^accounts/logout/$', logout,
         dict(template_name='registration/logout.html',),
         name='logout', ),
+    url(r'^job/', include('jobs.urls')),
 
 ]
 
