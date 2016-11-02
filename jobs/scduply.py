@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.utils import timezone
 
 
 def is_running(profile):
@@ -13,7 +12,8 @@ def is_running(profile):
     )
     try:
         pids_list = [
-            int(f.split('.')[1]) for f in os.listdir(path) if f.startswith(hostname)
+            f.split('.')[1]
+            for f in os.listdir(path) if f.startswith(hostname)
         ]
     except OSError:
         pids_list = []
@@ -27,7 +27,8 @@ def is_running(profile):
                     os.remove(
                         os.path.join(path, "%s.%s" % (hostname, pid))
                     )
-                except: pass
+                except IOError:
+                    pass
 
         else:
             return False
@@ -41,7 +42,8 @@ def is_running(profile):
                 for pid in pids_list:
                     if str(pid).startswith(opid):
                         return True
-            else: return False
+            else:
+                return False
     return pids_list
 
 
@@ -68,10 +70,13 @@ def scduply_files(profile, date='now'):
             profile, date
         )
     ), encoding='utf8')
-    return [
-        (dt.strptime(s[:24], '%c'), s[25:])
-        for s in output.split('\n') if not s[25:] == '.'
-    ]
+    try:
+        return [
+            (dt.strptime(s[:24], '%c'), s[25:])
+            for s in output.split('\n') if not s[25:] == '.'
+        ]
+    except ValueError:
+        return []
 
 
 def file_tree(file_list):

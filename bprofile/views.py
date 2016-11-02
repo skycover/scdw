@@ -285,13 +285,3 @@ def show_log(request, **kwargs):
     }
 
     return render(request, 'bprofile/log.html', targs)
-
-
-@login_required()
-def start_job(request, profile):
-    """ start job """
-    targs = {
-
-    }
-
-    return render(request, 'bprofile/start_job.html', targs)

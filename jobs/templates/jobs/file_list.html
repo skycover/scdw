@@ -8,9 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/themes/default/style.min.css' %}" />
     {{ dateform.media }}
-    {% if restore %}
-        <script type="text/javascript" src="{% static 'js/django_ajax.js' %}"></script>
-    {% endif %}
+    <script type="text/javascript" src="{% static 'js/django_ajax.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jstree.min.js' %}"></script>
     <script>
         $(document).ready(function () {

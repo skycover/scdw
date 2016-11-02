@@ -1,7 +1,8 @@
 from django.conf.urls import url, include
-from views import (
+from views import ListFiles
+from api import (
     JobStatusAjax, AllJobsStatusAjax, StartBKPALLAjax, StartBackupAjax,
-    ListFiles, ListFilesAjax, FolderListAjax, StartRestoreAjax
+    ListFilesAjax, FolderListAjax, StartRestoreAjax
 )
 
 urlpatterns = [
