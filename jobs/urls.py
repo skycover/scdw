@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from views import ListFiles
 from api import (
     JobStatusAjax, AllJobsStatusAjax, StartBKPALLAjax, StartBackupAjax,
-    ListFilesAjax, FolderListAjax, StartRestoreAjax
+    ListFilesAjax, StartRestoreAjax
 )
 
 urlpatterns = [
@@ -22,5 +22,4 @@ urlpatterns = [
         kwargs={'restore': True}),
     url(r'^ajax/restore/(?P<profile>.*)/$', StartRestoreAjax,
         name='StartRestoreAjax'),
-    url(r'^ajax/folder_list/$', FolderListAjax, name="FolderListAjax"),
 ]
