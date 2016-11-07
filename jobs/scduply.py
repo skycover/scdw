@@ -5,8 +5,7 @@ from __future__ import unicode_literals
 def is_running(profile):
     """check task for running"""
     import os
-    import sys
-    hostname = os.uname()[1]
+    platform, hostname = os.uname()[:2]
     path = os.path.join(
         os.getenv('HOME'), '.cache', 'duplicity', profile
     )
@@ -17,10 +16,10 @@ def is_running(profile):
         ]
     except OSError:
         pids_list = []
-    if not sys.platform == 'cygwin':
+    if not platform == 'cygwin':
         for pid in pids_list:
             try:
-                os.kill(pid, 0)
+                os.kill(int(pid), 0)
                 return True
             except OSError:
                 try:
@@ -48,15 +47,25 @@ def is_running(profile):
 
 
 def scduply_command(*args):
-    import subprocess
     import os
-    with open(os.devnull, 'r+b', 0) as DEVNULL:
-        p = subprocess.Popen(
-            ['scduply'] + [a for a in args],
-            stdin=DEVNULL, stdout=DEVNULL,
-            stderr=DEVNULL,
-        )
-        return p
+    import subprocess
+    env = os.environ.copy()
+    env['PATH'] = '/usr/local/bin:/usr/bin:/bin'
+    try:
+        pid = os.fork()
+    except OSError, e:
+        raise Exception, "%s [%d]" % (e.strerror, e.errno)
+
+    if pid == 0:
+        os.setsid()
+        try:
+            pid == os.fork()
+        except OSError, e:
+            raise Exception, "%s [%d]" % (e.strerror, e.errno)
+    subprocess.Popen(
+        ('scduply',) + args,
+        env=env, preexec_fn=os.setpgrp, close_fds=True
+    )
 
 
 def scduply_files(profile, date='now'):
