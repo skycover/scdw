@@ -60,7 +60,6 @@ def ListFilesAjax(request, profile):
         HttpResponseNotFound('there is no such profile')
     if request.method == 'POST':
         form = DateForm(request.POST)
-        print request.POST
         if form.is_valid():
             return JsonResponse(
                 file_tree(scduply_files(profile, form.cleaned_data)),
@@ -79,7 +78,6 @@ def StartRestoreAjax(request, profile):
         HttpResponseNotFound('there is no such profile')
     if request.method == 'POST':
         job = loads(request.body)
-        print job
         try:
             form = DateForm({'date': job['date']})
             if form.is_valid():

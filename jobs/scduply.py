@@ -16,7 +16,7 @@ def is_running(profile):
         ]
     except OSError:
         pids_list = []
-    if not platform == 'cygwin':
+    if not platform.lower().startswith('cygwin'):
         for pid in pids_list:
             try:
                 os.kill(int(pid), 0)
@@ -50,22 +50,29 @@ def scduply_command(*args):
     import os
     import subprocess
     env = os.environ.copy()
-    env['PATH'] = '/usr/local/bin:/usr/bin:/bin'
+    # exit from VIRTUAL_ENV
+    if env.get('VIRTUAL_ENV'):
+        env['PATH'] = ':'.join(
+            f for f in env['PATH'].split(':')
+            if not f.startswith(env['VIRTUAL_ENV'])
+        )
+        del env['VIRTUAL_ENV']
+    # double fork magic
     try:
         pid = os.fork()
     except OSError, e:
         raise Exception, "%s [%d]" % (e.strerror, e.errno)
-
     if pid == 0:
         os.setsid()
         try:
-            pid == os.fork()
+            newpid = os.fork()
+            if newpid == 0:
+                subprocess.Popen(
+                    ('scduply',) + args,
+                    env=env, preexec_fn=os.setpgrp, close_fds=True
+                )
         except OSError, e:
             raise Exception, "%s [%d]" % (e.strerror, e.errno)
-    subprocess.Popen(
-        ('scduply',) + args,
-        env=env, preexec_fn=os.setpgrp, close_fds=True
-    )
 
 
 def scduply_files(profile, date='now'):
