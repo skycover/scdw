@@ -2,8 +2,20 @@
 from __future__ import unicode_literals
 
 
+def __escape_from_virtualenv():
+    import os
+    env = os.environ.copy()
+    if env.get('VIRTUAL_ENV'):
+        env['PATH'] = ':'.join(
+            f for f in env['PATH'].split(':')
+            if not f.startswith(env['VIRTUAL_ENV'])
+        )
+        del env['VIRTUAL_ENV']
+    return env
+
+
 def is_running(profile):
-    """check task for running"""
+    """ check task for running """
     import os
     platform, hostname = os.uname()[:2]
     path = os.path.join(
@@ -13,50 +25,31 @@ def is_running(profile):
         pids_list = [
             f.split('.')[1]
             for f in os.listdir(path) if f.startswith(hostname)
+        ] if not platform.lower().startswith('cygwin') else [
+            f.split('.')[1].split('-')[0]
+            for f in os.listdir(path) if f.startswith(hostname)
         ]
     except OSError:
         pids_list = []
-    if not platform.lower().startswith('cygwin'):
-        for pid in pids_list:
+    for pid in pids_list:
+        try:
+            os.kill(int(pid), 0)
+            return True
+        except OSError:
             try:
-                os.kill(int(pid), 0)
-                return True
-            except OSError:
-                try:
-                    os.remove(
-                        os.path.join(path, "%s.%s" % (hostname, pid))
-                    )
-                except IOError:
-                    pass
+                os.remove(
+                    os.path.join(path, "%s.%s" % (hostname, pid))
+                )
+            except IOError:
+                pass
 
-        else:
-            return False
     else:
-        from commands import getoutput
-        output = getoutput(
-            'ps aux|awk \'/python/ {print $1}\''
-        ).split('\n')
-        if not output[1] == '':
-            for opid in output:
-                for pid in pids_list:
-                    if str(pid).startswith(opid):
-                        return True
-            else:
-                return False
-    return pids_list
+        return False
 
 
 def scduply_command(*args):
     import os
     import subprocess
-    env = os.environ.copy()
-    # exit from VIRTUAL_ENV
-    if env.get('VIRTUAL_ENV'):
-        env['PATH'] = ':'.join(
-            f for f in env['PATH'].split(':')
-            if not f.startswith(env['VIRTUAL_ENV'])
-        )
-        del env['VIRTUAL_ENV']
     # double fork magic
     try:
         pid = os.fork()
@@ -69,28 +62,35 @@ def scduply_command(*args):
             if newpid == 0:
                 subprocess.Popen(
                     ('scduply',) + args,
-                    env=env, preexec_fn=os.setpgrp, close_fds=True
+                    env=__escape_from_virtualenv(),
+                    preexec_fn=os.setpgrp, close_fds=True
                 )
         except OSError, e:
             raise Exception, "%s [%d]" % (e.strerror, e.errno)
 
 
+def scduply_output(*args):
+    import subprocess
+    output = subprocess.check_output(
+        ('scduply', ) + args,
+        env=__escape_from_virtualenv()
+    )
+    return unicode(output, encoding='utf-8')
+
+
 def scduply_files(profile, date='now'):
-    from commands import getoutput
     from bprofile.bprofile import list_conf
     from datetime import datetime as dt
-    if profile not in list_conf():
-        return []
-    output = unicode(getoutput(
-        'scduply %s list %s|egrep ":[0-6][0-9] [0-9]{4} .*"' % (
-            profile, date
-        )
-    ), encoding='utf8')
+    from re import search
     try:
         return [
-            (dt.strptime(s[:24], '%c'), s[25:])
-            for s in output.split('\n') if not s[25:] == '.'
-        ]
+            (dt.strptime(l[:24], '%c'), l[25:])
+            for l in scduply_output(profile, 'list', date).split('\n')
+            if search(
+                r'^[A-Z][a-z]{2} [A-Z][a-z]{2}[ ]{1,2}[0-9]{1,2} [0-9:]{8}',
+                l
+            ) and not l[25:] == '.'
+        ] if profile in list_conf() else []
     except ValueError:
         return []
 
@@ -114,10 +114,20 @@ def file_tree(file_list):
 
 def folder_tree(*args):
     import os
-    ret = [
+    return [
         {
             'text': f, 'child': True
         } for f in os.listdir(os.path.join('/', *args))
         if os.path.isdir(os.path.join('/', *args) + '/' + f)
     ]
-    return ret
+
+
+def scduply_backupdates(profile):
+    from re import search, split
+    from datetime import datetime as dt
+    from bprofile.bprofile import list_conf
+    return [
+        (lambda x, y: (x, dt.strptime(y, '%c')))(*split('[ ]{3,}', f)[1:-1])
+        for f in scduply_output(profile, 'status').split('\n')
+        if search(r'[0-9]{4}[ \t]+[0-9]+$', f) and len(split('[ ]+', f)) == 8
+    ] if profile in list_conf() else []

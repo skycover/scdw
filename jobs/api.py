@@ -96,3 +96,12 @@ def StartRestoreAjax(request, profile):
                 if job['file'] else ['restore', job['restore_path']]
         scduply_command(profile, *params)
     return JsonResponse({'status': 'OK'})
+
+
+# @login_required()
+def ProfileBackupDatesAjax(request, profile):
+    from bprofile.bprofile import list_conf
+    from scduply import scduply_backupdates
+    if profile not in list_conf():
+        return HttpResponseNotFound('there is ni such profile')
+    return JsonResponse(scduply_backupdates(profile), safe=False)
