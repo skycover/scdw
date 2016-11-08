@@ -36,12 +36,7 @@ def is_running(profile):
             os.kill(int(pid), 0)
             return True
         except OSError:
-            try:
-                os.remove(
-                    os.path.join(path, "%s.%s" % (hostname, pid))
-                )
-            except IOError:
-                pass
+            pass
 
     else:
         return False
