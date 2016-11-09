@@ -73,6 +73,25 @@ def scduply_output(*args):
     return unicode(output, encoding='utf-8')
 
 
+def __old_scduply_files(profile, date='now'):
+    from bprofile.bprofile import list_conf
+    from datetime import datetime as dt
+    from re import search
+    import time
+    date
+    try:
+        return [
+            (dt.strptime(l[:24], '%c'), l[25:])
+            for l in scduply_output(profile, 'list', date).split('\n')
+            if search(
+                r'^[A-Z][a-z]{2} [A-Z][a-z]{2}[ ]{1,2}[0-9]{1,2} [0-9:]{8}',
+                l
+            ) and not l[25:] == '.'
+        ] if profile in list_conf() else []
+    except ValueError:
+        return []
+
+
 def scduply_files(profile, date='now'):
     from bprofile.bprofile import list_conf
     from datetime import datetime as dt

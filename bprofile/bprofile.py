@@ -20,7 +20,9 @@
 def encode(s):
     import base64
     try:
-        return base64.b64encode(s.encode('utf-8')).replace('+', '-').replace('/', '_')
+        return base64.b64encode(
+            s.encode('utf-8')
+        ).replace('+', '-').replace('/', '_')
     except:
         return base64.b64encode(s).replace('+', '-').replace('/', '_')
 
@@ -89,7 +91,8 @@ def read_logs(confhome, name):
     errf = ''
     if os.path.exists(logdir):
         for f in [l for l in os.listdir(logdir)
-                  if l.startswith('duplicity-log.') or l.startswith('duplicity-cmdlog-pre_full_post.')]:
+                  if l.startswith('duplicity-log.')
+                  or l.startswith('duplicity-cmdlog-pre_full_post.')]:
             m = f.split('.')
             d = m[-2]
             if m[1] == 'err':
@@ -121,7 +124,7 @@ def read_logs(confhome, name):
     return {'full': (full, fullf), 'inc': (inc, incf), 'err': (err, errf)}
 
         
-def read_bprofile(confhome, name, full=True):
+def read_bprofile(confhome, name):
     import os
     from codecs import open
     from jobs.scduply import is_running

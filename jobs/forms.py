@@ -60,9 +60,9 @@ class DateForm(forms.Form):
     )
 
     def clean(self):
-        from time import mktime
+        from const import DATEFORMAT_FOR_SCDUPY
         data = super(DateForm, self).clean()
-        return int(mktime(data['date'].timetuple()))
+        return data['date'].strftime(DATEFORMAT_FOR_SCDUPY)
 
 
 class PathForm(forms.Form):
