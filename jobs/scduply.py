@@ -101,8 +101,7 @@ def scduply_files(profile, date='now'):
             (dt.strptime(l[:24], '%c'), l[25:])
             for l in scduply_output(profile, 'list', date).split('\n')
             if search(
-                r'^[A-Z][a-z]{2} [A-Z][a-z]{2}[ ]{1,2}[0-9]{1,2} [0-9:]{8}',
-                l
+                r'^[A-Z][a-z]{2} [A-Z][a-z]{2}[ ]{1,2}[0-9]{1,2} [0-9:]{8}', l
             ) and not l[25:] == '.'
         ] if profile in list_conf() else []
     except ValueError:
@@ -140,8 +139,11 @@ def scduply_backupdates(profile):
     from re import search, split
     from datetime import datetime as dt
     from bprofile.bprofile import list_conf
+    from const import TIMEZONE
     return [
-        (lambda x, y: (x, dt.strptime(y, '%c')))(*split('[ ]{3,}', f)[1:-1])
+        (
+            lambda x, y: (x, TIMEZONE.localize(dt.strptime(y, '%c')))
+        )(*split('[ ]{3,}', f)[1:-1])
         for f in scduply_output(profile, 'status').split('\n')
         if search(r'[0-9]{4}[ \t]+[0-9]+$', f) and len(split('[ ]+', f)) == 8
     ] if profile in list_conf() else []
