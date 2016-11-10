@@ -1,21 +1,6 @@
-# The SkyCover Duply Web - the web interface for scduply/duplicity.
-# Copyright (C) 2011 Dmitry Chernyak
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or (at
-# your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 from django import forms
-from bprofile import list_keys
+from bprofile.bprofile import list_keys
+from django.utils.translation import ugettext as _
 
 
 class NewBackupForm(forms.Form):
@@ -23,7 +8,7 @@ class NewBackupForm(forms.Form):
     source = forms.CharField(
         max_length=250, label='Source path', widget=forms.HiddenInput
     )
-    
+
     def clean_name(self):
         import re
         name = self.cleaned_data.get('name', '')
@@ -61,7 +46,7 @@ class ConfigureBackupForm(forms.Form):
         required=False, label='Config',
         widget=forms.Textarea(attrs={'rows': 20, 'cols': 100})
     )
-    
+
     def clean_name(self):
         import re
         name = self.cleaned_data.get('name', '')

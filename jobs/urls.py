@@ -2,7 +2,8 @@ from django.conf.urls import url, include
 from views import ListFiles
 from api import (
     JobStatusAjax, AllJobsStatusAjax, StartBKPALLAjax, StartBackupAjax,
-    ListFilesAjax, StartRestoreAjax, ProfileBackupDatesAjax
+    ListFilesAjax, StartRestoreAjax, ProfileBackupDatesAjax,
+    CleanProfileAjax,
 )
 
 urlpatterns = [
@@ -24,4 +25,6 @@ urlpatterns = [
         name='StartRestoreAjax'),
     url(r'^ajax/dates/(?P<profile>.*)/$', ProfileBackupDatesAjax,
         name='ProfileBackupDatesAjax'),
+    url(r'^ajax/dates/(?P<profile>.*)/$', CleanProfileAjax,
+        name='CleanProfileAjax'),
 ]

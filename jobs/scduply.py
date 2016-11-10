@@ -140,10 +140,14 @@ def scduply_backupdates(profile):
     from datetime import datetime as dt
     from bprofile.bprofile import list_conf
     from const import TIMEZONE
-    return [
+    dates = [
         (
-            lambda x, y: (x, TIMEZONE.localize(dt.strptime(y, '%c')))
+            lambda x, y: (x, dt.strptime(y, '%c').replace(tzinfo=TIMEZONE))
         )(*split('[ ]{3,}', f)[1:-1])
         for f in scduply_output(profile, 'status').split('\n')
         if search(r'[0-9]{4}[ \t]+[0-9]+$', f) and len(split('[ ]+', f)) == 8
     ] if profile in list_conf() else []
+    dates.reverse()
+    return [
+        d[1] for d in dates
+    ]

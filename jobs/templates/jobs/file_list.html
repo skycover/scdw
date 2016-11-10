@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/jobs.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/themes/default/style.min.css' %}" />
-    {{ dateform.media }}
+    {{ custom_dateform.media }}
     <script type="text/javascript" src="{% static 'js/django_ajax.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jstree.min.js' %}"></script>
     <script>
@@ -15,6 +15,10 @@
             var tree = $("div#filelist");
             var path = false;
             var node_name = '{{ profile.name }}';
+            var custom_date_input = $('input#custom-date');
+            var custom_dateform = $('div#dateform-custom');
+            var dateform = $('div#dateform');
+            var dateform_input = dateform.find('select');
             var restore_path = $('input#id_path').val() + '/{{ profile.name }}';
             function rebuildTree(msg) {
                 tree.jstree('destroy');
@@ -31,11 +35,27 @@
                 });
             }
             function reqFileListForDate(post) {
+                var val = custom_date_input.prop('checked') ? $('input#id_date[name="date"]').val() : $('select#id_date').val();
                 $.ajax({
                     type: post ? "POST" : "GET",
                     url: '{% url 'ListFilesAjax' profile.name %}',
-                    data: post ? "date=" + $('input#id_date[name="date"]').val() + ';' : null,
+                    data: post ? "date=" + val + ';' : null,
                     success: rebuildTree
+                })
+            }
+            function reqDates() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "ProfileBackupDatesAjax" profile.name %}',
+                    success: function (msg) {
+                        console.log(msg);
+                        dateform_input.html('<option value="" selected>{% trans "Now" %}</option>');
+                        Object.keys(msg).forEach(function (key) {
+                            var cur = dateform_input.html();
+                            console.log(cur);
+                            dateform_input.html(cur + '<option value="' + msg[key][0] + '">' + msg[key][1] + '</option>');
+                        })
+                    }
                 })
             }
             reqFileListForDate();
@@ -43,7 +63,7 @@
                 var searchString = $(this).val();
                 $("div#filelist").jstree('search', searchString);
             });
-            $("input#id_date").on('change', function () {
+            $("a#refreshTree").on('click', function () {
                 reqFileListForDate(true);
             });
             $("a#clearSelected").click(function () {
@@ -54,10 +74,16 @@
                 restore_path = $('input#id_path').val() + '/' + '{{ profile.name }}';
                 console.log(path, node_name, restore_path);
             });
+            custom_date_input.on('change', function () {
+                custom_dateform.toggle();
+                dateform.toggle();
+            });
+            reqDates();
+            dateform.find('a').click(reqDates);
             {% if restore %}
                 function startRestore() {
                     var data = {
-                            'date': $('input#id_date[name="date"]').val(),
+                            'date': custom_date_input.prop('checked') ? $('input#id_date[name="date"]').val() : $('select#id_date').val(),
                             'file': path ? '"' + path + '"' : path,
                             'restore_path': '"' + restore_path + '"'
                     };
@@ -110,7 +136,16 @@
     </div>
         <fieldset class="module aligned">
             {% csrf_token %}
-            {{ dateform.as_p }}
+            <p><label>{% trans 'Custom date' %}:</label><input type="checkbox" name="custom-date" id="custom-date"></p>
+            <div id="dateform-custom" style="display: none">
+                {{ custom_dateform.as_p }}
+            </div>
+            <div id="dateform">
+                <p>
+                    <label>{{ dateform.date.label }}</label>
+                    {{ dateform.date }} <a>{% trans "Refresh" %}</a>
+                </p>
+            </div>
             {% if restore %}
                 <p><a href="{% url 'ListDirs' action_url to.encoded %}">{% trans "Choose restore path" %}</a></p>
                 {{ pathform.as_p}}
@@ -120,6 +155,7 @@
             {% trans "Search file" %}:
             <input id="filelist_p" value="" name=""/>
             <a id='clearSelected'>{% trans 'Clear selected' %}</a>
+            <a id='refreshTree'>{% trans 'Refresh' %}</a>
         </nobr>
         <div id='filelist'></div>
 

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.utils.translation import ugettext as _
 
 
 def __get_currenttz():
@@ -29,3 +30,4 @@ TIMEZONE = __get_currenttz()
 UTC_SUFFIX = __get_utc_suffix()
 DATEFORMAT_IN_NAME = '%Y%m%dT%H%M%SZ'
 DATEFORMAT_FOR_SCDUPY = '%Y-%m-%dT%H:%M:%S' + UTC_SUFFIX
+DATEFORMAT_INPUT = '%d.%m.%Y %H:%M:%S'

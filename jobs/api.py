@@ -60,9 +60,15 @@ def ListFilesAjax(request, profile):
         HttpResponseNotFound('there is no such profile')
     if request.method == 'POST':
         form = DateForm(request.POST)
-        if form.is_valid():
+        if not request.POST.get('date') == '':
+            if form.is_valid():
+                return JsonResponse(
+                    file_tree(scduply_files(profile, form.cleaned_data)),
+                    safe=False
+                )
+        else:
             return JsonResponse(
-                file_tree(scduply_files(profile, form.cleaned_data)),
+                file_tree(scduply_files(profile)),
                 safe=False
             )
     return JsonResponse(file_tree(scduply_files(profile)), safe=False)
@@ -98,10 +104,28 @@ def StartRestoreAjax(request, profile):
     return JsonResponse({'status': 'OK'})
 
 
-# @login_required()
+@login_required()
 def ProfileBackupDatesAjax(request, profile):
     from bprofile.bprofile import list_conf
     from scduply import scduply_backupdates
+    from const import DATEFORMAT_INPUT
     if profile not in list_conf():
-        return HttpResponseNotFound('there is ni such profile')
-    return JsonResponse(scduply_backupdates(profile), safe=False)
+        return HttpResponseNotFound()
+    dates = scduply_backupdates(profile)
+    dates = [
+        (d.strftime(DATEFORMAT_INPUT), d.strftime('%c'))
+        for d in dates
+    ]
+    return JsonResponse(dates, safe=False)
+
+
+@login_required()
+def CleanProfileAjax(request, profile):
+    from bprofile.bprofile import list_conf
+    from scduply import scduply_command
+    if profile not in list_conf():
+        return HttpResponseNotFound('there is no such profile')
+    if request.method == 'POST':
+        scduply_command(profile, 'cleanup', '--force')
+        return JsonResponse({'status': 'OK'})
+    return JsonResponse({'status': 'Error'})

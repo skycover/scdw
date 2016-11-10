@@ -240,7 +240,7 @@ def edit_conf(request, **kwargs):
     else:
         global_conf_form = GlobalConfigForm(
             initial={'conf': read_gconf(confhome),
-            })
+        })
 
     targs['global_conf_form'] = global_conf_form
     return render(request, 'bprofile/edit_conf.html', targs)
@@ -285,3 +285,46 @@ def show_log(request, **kwargs):
     }
 
     return render(request, 'bprofile/log.html', targs)
+
+
+@login_required()
+def edit_quick_new(request, **kwargs):
+    from forms.QuickSettingsFormNew import QuickSettingsFormBase
+    from bprofile import read_qconf_new, write_qconf_new
+    confhome = find_confhome()
+    targs = {
+        'confhome': confhome,
+    }
+    if (request.method == 'POST') and ('submit' in request.POST):
+        quick_settings_form = QuickSettingsFormBase(request.POST)
+        if quick_settings_form.is_valid():
+            cd = quick_settings_form.cleaned_data
+            print cd
+            write_qconf_new(confhome, cd)
+            targs['quick_settings_form'] = quick_settings_form
+            return render(request, 'bprofile/gqconf_new.html', targs)
+        else:
+            targs['quick_settings_error'] = "Saving failed"
+    else:
+
+        quick_settings_form = QuickSettingsFormBase(initial=read_qconf_new(confhome))
+
+    targs['quick_settings_form'] = quick_settings_form
+    return render(request, 'bprofile/gqconf_new.html', targs)
+
+
+def renderForm(request):
+    from forms.QuickSettingsFormNew import QuickSettingsFormBase
+    from forms.templates import FORM_LIST
+    args = request.GET.keys()
+    class_tuple = (QuickSettingsFormBase, )
+    for arg in args:
+        if FORM_LIST.get(arg):
+            class_tuple += (FORM_LIST[arg], )
+    Form = type('Form', class_tuple, {})
+
+    targs = {
+        'form': Form()
+    }
+
+    return render(request, 'bprofile/renderform.html', targs)

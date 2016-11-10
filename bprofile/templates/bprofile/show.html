@@ -15,6 +15,7 @@
             var message_li = $('li#backupMessage');
             var job_bkp = $('a#bkp');
             var job_full = $('a#full');
+            var job_cleanup = $('a#cleanup');
             var log_ = {
                 'full': 'Full',
                 'inc': 'Incremental',
@@ -66,6 +67,9 @@
             //});
             job_bkp.click(function () {startBkp()});
             job_full.click(function () {startBkp(true)});
+            job_cleanup.click(function () {
+               $.ajax
+            });
             window.setInterval(function () {
                 var d = $.ajax({
                     type: 'GET',
@@ -145,9 +149,9 @@
                 <a id="bkp">{% trans "Start backup" %}</a>
                 <a id="full">{% trans "Start full backup" %}</a>
                 <a href="{% url "RestoreFiles" profile.name %}">{% trans "Restore" %}</a>
-                <a href="/">{% trans "Get backup status" %}</a>
                 <a href="{% url "ListProfileFiles" profile.name %}">{% trans "Get list of backuped files" %}</a>
-                <a href="/">{% trans "Purge" %}</a>
+                <a>{% trans "Purge" %}</a>
+                <a id="cleanup">{% trans "Cleanup" %}</a>
         </div>
         </div>
     <div class=conf_exclude>

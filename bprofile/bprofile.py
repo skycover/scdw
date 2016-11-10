@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 # The SkyCover Duply Web - the web interface for scduply/duplicity.
 # Copyright (C) 2011 Dmitry Chernyak
@@ -67,10 +68,10 @@ def scduply_create(name):
 
 def nicedate(d):
     from datetime import datetime
-
-    uu = datetime.strptime(d, '%Y%m%dT%H%M%SZ')
-    dd = uu + (datetime.now() - datetime.utcnow())
-
+    import pytz
+    from jobs.const import TIMEZONE
+    uu = datetime.strptime(d, '%Y%m%dT%H%M%SZ').replace(tzinfo=pytz.UTC)
+    dd = uu.astimezone(TIMEZONE)
     return dd.strftime('%Y-%m-%d %H:%M:%S')
 
 
@@ -250,7 +251,7 @@ def enum_profiles(confhome):
 
     blist = []
     for f in os.listdir(confhome):
-        ff = read_bprofile(confhome, f, False)
+        ff = read_bprofile(confhome, f)
         if ff:
             blist.append(ff)
     return blist
@@ -283,7 +284,7 @@ def list_keys():
         # If I use "m" instead of "len(m)>0" then "m" evaluates to False
         # But if I write "print m", or simple "pass" before the "if" statement
         # Then "m" becames True and all goes fine
-        if len(m)>0:
+        if len(m) > 0:
             if m[0] == 'sec':
                 key = m[1].split('/')[1]
                 date = m[2]
@@ -308,6 +309,19 @@ def read_qconf(confdir):
                     res['key'] = m[1].strip("'")
                 elif m[0] == 'GPG_PW':
                     res['password'] = m[1].strip("'")
+        f.close()
+    return res
+
+
+def read_qconf_new(confdir):
+    import os
+    res = {}
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    if os.path.isdir(confdir) and os.path.isfile(qcnffile):
+        f = open(qcnffile, 'r')
+        for l in [s.strip() for s in f.readlines()]:
+            m = l.split("=")
+            res[m[0]] = m[1].replace('\'', '').replace('\"', '')
         f.close()
     return res
 
@@ -348,3 +362,12 @@ def list_conf():
         os.path.exists(os.path.join(home, d, 'conf'))
     ]
     return ret
+
+
+def write_qconf_new(confdir, qconf={}):
+    import os
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    s = ''
+    for key, val in qconf.items():
+        s += u"%s=%s\n" % (key, val)
+    write_safe(qcnffile, s)

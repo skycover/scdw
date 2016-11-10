@@ -65,6 +65,13 @@ class DateForm(forms.Form):
         return data['date'].strftime(DATEFORMAT_FOR_SCDUPY)
 
 
+class DateChoiceForm(DateForm):
+    date = forms.DateTimeField(
+        widget=forms.Select(choices=()),
+        label='Date'
+    )
+
+
 class PathForm(forms.Form):
     path = forms.CharField(
         label='Restore path', max_length=500,

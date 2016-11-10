@@ -9,12 +9,13 @@ from django.contrib.auth.decorators import login_required
 @login_required()
 def ListFiles(request, profile, restore=False, to=False):
     from bprofile.bprofile import list_conf, read_bprofile, find_confhome
-    from forms import DateForm, PathForm
+    from forms import DateForm, DateChoiceForm
     if profile not in list_conf():
         return HttpResponseRedirect('/')
     context = {
         'profile': read_bprofile(find_confhome(), profile),
-        'dateform': DateForm(),
+        'custom_dateform': DateForm(),
+        'dateform': DateChoiceForm(),
         'restore': restore,
     }
     if restore:
