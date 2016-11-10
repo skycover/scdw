@@ -276,9 +276,9 @@ def write_gconf(confhome, conf):
 
 
 def list_keys():
-    from commands import getoutput
+    from subprocess import check_output
     res = []
-    for l in getoutput("gpg --list-secret-keys").split('\n'):
+    for l in check_output(("gpg", "--list-secret-keys")).split('\n'):
         m = l.split()
         # XXX here is some strange bug under CygWin:
         # If I use "m" instead of "len(m)>0" then "m" evaluates to False
