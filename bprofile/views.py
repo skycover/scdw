@@ -291,15 +291,58 @@ def show_log(request, **kwargs):
 def edit_quick_new(request, **kwargs):
     from forms.QuickSettingsFormNew import QuickSettingsFormBase
     from bprofile import read_qconf_new, write_qconf_new
+    from forms.templates import FORM_LIST
     confhome = find_confhome()
     targs = {
         'confhome': confhome,
     }
+    if request.method == 'GET':
+        args = read_qconf_new(confhome)
+        class_tuple = (QuickSettingsFormBase,)
+        if args.get('TARGET'):
+            target = args.get('TARGET').split('://')[0]
+            if FORM_LIST.get('target_' + target):
+                class_tuple += (FORM_LIST['target_' + target], )
+                args['use_type'] = target
+        if args.get('GPG_KEY'):
+            gpg = args['GPG_KEY']
+            if gpg in dict(list_keys()):
+                args['use_gpg'] = 'key'
+                class_tuple += (FORM_LIST['gpg_key'], )
+            elif gpg == 'disabled':
+                args['use_gpg'] = 'no'
+            else:
+                args['use_gpg'] = 'password'
+                class_tuple += (FORM_LIST['gpg_pw'], )
+        Form = type('Form', class_tuple, {})
+        targs['quick_settings_form'] = Form(initial=args)
+        return render(request, 'bprofile/gqconf_new.html', targs)
+
     if (request.method == 'POST') and ('submit' in request.POST):
-        quick_settings_form = QuickSettingsFormBase(request.POST)
+        args = request.POST.copy()
+        class_tuple = (QuickSettingsFormBase, )
+        if args['use_mail'] == 'yes':
+            class_tuple += (FORM_LIST['mail'], )
+        if FORM_LIST.get('target_' + args['use_type']):
+            class_tuple += (FORM_LIST['target_' + args['use_type']], )
+        if args.get('GPG_KEY'):
+            gpg = args['GPG_KEY']
+            if gpg in dict(list_keys()):
+                args['use_gpg'] = 'key'
+                class_tuple += (FORM_LIST['gpg_key'], )
+            elif gpg == 'disabled':
+                args['GPG_KEY'] = 'disabled'
+                if args.get('GPG_PW'):
+                    del args['GPG_PW']
+            else:
+                args['use_gpg'] = 'password'
+                class_tuple += (FORM_LIST['gpg_pw'], )
+        Form = type('Form', class_tuple, {})
+        # quick_settings_form = QuickSettingsFormBase(request.POST)
+        print class_tuple
+        quick_settings_form = Form(request.POST)
         if quick_settings_form.is_valid():
             cd = quick_settings_form.cleaned_data
-            print cd
             write_qconf_new(confhome, cd)
             targs['quick_settings_form'] = quick_settings_form
             return render(request, 'bprofile/gqconf_new.html', targs)
@@ -316,13 +359,14 @@ def edit_quick_new(request, **kwargs):
 def renderForm(request):
     from forms.QuickSettingsFormNew import QuickSettingsFormBase
     from forms.templates import FORM_LIST
+    import inspect
     args = request.GET.keys()
     class_tuple = (QuickSettingsFormBase, )
     for arg in args:
         if FORM_LIST.get(arg):
             class_tuple += (FORM_LIST[arg], )
     Form = type('Form', class_tuple, {})
-
+    print inspect.getmro(Form)[1:-3]
     targs = {
         'form': Form()
     }
