@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chlist.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jobs.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themes/default/style.min.css' %}" />
+    {{ custom_dateform.media }}
+    <script type="text/javascript" src="{% static 'js/django_ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jstree.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var tree = $("div#filelist");
+            var path = false;
+            var node_name = '{{ profile.name }}';
+            var custom_date_input = $('input#custom-date');
+            var custom_dateform = $('div#dateform-custom');
+            var dateform = $('div#dateform');
+            var dateform_input = dateform.find('select');
+            var restore_path = $('input#id_path').val() + '/{{ profile.name }}';
+            function rebuildTree(msg) {
+                tree.jstree('destroy');
+                tree.jstree({
+                    "plugins" : ["search"],
+                    'core': {
+                        'data': msg,
+                        "multiple" : false
+                    }
+                }).on('changed.jstree', function (e, data) {
+                    path = data.instance.get_path(data.node, '/');
+                    node_name = data.node.text;
+                    restore_path = $('input#id_path').val() + '/' + node_name;
+                });
+            }
+            function reqFileListForDate(post) {
+                var val = custom_date_input.prop('checked') ? $('input#id_date[name="date"]').val() : $('select#id_date').val();
+                $.ajax({
+                    type: post ? "POST" : "GET",
+                    url: '{% url 'ListFilesAjax' profile.name %}',
+                    data: post ? "date=" + val + ';' : null,
+                    success: rebuildTree
+                })
+            }
+            function reqDates() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "ProfileBackupDatesAjax" profile.name %}',
+                    success: function (msg) {
+                        console.log(msg);
+                        dateform_input.html('<option value="" selected>{% trans "Now" %}</option>');
+                        Object.keys(msg).forEach(function (key) {
+                            var cur = dateform_input.html();
+                            console.log(cur);
+                            dateform_input.html(cur + '<option value="' + msg[key][0] + '">' + msg[key][1] + '</option>');
+                        })
+                    }
+                })
+            }
+            reqFileListForDate();
+            $("input#filelist_p").keyup(function() {
+                var searchString = $(this).val();
+                $("div#filelist").jstree('search', searchString);
+            });
+            $("a#refreshTree").on('click', function () {
+                reqFileListForDate(true);
+            });
+            $("a#clearSelected").click(function () {
+                tree.jstree(true).deselect_all(true);
+                console.log('clear data');
+                path = false;
+                node_name = '{{ profile.name }}';
+                restore_path = $('input#id_path').val() + '/' + '{{ profile.name }}';
+                console.log(path, node_name, restore_path);
+            });
+            custom_date_input.on('change', function () {
+                custom_dateform.toggle();
+                dateform.toggle();
+            });
+            reqDates();
+            dateform.find('a').click(reqDates);
+            {% if restore %}
+                function startRestore() {
+                    var data = {
+                            'date': custom_date_input.prop('checked') ? $('input#id_date[name="date"]').val() : $('select#id_date').val(),
+                            'file': path ? '"' + path + '"' : path,
+                            'restore_path': '"' + restore_path + '"'
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url 'StartRestoreAjax' profile.name %}',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                    })
+                }
+                $("a#startRestore").click(function () {
+                    var ask = confirm('{% trans "You really want restore " %}' + (path ? '"' + path  + '"': '') + ' {% trans 'to' %} "' + restore_path + '"');
+                    if (ask) {
+                        startRestore();
+                        $('li#backupStated').slideDown(300).delay(1800).slideUp(300);
+                    }
+                });
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+
+{% block messages %}
+    <li id='backupStated' class="success" style="display: none">Запущено восстановление</li>
+{% endblock %}
+
+{% block title %}{% trans "List files of" %}: {{ profile.name }}{% endblock %}
+{% block branding %}
+    <h1>{% trans "List files of" %}: {{ profile.name }}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+    <table>
+    <tr><th>{% trans "Name" %}:</th><td>{{ profile.name }}</td></tr>
+        <tr>
+            <th>{% trans "Source path" %}:</th>
+            <td>{{ profile.source }}</td>
+        </tr>
+    </table>
+        <div class=buttons>
+            <a href="/edit/{{ profile.name }}">{% trans "Edit" %}</a>
+            <a href="/show/{{ profile.name }}">{% trans "Return" %}</a>
+            {% if restore %}
+                <a id="startRestore">{% trans "Start Restore" %}</a>
+            {% endif %}
+        </div>
+    </div>
+        <fieldset class="module aligned">
+            {% csrf_token %}
+            <p><label>{% trans 'Custom date' %}:</label><input type="checkbox" name="custom-date" id="custom-date"></p>
+            <div id="dateform-custom" style="display: none">
+                {{ custom_dateform.as_p }}
+            </div>
+            <div id="dateform">
+                <p>
+                    <label>{{ dateform.date.label }}</label>
+                    {{ dateform.date }} <a>{% trans "Refresh" %}</a>
+                </p>
+            </div>
+            {% if restore %}
+                <p><a href="{% url 'ListDirs' action_url to.encoded %}">{% trans "Choose restore path" %}</a></p>
+                {{ pathform.as_p}}
+            {% endif %}
+        </fieldset>
+        <nobr>
+            {% trans "Search file" %}:
+            <input id="filelist_p" value="" name=""/>
+            <a id='clearSelected'>{% trans 'Clear selected' %}</a>
+            <a id='refreshTree'>{% trans 'Refresh' %}</a>
+        </nobr>
+        <div id='filelist'></div>
+
+{% endblock content %}

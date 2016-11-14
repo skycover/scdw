@@ -35,7 +35,10 @@ dstdir=$prefix/$name
 mkdir -p $dstdir
 cp -r * $dstdir
 cd $dstdir
-./manage.py syncdb
+[[ ! -f db.sqlite3 ]] && {
+    ./manage.py migrate
+    ./manage.py createsuperuser
+}
 cat <<EOF >"$target"/$name
 #!/bin/sh
 port=$port

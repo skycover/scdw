@@ -1,0 +1,362 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-31 16:54+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: bprofile/templates/base.html:36
+msgid "Log out"
+msgstr "Выйти"
+
+#: bprofile/templates/base.html:38
+msgid "Log in"
+msgstr "Войти"
+
+#: bprofile/templates/base.html:40
+msgid "Help"
+msgstr "Помощь"
+
+#: bprofile/templates/bprofile/delete.html:9
+#: bprofile/templates/bprofile/delete.html:10
+msgid "Delete job"
+msgstr "Удалить задание"
+
+#: bprofile/templates/bprofile/delete.html:14
+msgid ""
+"Delete is very dangerous process because you can lost the credentials to "
+"aceess to important backups!"
+msgstr ""
+"Удаление - это очень опасный процесс, потому что Вы можете навсегда потерять "
+"ключи и пароли доступа к важным резервным копиям!"
+
+#: bprofile/templates/bprofile/delete.html:15
+msgid "You have to delete configuration manually on the filesystem."
+msgstr "Вам придется удалить конфигурацию вручную на файловой системе."
+
+#: bprofile/templates/bprofile/delete.html:17
+#: bprofile/templates/bprofile/show.html:115
+msgid "Return"
+msgstr "Возврат"
+
+#: bprofile/templates/bprofile/edit.html:15
+#: bprofile/templates/bprofile/edit.html:16
+msgid "Edit job"
+msgstr "Редактировать задание"
+
+#: bprofile/templates/bprofile/edit.html:22
+msgid "Configure job failed"
+msgstr "Настройка задания не удалась"
+
+#: bprofile/templates/bprofile/edit.html:30
+#: bprofile/templates/bprofile/gqconf.html:23
+#: bprofile/templates/bprofile/new.html:29
+msgid "Save configuration"
+msgstr "Сохранить настройки"
+
+#: bprofile/templates/bprofile/edit.html:31
+#: bprofile/templates/bprofile/edit_conf.html:21
+#: bprofile/templates/bprofile/gqconf.html:24
+#: bprofile/templates/bprofile/new.html:30
+#: bprofile/templates/bprofile/new.html:37
+msgid "Cancel"
+msgstr "Отмена"
+
+#: bprofile/templates/bprofile/edit.html:32
+#: bprofile/templates/bprofile/show.html:110
+msgid "Job description"
+msgstr "Описание задания"
+
+#: bprofile/templates/bprofile/edit.html:35
+#: bprofile/templates/bprofile/list.html:112
+#: bprofile/templates/bprofile/show.html:96
+msgid "Name"
+msgstr "Имя"
+
+#: bprofile/templates/bprofile/edit.html:40
+#: bprofile/templates/bprofile/new.html:26
+#: bprofile/templates/bprofile/new.html:34
+#: bprofile/templates/bprofile/show.html:98
+msgid "Source path"
+msgstr "Путь источника"
+
+#: bprofile/templates/bprofile/edit.html:45
+msgid "Descrption"
+msgstr "Описание"
+
+#: bprofile/templates/bprofile/edit.html:51
+#: bprofile/templates/bprofile/show.html:123
+msgid "Notes"
+msgstr "Заметки"
+
+#: bprofile/templates/bprofile/edit.html:60
+msgid "Job config"
+msgstr "Настройки задания"
+
+#: bprofile/templates/bprofile/edit.html:62
+msgid "Usually you don't have to edit this config file"
+msgstr "Обычно Вам не требуется редактировать этот файл настроек"
+
+#: bprofile/templates/bprofile/edit.html:63
+msgid "Instead try to tune"
+msgstr "Вместо этого попробуйте отредактировать"
+
+#: bprofile/templates/bprofile/edit.html:63
+msgid "the global configuration"
+msgstr "глобальные настройки"
+
+#: bprofile/templates/bprofile/edit_conf.html:15
+#: bprofile/templates/bprofile/edit_conf.html:16
+msgid "Edit Global config in"
+msgstr "Редактировать глобальный файл настроек в"
+
+#: bprofile/templates/bprofile/edit_conf.html:20
+msgid "Save config"
+msgstr "Сохранить файл настроек"
+
+#: bprofile/templates/bprofile/edit_conf.html:24
+msgid "Write config failed"
+msgstr "Запись настроек не удалась"
+
+#: bprofile/templates/bprofile/gqconf.html:9
+#: bprofile/templates/bprofile/gqconf.html:10
+#: bprofile/templates/bprofile/list.html:105
+msgid "Quick Settings"
+msgstr "Быстрая настройка"
+
+#: bprofile/templates/bprofile/gqconf.html:17
+msgid "Quick Settings error"
+msgstr "Ошибка быстрой настройки"
+
+#: bprofile/templates/bprofile/gqconf.html:29
+msgid "Help on TARGET format"
+msgstr "Информация по формату TARGET"
+
+#: bprofile/templates/bprofile/gqconf.html:30
+msgid "en"
+msgstr "ru"
+
+#: bprofile/templates/bprofile/init.html:9
+#: bprofile/templates/bprofile/init.html:10
+msgid "Initialize Backup System"
+msgstr "Инициализировать систему резервного копировния"
+
+#: bprofile/templates/bprofile/init.html:16
+msgid "Initialization error"
+msgstr "Ошибка инициализации"
+
+#: bprofile/templates/bprofile/init.html:20
+msgid "Backup configuration directory not found."
+msgstr "Конфигурационный каталог бэкапа не найден."
+
+#: bprofile/templates/bprofile/init.html:25
+msgid "Initialize"
+msgstr "Инициализировать"
+
+#: bprofile/templates/bprofile/list.html:80
+msgid "Start all backups"
+msgstr "Запусть все задания"
+
+#: bprofile/templates/bprofile/list.html:89
+#: bprofile/templates/bprofile/list.html:90
+msgid "Configured jobs in"
+msgstr "Настроенные задания в"
+
+#: bprofile/templates/bprofile/list.html:104
+msgid "Create new jobs"
+msgstr "Создать новое задание"
+
+#: bprofile/templates/bprofile/list.html:106
+msgid "Edit Config"
+msgstr "Редактировать настройки"
+
+#: bprofile/templates/bprofile/list.html:107
+#: bprofile/templates/bprofile/show.html:26
+#: bprofile/templates/bprofile/show.html:145
+msgid "Start backup"
+msgstr "Запустить задание"
+
+#: bprofile/templates/bprofile/list.html:113
+#: bprofile/templates/bprofile/show.html:127
+msgid "Last Full"
+msgstr "Последний полный"
+
+#: bprofile/templates/bprofile/list.html:114
+msgid "Incremental"
+msgstr "Инкрементальный"
+
+#: bprofile/templates/bprofile/list.html:115
+msgid "Failed"
+msgstr "Неудачный"
+
+#: bprofile/templates/bprofile/list.html:116
+msgid "Source"
+msgstr "Источник"
+
+#: bprofile/templates/bprofile/list.html:117
+#: bprofile/templates/bprofile/show.html:119
+msgid "Description"
+msgstr "Описание"
+
+#: bprofile/templates/bprofile/log.html:9
+#: bprofile/templates/bprofile/log.html:10
+#: bprofile/templates/bprofile/start_job.html:11
+msgid "Log"
+msgstr "Журнал"
+
+#: bprofile/templates/bprofile/log.html:9
+#: bprofile/templates/bprofile/log.html:10
+#: bprofile/templates/bprofile/start_job.html:11
+msgid "for job"
+msgstr "для задания"
+
+#: bprofile/templates/bprofile/log.html:9
+#: bprofile/templates/bprofile/log.html:10
+#: bprofile/templates/bprofile/start_job.html:11
+msgid "for date"
+msgstr "за дату"
+
+#: bprofile/templates/bprofile/log.html:14
+#: bprofile/templates/bprofile/start_job.html:15
+msgid "Jobs List"
+msgstr "Список заданий"
+
+#: bprofile/templates/bprofile/log.html:15
+#: bprofile/templates/bprofile/start_job.html:16
+msgid "Show Job"
+msgstr "Показать задание"
+
+#: bprofile/templates/bprofile/new.html:10
+#: bprofile/templates/bprofile/new.html:11
+msgid "Create new job"
+msgstr "Создать новое задание"
+
+#: bprofile/templates/bprofile/new.html:18
+msgid "Create job failed"
+msgstr "Создание задания не удалось"
+
+#: bprofile/templates/bprofile/show.html:26
+#: bprofile/templates/bprofile/show.html:146
+msgid "Start full backup"
+msgstr "Форсировать полный бэкап"
+
+#: bprofile/templates/bprofile/show.html:80
+#: bprofile/templates/bprofile/show.html:81
+msgid "Backup job"
+msgstr "Задание резервного копирования"
+
+#: bprofile/templates/bprofile/show.html:90
+msgid "Running"
+msgstr "Выполняется"
+
+#: bprofile/templates/bprofile/show.html:91
+msgid "Locked"
+msgstr "Заблокировано"
+
+#: bprofile/templates/bprofile/show.html:106
+msgid "Job read error"
+msgstr "Ошибка чтения задания"
+
+#: bprofile/templates/bprofile/show.html:113
+msgid "Edit"
+msgstr "Редактировать"
+
+#: bprofile/templates/bprofile/show.html:114
+msgid "Delete"
+msgstr "Удалить"
+
+#: bprofile/templates/bprofile/show.html:133
+msgid "Last Incremental"
+msgstr "Последний инкрементальный"
+
+#: bprofile/templates/bprofile/show.html:138
+msgid "Last Failed"
+msgstr "Последний неудачный"
+
+#: bprofile/templates/bprofile/show.html:143
+msgid "Jobs"
+msgstr "Список заданий"
+
+#: bprofile/templates/bprofile/show.html:147
+msgid "Restore"
+msgstr "Восстановить"
+
+#: bprofile/templates/bprofile/show.html:148
+msgid "Get backup status"
+msgstr "Получить статус задания"
+
+#: bprofile/templates/bprofile/show.html:149
+msgid "Get list of backuped files"
+msgstr "Посмотреть быкап"
+
+#: bprofile/templates/bprofile/show.html:150
+msgid "Purge"
+msgstr "Очистка"
+
+#: bprofile/templates/bprofile/show.html:154
+msgid "Exceptions globbing list"
+msgstr "Список шаблонов-исключений"
+
+#: bprofile/templates/bprofile/show.html:157
+msgid "Error"
+msgstr "Ошибка"
+
+#: bprofile/templates/bprofile/show.html:162
+msgid "Chose file or folder"
+msgstr "Выберите файл или каталог"
+
+#: bprofile/templates/bprofile/show.html:167
+msgid "Add exclusion"
+msgstr "Добавить исключение"
+
+#: bprofile/templates/bprofile/show.html:168
+msgid "Add inclusion"
+msgstr "Добавить включение"
+
+#: bprofile/templates/bprofile/show.html:172
+msgid "Shell patterns '*', '?' and '[...]' may be used (read 'man duplicity')."
+msgstr ""
+"Можно использовать файловые шаблоны '*', '?' и '[...]' (читайте 'man "
+"duplicity')."
+
+#: bprofile/templates/bprofile/show.html:173
+msgid "The inclusions in the list should preceed exclusions."
+msgstr "Включения должны предшествовать исключениям."
+
+#: bprofile/templates/bprofile/show.html:174
+msgid "To exclude all by default, add '**' exclusion at the end of the list."
+msgstr ""
+"Чтобы поумолчанию все исключить, добавьте исключение '**' в конец списка."
+
+#: bprofile/templates/bprofile/show.html:181
+msgid "remove"
+msgstr "убрать"
+
+#: bprofile/templates/bprofile/show.html:182
+msgid "up"
+msgstr "вверх"
+
+#: bprofile/templates/bprofile/show.html:183
+msgid "down"
+msgstr "вниз"
+
+#: bprofile/templates/bprofile/start_job.html:10
+#, fuzzy
+#| msgid "for job"
+msgid "Start job"
+msgstr "для задания"

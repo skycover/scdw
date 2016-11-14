@@ -18,22 +18,32 @@
 
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from django.views.generic.simple import direct_to_template
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from forms import *
-from bprofile import *
+from .forms import (
+    NewBackupForm, ConfigureBackupForm, AddExceptionForm, GlobalConfigForm,
+    QuickSettingsForm
+)
+from .bprofile import (
+    encode, scduply_init, find_confhome, enum_profiles,
+    read_bprofile, add_exclude, decode, write_exclude,
+    write_bprofile, create_bprofile, read_gconf,
+    write_gconf, list_keys, write_qconf, read_qconf,
+)
+
 
 @login_required()
 def init_backend(request, **kwargs):
     targs = {}
-    if (request.method == 'POST') and  ('submit' in request.POST):
+    if (request.method == 'POST') and ('submit' in request.POST):
         ret = scduply_init()
         if ret:
             targs['init_error'] = ret
         else:
             return HttpResponseRedirect('/')
 
-    return direct_to_template(request, 'bprofile/init.html', targs)
+    return render(request, 'bprofile/init.html', targs)
+
 
 @login_required()
 def list_bprofiles(request, **kwargs):
@@ -45,38 +55,48 @@ def list_bprofiles(request, **kwargs):
             'path_new': encode('select folder or file'),
         }
 
-        return direct_to_template(request, 'bprofile/list.html', targs)
+        return render(request, 'bprofile/list.html', targs)
     else:
         return HttpResponseRedirect('/init/')
+
 
 @login_required()
 def delete_bprofile(request, **kwargs):
     name = kwargs['name']
-    return direct_to_template(request, 'bprofile/delete.html', {'name': name,})
+    return render(request, 'bprofile/delete.html', {'name': name})
+
 
 @login_required()
 def show_bprofile(request, **kwargs):
-    from django.conf import settings
-
+    from bprofile import list_conf
+    from django.http import HttpResponseNotFound
     confhome = find_confhome()
     name = kwargs['name']
+    if name not in list_conf():
+        return HttpResponseRedirect('/')
     pr = read_bprofile(confhome, name)
     targs = {
         'confhome': confhome,
         'profile': pr,
         'action_show': encode('/show/%s' % name),
         'source_enc': encode(pr['source']),
-        'exclude_enc': [{'plain': e, 'encoded': encode(e)} for e in pr['exclude']]
+        'exclude_enc': [
+            {'plain': e, 'encoded': encode(e)} for e in pr['exclude']
+        ]
     }
     
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         add_exception_form = AddExceptionForm(request.POST)
         if add_exception_form.is_valid():
             cd = add_exception_form.cleaned_data
-            if ('submit_add_plus' in request.POST):
-                ret = add_exclude(confhome, pr, cd['source'].encode('utf8'), '+')
-            elif ('submit_add_minus' in request.POST):
-                ret = add_exclude(confhome, pr, cd['source'].encode('utf8'), '-')
+            if 'submit_add_plus' in request.POST:
+                ret = add_exclude(
+                    confhome, pr, cd['source'].encode('utf8'), '+'
+                )
+            elif 'submit_add_minus' in request.POST:
+                ret = add_exclude(
+                    confhome, pr, cd['source'].encode('utf8'), '-'
+                )
             if ret:
                 targs['exception_error'] = ret
             else:
@@ -89,15 +109,17 @@ def show_bprofile(request, **kwargs):
                 excpt = excpt[len(pr['source'])+1:]
             else:
                 excpt = ""
-                targs['exception_error'] = 'Selected path is not under the backup path'
+                targs['exception_error'] = \
+                    'Selected path is not under the backup path'
         else:
             excpt = ""
         add_exception_form = AddExceptionForm(
-            initial={'source': excpt,
-            })
+            initial={'source': excpt}
+        )
 
     targs['add_exception_form'] = add_exception_form
-    return direct_to_template(request, 'bprofile/show.html', targs)
+    return render(request, 'bprofile/show.html', targs)
+
 
 @login_required()
 def excl_action(request, **kwargs):
@@ -124,6 +146,7 @@ def excl_action(request, **kwargs):
         write_exclude(confhome, pr)
 
     return HttpResponseRedirect('/show/%s/' % name)
+
 
 @login_required()
 def edit_bprofile(request, **kwargs):
@@ -155,7 +178,8 @@ def edit_bprofile(request, **kwargs):
             })
 
     targs['conf_backup_form'] = conf_backup_form
-    return direct_to_template(request, 'bprofile/edit.html', targs)
+    return render(request, 'bprofile/edit.html', targs)
+
 
 @login_required()
 def new_bprofile(request, **kwargs):
@@ -180,8 +204,10 @@ def new_bprofile(request, **kwargs):
         if new_backup_form.is_valid():
             cd = new_backup_form.cleaned_data
             # check for the already configured profile
-            if os.path.isfile(os.path.join(confhome,cd['name'],'source')):
-                targs['new_backup_error'] = "Profile '%s' already exists" % cd['name']
+            if os.path.isfile(
+                    os.path.join(confhome, cd['name'], 'source')):
+                targs['new_backup_error'] = \
+                    "Profile '%s' already exists" % cd['name']
             else:
                 ret = create_bprofile(confhome, cd['name'], cd['source'])
                 if ret:
@@ -192,7 +218,8 @@ def new_bprofile(request, **kwargs):
         new_backup_form = NewBackupForm(initial={'source': source})
 
     targs['new_backup_form'] = new_backup_form
-    return direct_to_template(request, 'bprofile/new.html', targs)
+    return render(request, 'bprofile/new.html', targs)
+
 
 @login_required()
 def edit_conf(request, **kwargs):
@@ -213,10 +240,11 @@ def edit_conf(request, **kwargs):
     else:
         global_conf_form = GlobalConfigForm(
             initial={'conf': read_gconf(confhome),
-            })
+        })
 
     targs['global_conf_form'] = global_conf_form
-    return direct_to_template(request, 'bprofile/edit_conf.html', targs)
+    return render(request, 'bprofile/edit_conf.html', targs)
+
 
 @login_required()
 def edit_quick(request, **kwargs):
@@ -236,21 +264,111 @@ def edit_quick(request, **kwargs):
         else:
             targs['quick_settings_error'] = "Saving failed"
     else:
-        quick_settings_form = QuickSettingsForm( initial=read_qconf(confhome),)
+        quick_settings_form = QuickSettingsForm(initial=read_qconf(confhome),)
 
     targs['quick_settings_form'] = quick_settings_form
-    return direct_to_template(request, 'bprofile/gqconf.html', targs)
+    return render(request, 'bprofile/gqconf.html', targs)
+
 
 @login_required()
 def show_log(request, **kwargs):
+    from bprofile import get_consolecodepage
     from commands import getoutput
-
     targs = {
-        'logstuff': getoutput("zcat '%s'" % decode(kwargs['log_enc'])),
+        'logstuff': unicode(
+            getoutput("zcat '%s'" % decode(kwargs['log_enc'])),
+            encoding=get_consolecodepage()
+        ),
         'name': kwargs['name'],
         'type': kwargs['type'],
         'date': kwargs['date'],
     }
 
-    return direct_to_template(request, 'bprofile/log.html', targs)
+    return render(request, 'bprofile/log.html', targs)
 
+
+@login_required()
+def edit_quick_new(request, **kwargs):
+    from forms.QuickSettingsFormNew import QuickSettingsFormBase
+    from bprofile import read_qconf_new, write_qconf_new
+    from forms.templates import FORM_LIST
+    confhome = find_confhome()
+    targs = {
+        'confhome': confhome,
+    }
+    if request.method == 'GET':
+        args = read_qconf_new(confhome)
+        class_tuple = (QuickSettingsFormBase,)
+        if args.get('TARGET'):
+            target = args.get('TARGET').split('://')[0]
+            if FORM_LIST.get('target_' + target):
+                class_tuple += (FORM_LIST['target_' + target], )
+                args['use_type'] = target
+        if args.get('GPG_KEY'):
+            gpg = args['GPG_KEY']
+            if gpg in dict(list_keys()):
+                args['use_gpg'] = 'key'
+                class_tuple += (FORM_LIST['gpg_key'], )
+            elif gpg == 'disabled':
+                args['use_gpg'] = 'no'
+            else:
+                args['use_gpg'] = 'password'
+                class_tuple += (FORM_LIST['gpg_pw'], )
+        Form = type('Form', class_tuple, {})
+        targs['quick_settings_form'] = Form(initial=args)
+        return render(request, 'bprofile/gqconf_new.html', targs)
+
+    if (request.method == 'POST') and ('submit' in request.POST):
+        args = request.POST.copy()
+        class_tuple = (QuickSettingsFormBase, )
+        if args['use_mail'] == 'yes':
+            class_tuple += (FORM_LIST['mail'], )
+        if FORM_LIST.get('target_' + args['use_type']):
+            class_tuple += (FORM_LIST['target_' + args['use_type']], )
+        if args.get('GPG_KEY'):
+            gpg = args['GPG_KEY']
+            if gpg in dict(list_keys()):
+                args['use_gpg'] = 'key'
+                class_tuple += (FORM_LIST['gpg_key'], )
+            elif gpg == 'disabled':
+                args['GPG_KEY'] = 'disabled'
+                if args.get('GPG_PW'):
+                    del args['GPG_PW']
+            else:
+                args['use_gpg'] = 'password'
+                class_tuple += (FORM_LIST['gpg_pw'], )
+        Form = type('Form', class_tuple, {})
+        # quick_settings_form = QuickSettingsFormBase(request.POST)
+        print class_tuple
+        quick_settings_form = Form(request.POST)
+        if quick_settings_form.is_valid():
+            cd = quick_settings_form.cleaned_data
+            write_qconf_new(confhome, cd)
+            targs['quick_settings_form'] = quick_settings_form
+            return render(request, 'bprofile/gqconf_new.html', targs)
+        else:
+            targs['quick_settings_error'] = "Saving failed"
+    else:
+
+        quick_settings_form = QuickSettingsFormBase(initial=read_qconf_new(confhome))
+
+    targs['quick_settings_form'] = quick_settings_form
+    return render(request, 'bprofile/gqconf_new.html', targs)
+
+
+def renderForm(request):
+    from forms.QuickSettingsFormNew import QuickSettingsFormBase
+    from forms.templates import FORM_LIST
+    import inspect
+    args = request.GET.keys()
+    class_tuple = (QuickSettingsFormBase, )
+    for arg in args:
+        if FORM_LIST.get(arg):
+            class_tuple += (FORM_LIST[arg], )
+    Form = type('Form', class_tuple, {})
+    print inspect.getmro(Form)[1:-3]
+    targs = {
+        'form': Form()
+    }
+
+    return render(request, 'bprofile/renderform.html', targs)

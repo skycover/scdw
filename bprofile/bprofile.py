@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 # The SkyCover Duply Web - the web interface for scduply/duplicity.
 # Copyright (C) 2011 Dmitry Chernyak
@@ -16,7 +17,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from urlenc import encode, decode
+
+def encode(s):
+    import base64
+    try:
+        return base64.b64encode(
+            s.encode('utf-8')
+        ).replace('+', '-').replace('/', '_')
+    except:
+        return base64.b64encode(s).replace('+', '-').replace('/', '_')
+
+
+def decode(s):
+    import base64
+    m = s.replace('-', '+').replace('_', '/')
+    try:
+        return unicode(base64.b64decode(m), encoding='utf-8')
+    except:
+        return base64.b64decode(m)
+
 
 def find_confhome():
     import os
@@ -28,6 +47,7 @@ def find_confhome():
     else:
         return None
 
+
 def scduply_init():
     import commands
     (status, output) = commands.getstatusoutput("scduply init")
@@ -35,6 +55,7 @@ def scduply_init():
         return output
     else:
         return None
+
 
 def scduply_create(name):
     import commands
@@ -44,13 +65,15 @@ def scduply_create(name):
     else:
         return None
 
+
 def nicedate(d):
     from datetime import datetime
-
-    uu = datetime.strptime(d, '%Y%m%dT%H%M%SZ')
-    dd = uu + (datetime.now() - datetime.utcnow())
-
+    import pytz
+    from jobs.const import TIMEZONE
+    uu = datetime.strptime(d, '%Y%m%dT%H%M%SZ').replace(tzinfo=pytz.UTC)
+    dd = uu.astimezone(TIMEZONE)
     return dd.strftime('%Y-%m-%d %H:%M:%S')
+
 
 def read_logs(confhome, name):
     import os
@@ -68,7 +91,9 @@ def read_logs(confhome, name):
     err = ''
     errf = ''
     if os.path.exists(logdir):
-        for f in [ l for l in os.listdir(logdir) if l.startswith('duplicity-log.') ]:
+        for f in [l for l in os.listdir(logdir)
+                  if l.startswith('duplicity-log.')
+                  or l.startswith('duplicity-cmdlog-pre_full_post.')]:
             m = f.split('.')
             d = m[-2]
             if m[1] == 'err':
@@ -100,45 +125,64 @@ def read_logs(confhome, name):
     return {'full': (full, fullf), 'inc': (inc, incf), 'err': (err, errf)}
 
         
-
-def read_bprofile(confhome, name, full = True):
+def read_bprofile(confhome, name):
     import os
-
+    from codecs import open
+    from jobs.scduply import is_running
     confdir = os.path.join(confhome, name)
     srcfile = os.path.join(confdir, 'source')
     dscfile = os.path.join(confdir, 'descr')
     cnffile = os.path.join(confdir, 'conf')
     excfile = os.path.join(confdir, 'exclude')
+    lockfile = os.path.join(
+        os.getenv('HOME'), '.cache', 'duplicity', name, 'lockfile.lock'
+    )
     if os.path.isdir(confdir) and os.path.isfile(srcfile):
         f = open(srcfile, 'r')
-        ff = {'name': name, 'source': f.readline().strip(), }
+        try:
+            ff = {
+                'name': name,
+                'source': unicode(f.readline().strip(), encoding='utf-8')
+            }
+        except:
+            ff = {'name': name, 'source': f.readline().strip(), }
+
+        ff['source']
         f.close()
-        f = open(cnffile, 'r')
+        f = open(cnffile, 'r', encoding='utf-8')
         ff['conf'] = f.read()
         f.close()
         try:
-            f = open(excfile, 'r')
-            ff['exclude'] = [s.strip() for s in f.readlines() if s.strip() != '']
+            f = open(excfile, 'r', encoding='utf-8')
+            ff['exclude'] = [
+                s.strip() for s in f.readlines()
+                if s.strip() != ''
+            ]
             f.close()
         except:
-            ff['exclude']=[]
+            ff['exclude'] = []
         try:
-            f = open(dscfile, 'r')
+            f = open(dscfile, 'r', encoding='utf-8')
             ff['descr'] = f.readline().strip()
-            ff['notes']=f.read()
+            ff['notes'] = f.read()
             f.close()
         except:
             ff['descr'] = ''
-            ff['notes']=''
+            ff['notes'] = ''
 
         ff['logs'] = read_logs(confhome, name)
-
+        ff['locking'] = os.path.exists(
+            lockfile
+        )
+        ff['running'] = is_running(name)
         return ff
     else:
         return None
 
+
 def create_bprofile(confhome, name, source):
     import os
+    from codecs import open
     confdir = os.path.join(confhome, name)
     if not os.path.isdir(confdir):
         ret = scduply_create(name)
@@ -146,10 +190,11 @@ def create_bprofile(confhome, name, source):
             return ret
         if not os.path.isdir(confdir):
             return "scduply hasn't created profile in %s' % confdir"
-    f = open(os.path.join(confdir, "source"),'w')
+    f = open(os.path.join(confdir, "source"), 'w', encoding='utf-8')
     f.write(source+'\n')
     f.close()
     return None
+
 
 def write_bprofile(confhome, cd):
     import os
@@ -157,21 +202,27 @@ def write_bprofile(confhome, cd):
     if not os.path.isdir(confdir):
         return "Profile not found in %s'" % confdir
     write_safe(os.path.join(confdir, "conf"),
-        cd.get('conf',"# Empty config file. Use global settings.\n").replace('\r',''))
+        cd.get(
+            'conf',
+            "# Empty config file. Use global settings.\n"
+        ).replace('\r', ''))
     write_safe(os.path.join(confdir, "source"),
         cd['source']+'\n')
     if cd.get('exclude'):
         write_exclude(confhome, cd)
     write_safe(os.path.join(confdir, "descr"),
-        cd.get('descr','')+'\n'+cd.get('notes','').replace('\r',''))
+        cd.get('descr', '')+'\n'+cd.get('notes', '').replace('\r', ''))
+
 
 def write_safe(fname, data):
     import os
-    ftemp = fname+'.tmp'
-    f = open(ftemp, 'w')
+    from codecs import open
+    ftemp = fname + '.tmp'
+    f = open(ftemp, 'w', encoding='utf-8')
     f.write(data)
     f.close()
     os.rename(ftemp, fname)
+
 
 def write_exclude(confhome, profile):
     import os
@@ -181,11 +232,12 @@ def write_exclude(confhome, profile):
         '\n'.join(profile['exclude'])+'\n'
     )
 
+
 def add_exclude(confhome, profile, source, sign):
     if source == '**':
         src = '**'
     else:
-        src = "%s/%s" % (profile['source'], source)
+        src = "%s/%s" % (profile['source'], unicode(source, encoding='utf-8'))
     if sign:
         s = "%s %s" % (sign, src)
     else:
@@ -193,15 +245,17 @@ def add_exclude(confhome, profile, source, sign):
     profile['exclude'].append(s)
     return write_exclude(confhome, profile)
 
+
 def enum_profiles(confhome):
     import os
 
     blist = []
     for f in os.listdir(confhome):
-        ff = read_bprofile(confhome, f, False)
+        ff = read_bprofile(confhome, f)
         if ff:
             blist.append(ff)
     return blist
+
 
 def read_gconf(confhome):
     import os
@@ -215,20 +269,22 @@ def read_gconf(confhome):
     else:
         return ''
 
+
 def write_gconf(confhome, conf):
     import os
-    write_safe(os.path.join(confhome, 'conf'), conf.replace('\r',''))
+    write_safe(os.path.join(confhome, 'conf'), conf.replace('\r', ''))
+
 
 def list_keys():
-    from commands import getoutput
+    from subprocess import check_output
     res = []
-    for l in getoutput("gpg --list-secret-keys").split('\n'):
+    for l in check_output(("gpg", "--list-secret-keys")).split('\n'):
         m = l.split()
         # XXX here is some strange bug under CygWin:
         # If I use "m" instead of "len(m)>0" then "m" evaluates to False
         # But if I write "print m", or simple "pass" before the "if" statement
         # Then "m" becames True and all goes fine
-        if len(m)>0:
+        if len(m) > 0:
             if m[0] == 'sec':
                 key = m[1].split('/')[1]
                 date = m[2]
@@ -237,13 +293,14 @@ def list_keys():
                 res.append([key, "%s (%s, %s)" % (key, date, uid)])
     return res
 
+
 def read_qconf(confdir):
     import os
     res = {}
     qcnffile = os.path.join(confdir, 'conf.scdw')
     if os.path.isdir(confdir) and os.path.isfile(qcnffile):
         f = open(qcnffile, 'r')
-        for l in [ s.strip() for s in f.readlines() ]:
+        for l in [s.strip() for s in f.readlines()]:
             m = l.split("='")
             if m:
                 if m[0] == 'TARGET':
@@ -255,15 +312,62 @@ def read_qconf(confdir):
         f.close()
     return res
 
-def write_qconf(confdir,qconf):
+
+def read_qconf_new(confdir):
     import os
-    from bprofile import write_safe
+    res = {}
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    if os.path.isdir(confdir) and os.path.isfile(qcnffile):
+        f = open(qcnffile, 'r')
+        for l in [s.strip() for s in f.readlines()]:
+            m = l.split("=")
+            res[m[0]] = m[1].replace('\'', '').replace('\"', '')
+        f.close()
+    return res
+
+
+def write_qconf(confdir, qconf):
+    import os
     qcnffile = os.path.join(confdir, 'conf.scdw')
     s=''
     if qconf.get('target'):
-        s+="%s='%s'\n" % ('TARGET', qconf.get('target'))
+        s += "%s='%s'\n" % ('TARGET', qconf.get('target'))
     if qconf.get('key'):
-        s+="%s='%s'\n" % ('GPG_KEY', qconf.get('key'))
+        s += "%s='%s'\n" % ('GPG_KEY', qconf.get('key'))
     if qconf.get('password'):
-        s+="%s='%s'\n" % ('GPG_PW', qconf.get('password'))
+        s += "%s='%s'\n" % ('GPG_PW', qconf.get('password'))
+    write_safe(qcnffile, s)
+
+
+def get_consolecodepage():
+    from commands import getoutput
+    from sys import platform
+    codepage = 'utf-8'
+    exclude_list = {
+        '65001': 'utf-8'
+    }
+    if platform == 'cygwin':
+        output = getoutput('cmd /c chcp')
+        console_codepage = output[:-1].split(' ')[-1]
+        codepage = exclude_list.get(console_codepage, 'cp%s' % console_codepage)
+    return codepage
+
+
+def list_conf():
+    import os
+    home = find_confhome()
+    ret = [
+        d for d in os.listdir(home)
+        if os.path.isdir(os.path.join(home, d)) and not d == 'log' and
+        os.path.exists(os.path.join(home, d, 'conf'))
+    ]
+    return ret
+
+
+def write_qconf_new(confdir, qconf={}):
+    import os
+    qcnffile = os.path.join(confdir, 'conf.scdw')
+    s = ''
+    for key, val in qconf.items():
+        s += u"%s=%s\n" % (key, val)
     write_safe(qcnffile, s)

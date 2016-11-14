@@ -1,0 +1,76 @@
+.chlist {
+    display: block;
+    height: 20em;
+    overflow: auto;
+}
+
+.clear {
+    clear: both;
+}
+
+.error {
+    color: white;
+    background-color: red;
+}
+
+.links {
+    margin-top: 1em;
+}
+
+.index_block {
+    margin: 1.5em;
+    font-size: 1.5em;
+}
+
+.index_note {
+    /*font-style: oblique;*/
+    font-size: 0.7em;
+    margin-top: 0.5em;
+}
+
+.index_note ul li {
+    /*font-style: oblique;*/
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+#brief {
+    width: 50%;
+    float: right;
+}
+
+.doc {
+    width: 50em;
+}
+
+.bprofile, .conf_exclude, .conf_backup, .conf_config{
+    float: left;
+}
+
+.conf_exclude, .conf_config {
+    margin-left: 22px;
+}
+
+.bprofile pre {
+    margin: 0;
+}
+
+.buttons {
+    margin: 10px 0;
+}
+
+.buttons a {
+    padding: 3px 12px;
+    background: #999;
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.buttons a:hover {
+    background: darkgray;
+    color: #ffffcc;
+}

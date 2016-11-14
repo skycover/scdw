@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load tz %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/jobs.css" %}" />
+    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var bkpall_btn = $('a#bkpall');
+            var input_csrfoken = "csrfmiddlewaretoken=" +
+                    $('input[name="csrfmiddlewaretoken"]').attr('value') + ';';
+            var message_li = $('li#backupMessage');
+            function showMessage(msg) {
+                message_li.html(msg);
+                message_li.slideDown(300).delay(2800).slideUp(300);
+            }
+            function reqStatus() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url 'AllJobsStatusAjax' %}',
+                    success: updateStatus
+                });
+            }
+            function reqBkpAll() {
+                $.ajax({
+                    'type': 'POST',
+                    url: '{% url 'StartBKPALLAjax' %}',
+                    data: input_csrfoken
+                });
+            }
+            function showImage(img_l, img_r, img) {
+                if (img == 'run') {
+                    img_l.is(':visible') ? img_l.hide() : null;
+                    !img_r.is(':visible') ? img_r.show() : null;
+                } else if (img == 'lock') {
+                    img_r.is(':visible') ? img_r.hide() : null;
+                    !img_l.is(':visible') ? img_l.show() : null;
+                } else {
+                    img_r.is(':visible') ? img_r.hide() : null;
+                    img_l.is(':visible') ? img_l.hide() : null;
+                }
+            }
+            function updateRow(row, log) {
+                Object.keys(log).forEach(function (key) {
+                    row.find('td.' + key).html(
+                        '<a href="/log/' + row.attr('id') + '/' + key + '/' + log[key][0] + '/' + log[key][1] + '/">' +  log[key][0] + '</a>'
+                    )
+                })
+            }
+            function updateStatus(msg) {
+                Object.keys(msg).forEach(function (key) {
+                    var id = key;
+                    var locked = msg[key]['locking'];
+                    var running = msg[key]['running'];
+                    var row = $("tr#" + id);
+                    var img_l = row.find('img.lock');
+                    var img_r = row.find('.run');
+                    var logs = {
+                        'Full': msg[key]['logs']['full'],
+                        'Failed': msg[key]['logs']['err'],
+                        'Incremental': msg[key]['logs']['inc']
+                    };
+                    updateRow(row, logs);
+                    if (locked && !running) {
+                        showImage(img_l, img_r, 'lock')
+                    } else if (running) {
+                        showImage(img_l, img_r, 'run');
+
+                    } else {
+                        showImage(img_l, img_r, 'nothing')
+                    }
+                })
+            }
+            reqStatus();
+            bkpall_btn.click(function() {
+                reqBkpAll();
+                showMessage('{% trans 'Start all backups' %}');
+            });
+            window.setInterval(function () {
+                reqStatus();
+            }, 5000)
+        });
+    </script>
+{% endblock %}
+
+{% block title %}{% trans "Configured jobs in" %} {{ confhome }}{% endblock %}
+{% block branding %}<h1>{% trans "Configured jobs in" %} {{ confhome }}</h1>{% endblock %}
+
+{% block messages %}
+    <li id='backupMessage' style='display: none' class="success"></li>
+{% endblock %}
+
+{% block content %}
+    <div id="hidden" style="display: none">
+    {% csrf_token %}
+    </div>
+    {% if herror %}
+        {{ herror }}
+    {% else %}
+    <div class=buttons>
+        <a href="/new/{{ path_new }}/">{% trans "Create new jobs" %}</a>
+        <a href="/edit_quick/">{% trans "Quick Settings" %}</a>
+        <a href="/edit_config/">{% trans "Edit Config" %}</a>
+        <a id='bkpall'>{% trans "Start backup" %}</a>
+    </div>
+    <div class=conf_backups>
+        <table>
+            <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Last Full" %}</th>
+            <th>{% trans "Incremental" %}</th>
+            <th>{% trans "Failed" %}</th>
+            <th>{% trans "Source" %}</th>
+            <th>{% trans "Description" %}</th>
+            </tr>
+            {% for b in bprofiles %}
+            <tr id="{{ b.name }}">
+                <th><a href="/show/{{ b.name }}/">
+                    {{ b.name }}
+                    <img id="{{ b.name }}" class="run" src="{% static "admin/img/icon-yes.svg" %}"/>
+                    <img id="{{ b.name }}" class="lock" src="{% static "admin/img/icon-no.svg" %}"/>
+                </a></th>
+                <td class="Full"><a href="/log/{{ b.name }}/Full/{{ b.logs.full.0 }}/{{ b.logs.full.1 }}/">{{ b.logs.full.0|localtime }}</a></td>
+                <td class="Incremental"><a href="/log/{{ b.name }}/Incremental/{{ b.logs.inc.0 }}/{{ b.logs.inc.1 }}/">{{ b.logs.inc.0|localtime }}</a></td>
+                <td class="Failed"><a href="/log/{{ b.name }}/Failed/{{ b.logs.err.0 }}/{{ b.logs.err.1 }}/">{{ b.logs.err.0|localtime }}</a></td>
+                <td> {% if b.source|length < 55 %}
+                    {{ b.source }}
+                {% else %}
+                    <span title="{{ b.source }}">{{ b.source|slice:":25" }} ... {{ b.source|slice:"-25:" }}</span>
+                {% endif %}</td>
+                <td>{{ b.descr }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% endif %}
+{% endblock content %}

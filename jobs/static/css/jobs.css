@@ -1,0 +1,101 @@
+div.jobs {
+    display: block;
+    position: relative;
+    float: left;
+    min-width: 150px;
+    width: 50%;
+    max-width: inherit;
+}
+
+.jobs td {
+    border: none
+}
+
+.jobs > div {
+    margin-left: 22px;
+}
+
+.jobs .buttons {
+    max-width: inherit;
+    width: 100%;
+    min-width: 150px;
+}
+
+.jobs .buttons a {
+    display: block;
+    position: relative;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+img.lock, img.run {
+    float: right;
+    display: none;
+    margin-left: 5px;
+}
+
+/**
+ * Формируем стили подсказки
+*/
+
+/* атрибут элемента с подсказкой */
+[data-tooltip] {
+  display:inline-block;
+  position:relative;
+  /* определяем вид курсора если это не ссылка */
+  cursor: pointer;
+ }
+/*  по умолчанию скрываем содержимое подсказки */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* формируем тело подсказки */
+[data-tooltip]:before {
+    background: #7f9f7f; /* фон для старых браузеров */
+    background: hsla(110,100%,17%,.9);
+    bottom: 100%;
+    margin-bottom: 6px;
+    color: #f6f6f6;
+    content: attr(data-tooltip);/* Часть кода, определяющая содержимое всплывающей подсказки */
+    font-size: 14px;
+    text-transform: none;
+    width: 320px; /* устанавливаем необходимую фиксированную ширину, слова будут переноситься */
+    left: 0;
+    padding: 7px 10px;
+    position: absolute;/* обязательно позиционирум абсолютно */
+    text-shadow: 0 1px 1px hsla(0,0%,0%,1);/* тень для текста */
+    /* по желанию - скругляем углы тела подсказки */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+/* формируем указатель подсказки */
+[data-tooltip]:after {
+    border-top: 6px solid #3F7F5F;
+    border-top: 6px solid hsla(110,100%,17%,.9);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    bottom: 100%;
+    content: "";
+    height: 0;
+    width: 0;
+    left: 25px;
+    position: absolute;
+}
+/* Показываем подсказку с указателем при наведении */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  transition: all 0.4s ease-in-out; /* добавляем плавности перехода */
+}

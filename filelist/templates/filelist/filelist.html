@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
+{% endblock %}
+
+{% block title %}{% trans "Select file or directory in" %} {{ path.decoded }}{% endblock %}
+{% block branding %}<h1>{% trans "Select file or directory in" %} {{ path.decoded }}</h1>{% endblock %}
+
+{% block content %}
+    {% if path_error %}
+        {{ path_error }}
+    {% else %}
+
+    <div class=select_file>
+        {% if path_form_error %}
+        <div clas=error>
+            {% trans "Select path failed" %}: {{ path_form_error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="">
+        {% csrf_token %}
+        {{ select_path_form }}
+        <input type="submit" name="submit" value="{% trans "Go there" %}" id="submit">
+        </form>
+    </div>
+    <div class=path>
+    <a href="{% url p_url action.encoded root.encoded %}">{{ root.decoded }}</a>
+    {% for p in path_list %}
+        &ndash;&gt; <a href="{% url p_url action.encoded  p.encoded %}">{{ p.decoded }}</a>
+    {% endfor %}
+    </div>
+    <div class=buttons>
+        <a href="{{ action.decoded }}/{{ path.encoded }}">{% trans "Select this folder" %}</a>
+        | {% trans "Go to" %}: <a href="{% url p_url action.encoded home.encoded %}">{% trans "Home directory" %}</a>
+        <a href="{% url p_url action.encoded documents.encoded %}">{% trans "Documents" %}</a>
+    </div>
+    <div class=file_list>
+        <table>
+            <tr>
+            <th></th>
+            <th>{% trans "Name" %}</th>
+            <th></th>
+            </tr>
+            {% for f in file_list %}
+            <tr>
+                <th>{{ f.type }}</th>
+                <td>
+                    {% if f.type == "+" %}<a href="{% if dirsOnly %}{% url 'ListDirs' action.encoded f.encoded %}{% else %}{% url 'ListFiles' action.encoded f.encoded %}{% endif %}">{{ f.decoded }}</a>
+                    {% else %} {{ f.decoded }}
+                    {% endif %}
+                </td>
+                <td><a href="{{ action.decoded }}/{{ f.encoded }}">select</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+    {% endif %}
+{% endblock content %}

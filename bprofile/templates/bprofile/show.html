@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chlist.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jobs.css' %}" />
+    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var $table = $('table#infotable');
+            var $hidden_table = $('#hidden').find('> table');
+            var $row_lock = $('tr#lock');
+            var $row_run = $('tr#run');
+            var message_li = $('li#backupMessage');
+            var job_bkp = $('a#bkp');
+            var job_full = $('a#full');
+            var job_cleanup = $('a#cleanup');
+            var log_ = {
+                'full': 'Full',
+                'inc': 'Incremental',
+                'err': 'Failed'
+            };
+            var csrfoken = "csrfmiddlewaretoken=" +
+                    $('input[name="csrfmiddlewaretoken"]').attr('value') + ';';
+            function startBkp(full) {
+                showMessage((full ? '{% trans 'Start full backup' %} ': '{% trans 'Start backup' %} ') + '{{ profile.name }}' );
+                $.ajax({
+                    type: 'POST',
+                    url: !full ? '{% url 'StartBackupAjax' profile.name %}' : '{% url 'StartFullBackupAjax' profile.name %}',
+                    data: csrfoken
+                })
+            }
+            function updateRow(log) {
+                Object.keys(log).forEach(function (key) {
+                    $table.find('td.' + log_[key]).html(
+                        !log[key][0] == '' ? '<a href="/log/' + '{{ profile.name }}' + '/' + log_[key] + '/' + log[key][0] + '/' + log[key][1] + '/">' +  log[key][0] + '</a>' : ''
+                    )
+                })
+            }
+            function moveRow(row, from, to) {
+                if (row.parent().parent().is(from)) {
+                    row.detach();
+                    to.append(row)
+                }
+            }
+            function updateStatus(msg) {
+                var locking = msg['locking'];
+                var running = msg['running'];
+                updateRow(msg['logs']);
+                if (locking && !running) {
+                    moveRow($row_lock, $hidden_table, $table)
+                } else if (running) {
+                    moveRow($row_run, $hidden_table, $table)
+                } else {
+                    moveRow($row_run, $table, $hidden_table);
+                    moveRow($row_lock, $table, $hidden_table)
+                }
+            }
+            function showMessage(msg) {
+                message_li.html(msg);
+                message_li.slideDown(300).delay(2800).slideUp(300);
+            }
+            // updateStatus({
+            //    locking: {{ profile.locking|lower }},
+            //    running: {{ profile.running|lower }}
+            //});
+            job_bkp.click(function () {startBkp()});
+            job_full.click(function () {startBkp(true)});
+            job_cleanup.click(function () {
+               $.ajax
+            });
+            window.setInterval(function () {
+                var d = $.ajax({
+                    type: 'GET',
+                    url: '{% url 'JobStatusAjax' profile.name %}',
+                    success: updateStatus
+                });
+            }, 5000)
+        });
+    </script>
+{% endblock %}
+
+{% block title %}{% trans "Backup job" %}: {{ profile.name }}{% endblock %}
+{% block branding %}<h1>{% trans "Backup job" %}: {{ profile.name }}</h1>{% endblock %}
+
+{% block messages %}
+    <li id='backupMessage' style='display: none' class="success"></li>
+{% endblock %}
+
+{% block content %}
+    <div id='hidden' style="display: none">
+        <table>
+            <tr id="run"><th>{% trans "Running" %}:</th><td><img src="{% static 'admin/img/icon-yes.svg'%}"></td></tr>
+            <tr id="lock"><th>{% trans "Locked" %}:</th><td><img src="{% static 'admin/img/icon-no.svg'%}"></td></tr>
+        </table>
+    </div>
+    <div class="header">
+    <table>
+    <tr><th>{% trans "Name" %}:</th><td>{{ profile.name }}</td></tr>
+        <tr>
+            <th>{% trans "Source path" %}:</th>
+            <td>{{ profile.source }}</td>
+        </tr>
+    </table>
+    </div>
+    <div class=bprofile>
+        {% if profile_error %}
+        <div class=error>
+            {% trans "Job read error" %}: {{ profile_error }}
+        </div>
+        {% endif %}
+        
+        <h2>{% trans "Job description" %}</h2>
+
+        <div class=buttons>
+        <a href=/edit/{{ profile.name }}>{% trans "Edit" %}</a>
+        <a href=/delete/{{ profile.name }}>{% trans "Delete" %}</a>
+        <a href="/">{% trans "Return" %}</a>
+        </div>
+        <table id="infotable">
+            <tr>
+                <th>{% trans "Description" %}:</th>
+                <td>{{ profile.descr }}</td>
+            </tr>
+            <tr>
+                <th>{% trans "Notes" %}:</th>
+                <td><pre>{{ profile.notes }}</pre></td>
+            </tr>
+            <tr>
+                <th>{% trans "Last Full" %}:</th>
+                <td class="Full">
+                    <a href="/log/{{ profile.name }}/Full/{{ profile.logs.full.0 }}/{{ profile.logs.full.1 }}/">{{ profile.logs.full.0 }}</a>
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans "Last Incremental" %}:</th>
+                <td class="Incremental">
+                    <a href="/log/{{ profile.name }}/Incremental/{{ profile.logs.inc.0 }}/{{ profile.logs.inc.1 }}/">{{ profile.logs.inc.0 }}</a>
+                </td>
+            </tr>
+            <tr><th>{% trans "Last Failed" %}:</th><td class="Failed"><a href="/log/{{ profile.name }}/Failed/{{ profile.logs.err.0 }}/{{ profile.logs.err.1 }}/">{{ profile.logs.err.0 }}</a></td></tr>
+        </table>
+    </div>
+    <div class="jobs">
+        <div>
+        <h2>{% trans "Jobs" %}</h2>
+        <div class="buttons">
+                <a id="bkp">{% trans "Start backup" %}</a>
+                <a id="full">{% trans "Start full backup" %}</a>
+                <a href="{% url "RestoreFiles" profile.name %}">{% trans "Restore" %}</a>
+                <a href="{% url "ListProfileFiles" profile.name %}">{% trans "Get list of backuped files" %}</a>
+                <a>{% trans "Purge" %}</a>
+                <a id="cleanup">{% trans "Cleanup" %}</a>
+        </div>
+        </div>
+    <div class=conf_exclude>
+        <h2>{% trans "Exceptions globbing list" %}</h2>
+        {% if exception_error %}
+        <div class=error>
+            {% trans "Error" %}: {{ exception_error }}
+        </div>
+        {% endif %}
+        <form method="POST" action="">
+        {% csrf_token %}
+        <a href=/filelist/{{ action_show }}/{{ source_enc }}>{% trans "Chose file or folder" %}</a><br/>
+        {{ add_exception_form.non_field_errors }}
+        {{ add_exception_form.source.errors }}
+         {{ add_exception_form.source }}
+        <br class="clear">
+        <input type="submit" name="submit_add_minus" value="{% trans "Add exclusion" %}" id="submit">
+        <input type="submit" name="submit_add_plus" value="{% trans "Add inclusion" %}" id="submit">
+        </form>
+        <div class=note>
+            <ul>
+            <li>{% trans "Shell patterns '*', '?' and '[...]' may be used (read 'man duplicity')." %}</li>
+            <li>{% trans "The inclusions in the list should preceed exclusions." %}</li>
+            <li>{% trans "To exclude all by default, add '**' exclusion at the end of the list." %}</li>
+            </ul>
+        </div>
+        <table>
+        {% for s in exclude_enc %}
+            <tr>
+                <td>{{ s.plain }}</td>
+                <td><a href=/excl/rem/{{ profile.name }}/{{ s.encoded }}/>{% trans "remove" %}</a></td>
+                <td><a href=/excl/up/{{ profile.name }}/{{ s.encoded }}/>{% trans "up" %}</a></td>
+                <td><a href=/excl/down/{{ profile.name }}/{{ s.encoded }}/>{% trans "down" %}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    </div>
+
+{% endblock content %}
