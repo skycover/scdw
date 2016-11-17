@@ -371,3 +371,22 @@ def write_qconf_new(confdir, qconf={}):
     for key, val in qconf.items():
         s += u"%s=%s\n" % (key, val)
     write_safe(qcnffile, s)
+
+
+def getLogForDate(profile, date):
+    import os
+    from pytz import UTC
+    from jobs.const import DATEFORMAT_IN_NAME
+    folder = os.path.join(
+        find_confhome(), 'log', profile
+    )
+    print '%s.gz' % date.astimezone(UTC).strftime(DATEFORMAT_IN_NAME)
+    files = [
+        f for f in os.listdir(folder)
+        if (f.startswith('duplicity-log.ok') or
+            f.startswith('duplicity-cmdlog-pre'))
+        and f.endswith(
+            '%s.gz' % date.astimezone(UTC).strftime(DATEFORMAT_IN_NAME)
+        )
+    ]
+    return os.path.join(folder, files[0])

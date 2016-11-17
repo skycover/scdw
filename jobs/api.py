@@ -129,3 +129,19 @@ def CleanProfileAjax(request, profile):
         scduply_command(profile, 'cleanup', '--force')
         return JsonResponse({'status': 'OK'})
     return JsonResponse({'status': 'Error'})
+
+
+def GetLogForDateAjax(request, profile, date):
+    from bprofile.bprofile import getLogForDate, list_conf, encode
+    from datetime import datetime
+    from jobs.const import DATEFORMAT_INPUT, TIMEZONE
+    from django.core.urlresolvers import reverse
+    if profile not in list_conf():
+        return HttpResponseNotFound('there is no such profile')
+    d = TIMEZONE.localize(datetime.strptime(date, DATEFORMAT_INPUT))
+    url = reverse(
+        'ShowLog', args=(
+            profile, 'log', date, encode(getLogForDate(profile, d))
+        )
+    )
+    return JsonResponse({'url': url})

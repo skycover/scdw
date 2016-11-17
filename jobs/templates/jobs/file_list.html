@@ -20,6 +20,10 @@
             var dateform = $('div#dateform');
             var dateform_input = dateform.find('select');
             var restore_path = $('input#id_path').val() + '/{{ profile.name }}';
+            var urlLog = $('a#viewLog');
+            function changeLog(url) {
+                urlLog.attr('href', url['url']);
+            }
             function rebuildTree(msg) {
                 tree.jstree('destroy');
                 tree.jstree({
@@ -80,6 +84,19 @@
             });
             reqDates();
             dateform.find('a').click(reqDates);
+        dateform_input.change(function () {
+            console.log('chenged');
+            if ( dateform_input.val() == '') {
+                urlLog.hide()
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: '/job/ajax/log/{{ profile.name }}/' + dateform_input.val() + '/',
+                    success: changeLog,
+                });
+                urlLog.show()
+            }
+        });
             {% if restore %}
                 function startRestore() {
                     var data = {
@@ -144,6 +161,7 @@
                 <p>
                     <label>{{ dateform.date.label }}</label>
                     {{ dateform.date }} <a title="{% trans 'Refresh' %}"><img src="{% static 'images/refresh-512.png' %}" /></a>
+                    <a id='viewLog' title="{% trans 'View log' %}" style="display: none"><img src="{% static 'images/view-log-icon.png'%}"/></a>
                 </p>
             </div>
             {% if restore %}

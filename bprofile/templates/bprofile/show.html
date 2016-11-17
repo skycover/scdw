@@ -148,9 +148,8 @@
         <div class="buttons">
                 <a id="bkp">{% trans "Start backup" %}</a>
                 <a id="full">{% trans "Start full backup" %}</a>
-                <a href="{% url "RestoreFiles" profile.name %}">{% trans "Restore" %}</a>
-                <a href="{% url "ListProfileFiles" profile.name %}">{% trans "Get list of backuped files" %}</a>
-                <a>{% trans "Purge" %}</a>
+                <a href="{% url "RestoreFiles" profile.name %}">{% trans "View and restore files" %}</a>
+                <a id="purge">{% trans "Purge" %}</a>
                 <a id="cleanup">{% trans "Cleanup" %}</a>
         </div>
         </div>

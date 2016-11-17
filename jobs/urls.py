@@ -3,7 +3,7 @@ from views import ListFiles
 from api import (
     JobStatusAjax, AllJobsStatusAjax, StartBKPALLAjax, StartBackupAjax,
     ListFilesAjax, StartRestoreAjax, ProfileBackupDatesAjax,
-    CleanProfileAjax,
+    CleanProfileAjax, GetLogForDateAjax
 )
 
 urlpatterns = [
@@ -27,4 +27,6 @@ urlpatterns = [
         name='ProfileBackupDatesAjax'),
     url(r'^ajax/dates/(?P<profile>.*)/$', CleanProfileAjax,
         name='CleanProfileAjax'),
+    url(r'^ajax/log/(?P<profile>.*)/(?P<date>.*)/$', GetLogForDateAjax,
+        name='GetLogForDateAjax'),
 ]
