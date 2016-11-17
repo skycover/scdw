@@ -143,7 +143,7 @@
             <div id="dateform">
                 <p>
                     <label>{{ dateform.date.label }}</label>
-                    {{ dateform.date }} <a>{% trans "Refresh" %}</a>
+                    {{ dateform.date }} <a title="{% trans 'Refresh' %}"><img src="{% static 'images/refresh-512.png' %}" /></a>
                 </p>
             </div>
             {% if restore %}
@@ -154,8 +154,8 @@
         <nobr>
             {% trans "Search file" %}:
             <input id="filelist_p" value="" name=""/>
-            <a id='clearSelected'>{% trans 'Clear selected' %}</a>
-            <a id='refreshTree'>{% trans 'Refresh' %}</a>
+            <a id='clearSelected' title="{% trans 'Clear' %}"><img src="{% static 'images/delete-512.png' %}" /></a>
+            <a id='refreshTree'  title="{% trans 'Refresh' %}"><img src="{% static 'images/refresh-512.png' %}" /></a>
         </nobr>
         <div id='filelist'></div>
 

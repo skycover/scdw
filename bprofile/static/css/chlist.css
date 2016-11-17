@@ -70,11 +70,20 @@
     border-radius: 15px;
 }
 
-.buttons a:hover {
-    cursor: pointer
-}
 
 .buttons a:hover {
     background: darkgray;
     color: #ffffcc;
+    cursor: pointer
+}
+
+a > img {
+    height: 18px;
+    width: 18px;
+}
+
+a > img:hover {
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
 }
