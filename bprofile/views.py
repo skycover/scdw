@@ -372,3 +372,16 @@ def renderForm(request):
     }
 
     return render(request, 'bprofile/renderform.html', targs)
+
+
+def pre_post(request, profile):
+    from forms import PrePostForm
+    from bprofile import read_bprofile, find_confhome
+    targs = {
+        'profile': read_bprofile(find_confhome(), profile),
+    }
+    if request.method == 'GET':
+        form = PrePostForm(profile=profile)
+        targs['form'] = form
+
+    return render(request, 'bprofile/pre_post.html', targs)

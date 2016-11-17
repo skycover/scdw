@@ -19,7 +19,7 @@ from filelist.views import filelist
 from bprofile.views import (
     init_backend, list_bprofiles, delete_bprofile, show_bprofile,
     excl_action, edit_bprofile, new_bprofile, edit_conf, edit_quick,
-    show_log, edit_quick_new, renderForm
+    show_log, edit_quick_new, pre_post
 )
 from django.contrib.auth.views import login, logout
 from django.conf.urls.static import static
@@ -34,6 +34,7 @@ urlpatterns = [
         name='ShowProfileWith'),
     url(r'^show/(?P<name>.*)/$', show_bprofile, name='ShowProfile'),
     url(r'^new/(?P<source_enc>.*)/$', new_bprofile, name='CreateProfile'),
+    url(r'^edit/(?P<profile>.*)/prepost/$', pre_post, name='ProfilePrePost'),
     url(r'^edit/(?P<name>.*)/$', edit_bprofile, name='EditProfile'),
     url(r'^delete/(?P<name>.*)/$', delete_bprofile, name='DeleteProfile'),
     url(r'^log/(?P<name>.*)/(?P<type>.*)/(?P<date>.*)/(?P<log_enc>.*)/$',
@@ -53,7 +54,6 @@ urlpatterns = [
         name='logout', ),
     url(r'^job/', include('jobs.urls')),
 
-    url(r'^renderfrom/$', renderForm),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

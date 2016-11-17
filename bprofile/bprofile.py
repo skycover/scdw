@@ -155,9 +155,9 @@ def read_bprofile(confhome, name):
         try:
             f = open(excfile, 'r', encoding='utf-8')
             ff['exclude'] = [
-                s.strip() for s in f.readlines()
+                s.strip() for s in f.readFile()
                 if s.strip() != ''
-            ]
+                ]
             f.close()
         except:
             ff['exclude'] = []

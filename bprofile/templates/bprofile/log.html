@@ -10,9 +10,10 @@
 {% block branding %}<h1>{% trans "Log" %} {{ type }} {% trans "for job" %} '{{ name }}' {% trans "for date" %} {{ date }}</h1>{% endblock %}
 
 {% block content %}
-
-    <a href="/">{% trans "Jobs List" %}</a>
-    | <a href="/show/{{ name }}/">{% trans "Show Job" %} '<b>{{ name }}</b>'</a>
+    <div class="buttons">
+        <a href="/">{% trans "Jobs List" %}</a>
+        <a href="/show/{{ name }}/">{% trans "Show Job" %} '<b>{{ name }}</b>'</a>
+    </div>
     <pre>
     {{ logstuff }}
     </pre>
