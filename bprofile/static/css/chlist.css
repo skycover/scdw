@@ -87,3 +87,8 @@ a > img:hover {
     width: 18px;
     cursor: pointer;
 }
+
+img.wait-gif {
+    width: 200px;
+    height: 200px;
+}

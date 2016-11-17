@@ -25,6 +25,7 @@
                 urlLog.attr('href', url['url']);
             }
             function rebuildTree(msg) {
+                tree.html('');
                 tree.jstree('destroy');
                 tree.jstree({
                     "plugins" : ["search"],
@@ -40,6 +41,7 @@
             }
             function reqFileListForDate(post) {
                 var val = custom_date_input.prop('checked') ? $('input#id_date[name="date"]').val() : $('select#id_date').val();
+                tree.html("<img class='wait-gif' src='{% static 'images/wait.gif' %}'/>");
                 $.ajax({
                     type: post ? "POST" : "GET",
                     url: '{% url 'ListFilesAjax' profile.name %}',
@@ -48,11 +50,11 @@
                 })
             }
             function reqDates() {
+                dateform_input.html("");
                 $.ajax({
                     type: 'POST',
                     url: '{% url "ProfileBackupDatesAjax" profile.name %}',
                     success: function (msg) {
-                        console.log(msg);
                         dateform_input.html('<option value="" selected>{% trans "Now" %}</option>');
                         Object.keys(msg).forEach(function (key) {
                             var cur = dateform_input.html();
