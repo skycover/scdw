@@ -71,6 +71,10 @@
 }
 
 .buttons a:hover {
+    cursor: pointer
+}
+
+.buttons a:hover {
     background: darkgray;
     color: #ffffcc;
 }
