@@ -92,3 +92,8 @@ img.wait-gif {
     width: 200px;
     height: 200px;
 }
+
+.jstree-node > .icon_size > .jstree-themeicon{
+   size: 16px;
+
+}

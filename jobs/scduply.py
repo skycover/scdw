@@ -122,6 +122,13 @@ def file_tree(file_list):
             'text': p[-1],
             'parent': '#' if len(p) == 1 else id_dict[os.path.join(*p[:-1])]
         })
+    parents = {
+        line['parent'] for line in ret
+    }
+    for line in ret:
+        line['icon'] = '/static/images/%s.png' % (
+            'folder' if line['id'] in parents else 'file'
+        )
     return ret
 
 
