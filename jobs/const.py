@@ -26,8 +26,18 @@ def __get_utc_suffix():
         secondpart=now.strftime('%z')[3:]
     )
 
+
+def __get_duplicity_cache():
+    import os
+    return os.path.join(
+        os.getenv('HOME'), '.cache', 'duplicity'
+    )
+
+
+# Timezone from machine
 TIMEZONE = __get_currenttz()
 UTC_SUFFIX = __get_utc_suffix()
 DATEFORMAT_IN_NAME = '%Y%m%dT%H%M%SZ'
 DATEFORMAT_FOR_SCDUPY = '%Y-%m-%dT%H:%M:%S' + UTC_SUFFIX
 DATEFORMAT_INPUT = '%d.%m.%Y %H:%M:%S'
+DUPLICITY_PATH = __get_duplicity_cache()
