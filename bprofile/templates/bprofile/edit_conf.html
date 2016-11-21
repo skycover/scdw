@@ -10,6 +10,12 @@
 {% block extrahead %}
     <script language="javascript" type="text/javascript" src="{% static "codemirror/lib/codemirror.js" %}"></script>
     <script language="javascript" type="text/javascript" src="{% static "codemirror/mode/shell/shell.js" %}"></script>
+    <style>
+    .CodeMirror {
+        width: 90vw;
+        height: 80vh;
+    }
+    </style>
 {% endblock %}
 
 {% block title %}{% trans "Edit Global config in" %} {{ confhome }}{% endblock %}

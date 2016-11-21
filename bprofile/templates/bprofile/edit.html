@@ -5,6 +5,21 @@
 {% block extrastyle %}
     <link rel="stylesheet" type="text/css" href="{% static "css/chlist.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "codemirror/lib/codemirror.css" %}" />
+    <style>
+    .CodeMirror {
+        width: 45vw;
+        min-width: 483px;
+        min-height: 400px;
+        height: 75vh;
+    }
+    @media(max-width: 1090px) {
+        .CodeMirror {
+            width: 90vw;
+            min-width: 483px;
+            height: 45vh;
+        }
+    }
+    </style>
 {% endblock %}
 
 {% block extrahead %}

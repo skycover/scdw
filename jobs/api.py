@@ -45,7 +45,7 @@ def StartBackupAjax(request, profile, full=None):
     if profile not in list_conf():
         return HttpResponseNotFound('there is no such profile')
     if request.method == 'POST':
-        scduply_command(profile, 'backup' if not full else 'pre_full_post')
+        scduply_command(profile, 'backup' if not full else 'forcedfull')
         return HttpResponse()
     else:
         return HttpResponseRedirect('/show/%s/' % profile)
@@ -131,6 +131,7 @@ def CleanProfileAjax(request, profile):
     return JsonResponse({'status': 'Error'})
 
 
+@login_required()
 def GetLogForDateAjax(request, profile, date):
     from bprofile.bprofile import getLogForDate, list_conf, encode
     from datetime import datetime
@@ -145,3 +146,27 @@ def GetLogForDateAjax(request, profile, date):
         )
     )
     return JsonResponse({'url': url})
+
+
+@login_required()
+def StartPurgeAjax(request, profile):
+    from bprofile.bprofile import list_conf
+    from scduply import scduply_command
+    if profile not in list_conf():
+        return HttpResponseNotFound('there is no such profile')
+    if request.method == 'POST':
+        scduply_command(profile, 'purge', '--force')
+        return JsonResponse({'status': 'OK'})
+    return JsonResponse({'status': 'Error'})
+
+
+@login_required()
+def StartCleanupAjax(request, profile):
+    from bprofile.bprofile import list_conf
+    from scduply import scduply_command
+    if profile not in list_conf():
+        return HttpResponseNotFound('there is no such profile')
+    if request.method == 'POST':
+        scduply_command(profile, 'cleanup', '--force')
+        return JsonResponse({'status': 'OK'})
+    return JsonResponse({'status': 'Error'})

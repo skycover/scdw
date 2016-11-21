@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django import forms
+from django.utils.translation import ugettext as _
 
 
 class DateWidget(forms.TextInput):
@@ -56,7 +57,7 @@ class TimeWidget(forms.TextInput):
 
 class DateForm(forms.Form):
     date = forms.DateTimeField(
-        widget=DateTimeWidget, label='Date'
+        widget=DateTimeWidget, label=_('Date')
     )
 
     def clean(self):
@@ -68,12 +69,12 @@ class DateForm(forms.Form):
 class DateChoiceForm(DateForm):
     date = forms.DateTimeField(
         widget=forms.Select(choices=()),
-        label='Date'
+        label=_('Date')
     )
 
 
 class PathForm(forms.Form):
     path = forms.CharField(
-        label='Restore path', max_length=500,
+        label=_('Restore path'), max_length=500,
         widget=forms.TextInput(attrs={'size': '60'})
     )

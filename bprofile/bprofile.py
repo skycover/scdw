@@ -380,12 +380,9 @@ def getLogForDate(profile, date):
     folder = os.path.join(
         find_confhome(), 'log', profile
     )
-    print '%s.gz' % date.astimezone(UTC).strftime(DATEFORMAT_IN_NAME)
     files = [
         f for f in os.listdir(folder)
-        if (f.startswith('duplicity-log.ok') or
-            f.startswith('duplicity-cmdlog-pre'))
-        and f.endswith(
+        if f.startswith('duplicity-log.ok') and f.endswith(
             '%s.gz' % date.astimezone(UTC).strftime(DATEFORMAT_IN_NAME)
         )
     ]

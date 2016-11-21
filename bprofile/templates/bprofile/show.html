@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/chlist.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/jobs.css' %}" />
     <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/django_ajax.js' %}"></script>
     <script>
         $(document).ready(function () {
             var $table = $('table#infotable');
@@ -15,20 +16,18 @@
             var message_li = $('li#backupMessage');
             var job_bkp = $('a#bkp');
             var job_full = $('a#full');
+            var job_purge = $('a#purge');
             var job_cleanup = $('a#cleanup');
             var log_ = {
                 'full': 'Full',
                 'inc': 'Incremental',
                 'err': 'Failed'
             };
-            var csrfoken = "csrfmiddlewaretoken=" +
-                    $('input[name="csrfmiddlewaretoken"]').attr('value') + ';';
-            function startBkp(full) {
-                showMessage((full ? '{% trans 'Start full backup' %} ': '{% trans 'Start backup' %} ') + '{{ profile.name }}' );
+            function scduplyCommand(url, message) {
+                showMessage(message);
                 $.ajax({
                     type: 'POST',
-                    url: !full ? '{% url 'StartBackupAjax' profile.name %}' : '{% url 'StartFullBackupAjax' profile.name %}',
-                    data: csrfoken
+                    url: url,
                 })
             }
             function updateRow(log) {
@@ -65,10 +64,17 @@
             //    locking: {{ profile.locking|lower }},
             //    running: {{ profile.running|lower }}
             //});
-            job_bkp.click(function () {startBkp()});
-            job_full.click(function () {startBkp(true)});
+            job_bkp.click(function () {
+                scduplyCommand('{% url 'StartBackupAjax' profile.name %}', '{% trans 'Started backup' %}')
+            });
+            job_full.click(function () {
+                scduplyCommand('{% url 'StartFullBackupAjax' profile.name %}', '{% trans 'Started full backup' %}')
+            });
+            job_purge.click(function () {
+                scduplyCommand('{% url 'StartPurgeAjax' profile.name %}', '{% trans 'Started purge' %}')
+            });
             job_cleanup.click(function () {
-               $.ajax
+                scduplyCommand('{% url 'StartCleanupAjax' profile.name %}', '{% trans 'Started cleanup' %}')
             });
             window.setInterval(function () {
                 var d = $.ajax({
@@ -149,8 +155,8 @@
                 <a id="bkp">{% trans "Start backup" %}</a>
                 <a id="full">{% trans "Start full backup" %}</a>
                 <a href="{% url "RestoreFiles" profile.name %}">{% trans "View and restore files" %}</a>
-                <a id="purge">{% trans "Purge" %}</a>
-                <a id="cleanup">{% trans "Cleanup" %}</a>
+                <a id="purge">{% trans "Purge old" %}</a>
+                <a id="cleanup">{% trans "Cleanup errors" %}</a>
         </div>
         </div>
     <div class=conf_exclude>

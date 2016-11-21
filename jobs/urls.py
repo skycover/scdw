@@ -3,7 +3,7 @@ from views import ListFiles
 from api import (
     JobStatusAjax, AllJobsStatusAjax, StartBKPALLAjax, StartBackupAjax,
     ListFilesAjax, StartRestoreAjax, ProfileBackupDatesAjax,
-    CleanProfileAjax, GetLogForDateAjax
+    CleanProfileAjax, GetLogForDateAjax, StartPurgeAjax, StartCleanupAjax
 )
 
 urlpatterns = [
@@ -14,6 +14,10 @@ urlpatterns = [
         name='StartFullBackupAjax', kwargs={'full': True}),
     url(r'^ajax/run/bkp/(?P<profile>.*)/$', StartBackupAjax,
         name='StartBackupAjax'),
+    url(r'^ajax/run/purge/(?P<profile>.*)/$', StartPurgeAjax,
+        name='StartPurgeAjax'),
+    url(r'^ajax/run/cleanup/(?P<profile>.*)/$', StartCleanupAjax,
+        name='StartCleanupAjax'),
     url(r'^ajax/list/(?P<profile>.*)/$', ListFilesAjax,
         name='ListFilesAjax'),
     url(r'^list/(?P<profile>.*)/$', ListFiles, name='ListProfileFiles'),

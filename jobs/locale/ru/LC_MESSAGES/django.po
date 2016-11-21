@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-31 16:54+0300\n"
+"POT-Creation-Date: 2016-11-21 14:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,46 +19,76 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-#: jobs/templates/jobs/file_list.html:76
+
+#: jobs/forms.py:60 jobs/forms.py:72
+msgid "Date"
+msgstr "Дата"
+
+#: jobs/forms.py:78
+msgid "Restore path"
+msgstr "Выберите папку назначения"
+
+#: jobs/templates/jobs/file_list.html:57
+msgid "Now"
+msgstr "Текущий момент"
+
+#: jobs/templates/jobs/file_list.html:118
 msgid "You really want restore "
 msgstr "Вы действитель хотите восстановить "
 
-#: jobs/templates/jobs/file_list.html:76
+#: jobs/templates/jobs/file_list.html:118
 msgid "to"
 msgstr "в"
 
-#: jobs/templates/jobs/file_list.html:91 jobs/templates/jobs/file_list.html:93
+#: jobs/templates/jobs/file_list.html:133
+#: jobs/templates/jobs/file_list.html:135
 msgid "List files of"
 msgstr "Список файлов для задания"
 
-#: jobs/templates/jobs/file_list.html:99
+#: jobs/templates/jobs/file_list.html:141
 msgid "Name"
 msgstr "Имя"
 
-#: jobs/templates/jobs/file_list.html:101
+#: jobs/templates/jobs/file_list.html:143
 msgid "Source path"
 msgstr "Папка"
 
-#: jobs/templates/jobs/file_list.html:106
+#: jobs/templates/jobs/file_list.html:148
 msgid "Edit"
 msgstr "Редактировать"
 
-#: jobs/templates/jobs/file_list.html:107
+#: jobs/templates/jobs/file_list.html:149
 msgid "Return"
 msgstr "Вернуться"
 
-#: jobs/templates/jobs/file_list.html:109
+#: jobs/templates/jobs/file_list.html:151
 msgid "Start Restore"
 msgstr "Запустить восстановление"
 
-#: jobs/templates/jobs/file_list.html:117
+#: jobs/templates/jobs/file_list.html:157
+msgid "Custom date"
+msgstr "Другая дата"
+
+#: jobs/templates/jobs/file_list.html:164
+#: jobs/templates/jobs/file_list.html:177
+msgid "Refresh"
+msgstr "Обновить"
+
+#: jobs/templates/jobs/file_list.html:165
+msgid "View log"
+msgstr "Посмотреть лог"
+
+#: jobs/templates/jobs/file_list.html:169
 msgid "Choose restore path"
 msgstr "Выберите папку назначения"
 
-#: jobs/templates/jobs/file_list.html:122
+#: jobs/templates/jobs/file_list.html:174
 msgid "Search file"
 msgstr "Искать"
 
-#: jobs/templates/jobs/file_list.html:124
-msgid "Clear selected"
-msgstr "Очистить выбранное"
+#: jobs/templates/jobs/file_list.html:176
+msgid "Clear"
+msgstr "Очистить"
+
+#~ msgid "Clear selected"
+#~ msgstr "Очистить выбранное"

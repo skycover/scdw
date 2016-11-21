@@ -1,12 +1,14 @@
 from django import forms
+from django.utils.translation import ugettext as _
+
 
 from bprofile.bprofile import list_keys
 
 
 class NewBackupForm(forms.Form):
-    name = forms.CharField(max_length=30, label='Short name')
+    name = forms.CharField(max_length=30, label=_('Short name'))
     source = forms.CharField(
-        max_length=250, label='Source path', widget=forms.HiddenInput
+        max_length=250, label=_('Source path'), widget=forms.HiddenInput
     )
 
     def clean_name(self):
@@ -31,19 +33,19 @@ class NewBackupForm(forms.Form):
 
 class ConfigureBackupForm(forms.Form):
     name = forms.CharField(
-        max_length=30, label='Short name', widget=forms.HiddenInput
+        max_length=30, label=_('Short name'), widget=forms.HiddenInput
     )
     source = forms.CharField(
-        max_length=250, label='Source path', widget=forms.HiddenInput
+        max_length=250, label=_('Source path'), widget=forms.HiddenInput
     )
     descr = forms.CharField(
-        required=False, label='Description'
+        required=False, label=_('Description')
     )
     notes = forms.CharField(
-        required=False, label='Notes', widget=forms.Textarea
+        required=False, label=_('Notes'), widget=forms.Textarea
     )
     conf = forms.CharField(
-        required=False, label='Config',
+        required=False, label=_('Config'),
         widget=forms.Textarea(attrs={'rows': 20, 'cols': 100})
     )
 
@@ -75,7 +77,7 @@ class AddExceptionForm(forms.Form):
 
 class GlobalConfigForm(forms.Form):
     conf = forms.CharField(
-        label='Global config',
+        label=_('Global config'),
         widget=forms.Textarea(attrs={'rows': 30, 'cols': 120})
     )
 
