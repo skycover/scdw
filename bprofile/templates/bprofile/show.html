@@ -156,6 +156,7 @@
                 <a id="full">{% trans "Start full backup" %}</a>
                 <a href="{% url "RestoreFiles" profile.name %}">{% trans "View and restore files" %}</a>
                 <a id="purge">{% trans "Purge old" %}</a>
+                <a href="{% url "ProfilePrePost" profile.name %}">{% trans "Edit pre/post scripts" %}</a>
                 <a id="cleanup">{% trans "Cleanup errors" %}</a>
         </div>
         </div>

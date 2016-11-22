@@ -5,8 +5,16 @@
 {% block extrastyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/chlist.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/jobs.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "codemirror/lib/codemirror.css" %}" />
+    <style>
+    .CodeMirror {
+        border: solid lightgray 1px;
+        width: 80vw;
+    }
+    </style>
     <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
-    <script></script>
+    <script type="text/javascript" src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "codemirror/mode/shell/shell.js" %}"></script>
 {% endblock %}
 
 {% block title %}{% trans "Backup job" %}: {{ profile.name }}{% endblock %}
@@ -17,9 +25,25 @@
 {% endblock %}
 
 {% block content %}
+
+    <h2>{% trans "Scripts for job" %} {{ profile.name }}</h2>
     <form method="POST">
-    <table>
-        {{ form.as_table }}
-    </table>
+    {% csrf_token %}
+        <button type="submit">{% trans "Save" %}</button>
+        <button type="button" onclick='location.href="{% url "ShowProfile" profile.name %}"'>{% trans "Return" %}</button>
+        <table>
+            {{ form.as_table }}
+        </table>
+    <script language="JavaScript" type="text/javascript">
+    CodeMirror.fromTextArea(document.getElementById('id_pre'), {
+        mode: 'shell',
+        lineNumbers: true
+    });
+    CodeMirror.fromTextArea(document.getElementById('id_post'), {
+        mode: 'shell',
+        lineNumbers: true
+    });
+
+    </script>
     </form>
 {% endblock content %}

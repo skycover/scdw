@@ -19,7 +19,7 @@ from filelist.views import filelist
 from bprofile.views import (
     init_backend, list_bprofiles, delete_bprofile, show_bprofile,
     excl_action, edit_bprofile, new_bprofile, edit_conf, edit_quick,
-    show_log, edit_quick_new, pre_post
+    show_log, pre_post
 )
 from django.contrib.auth.views import login, logout
 from django.conf.urls.static import static
@@ -41,7 +41,6 @@ urlpatterns = [
         show_log, name='ShowLog'),
     url(r'^edit_config/$', edit_conf, name='EditGlobalConfig'),
     url(r'^edit_quick/$', edit_quick, name='EditSCDWGlobalConfig'),
-    url(r'^edit_quick/new$', edit_quick_new, name='EditSCDWGlobalConfigNew'),
     url(r'^excl/(?P<action>.*)/(?P<name>.*)/(?P<excpt_enc>.*)/$', excl_action,
         name='MoveExclude'),
     url(r'^init/$', init_backend, name='InitSCDW'),

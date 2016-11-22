@@ -387,3 +387,32 @@ def getLogForDate(profile, date):
         )
     ]
     return os.path.join(folder, files[0])
+
+
+def getPrePostForProfile(profile):
+    from codecs import open
+    import os
+    ret = dict()
+    path = os.path.join(
+        find_confhome(), profile
+    )
+    for prefix in ('pre', 'post'):
+        try:
+            with open(os.path.join(path, prefix), 'r', encoding='utf-8') as f:
+                ret[prefix] = f.read()
+                f.close()
+        except IOError:
+            ret[prefix] = u''
+    return ret
+
+
+def setPrePostForProfile(profile, data={'pre': u'', 'post': u''}):
+    import os
+    path = os.path.join(
+        find_confhome(), profile
+    )
+    for prefix in ('pre', 'post'):
+        try:
+            write_safe(os.path.join(path, prefix), data.get(prefix, u''))
+        except IOError:
+            pass

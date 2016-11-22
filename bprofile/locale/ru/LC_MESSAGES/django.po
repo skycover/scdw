@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-21 14:37+0300\n"
+"POT-Creation-Date: 2016-11-22 12:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,94 +20,9 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: bprofile/forms/QuickSettingsFormNew.py:7
-msgid "Local storage"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:8
-msgid "FTP"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:9
-msgid "HSI"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:10
-msgid "Cloud Files"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:17
-msgid "sftp"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:70
-msgid "Use GPG?"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:71
-#: bprofile/forms/QuickSettingsFormNew.py:79
-msgid "No"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:72
-msgid "Use key"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:73
-msgid "Use passphrase"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:78
-msgid "Use Mail?"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:80
-msgid "Yes"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:85
-msgid "Target"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:85
-msgid "Choose target type"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:91
-msgid "MAX_AGE"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:94
-msgid "MAX_FULL_BACKUPS"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:97
-msgid "MAX_FULLBKP_AGE"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:100
-msgid "VOLSIZE"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:100
-msgid "in MB"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:105
-msgid "Don't Use"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:106
-msgid "Use purge by FULL"
-msgstr ""
-
-#: bprofile/forms/QuickSettingsFormNew.py:107
-msgid "Use purge by AGE"
-msgstr ""
-
 #: bprofile/forms/__init__.py:9 bprofile/forms/__init__.py:36
 msgid "Short name"
-msgstr ""
+msgstr "Короткое имя"
 
 #: bprofile/forms/__init__.py:11 bprofile/forms/__init__.py:39
 #: bprofile/templates/bprofile/edit.html:55
@@ -134,62 +49,6 @@ msgstr "Редактировать настройки"
 #: bprofile/forms/__init__.py:80
 msgid "Global config"
 msgstr "Глобальные настройки"
-
-#: bprofile/forms/fields.py:28
-msgid "host"
-msgstr ""
-
-#: bprofile/forms/fields.py:29
-msgid "port"
-msgstr ""
-
-#: bprofile/forms/fields.py:30
-msgid "path"
-msgstr ""
-
-#: bprofile/forms/templates.py:10
-msgid "MAIL_FROM"
-msgstr ""
-
-#: bprofile/forms/templates.py:17
-msgid "only errors"
-msgstr ""
-
-#: bprofile/forms/templates.py:18
-msgid "warnings and errors"
-msgstr ""
-
-#: bprofile/forms/templates.py:19
-msgid "everything"
-msgstr ""
-
-#: bprofile/forms/widgets.py:7
-msgid "seconds"
-msgstr ""
-
-#: bprofile/forms/widgets.py:8
-msgid "minutes"
-msgstr ""
-
-#: bprofile/forms/widgets.py:9
-msgid "hours"
-msgstr ""
-
-#: bprofile/forms/widgets.py:10
-msgid "days"
-msgstr ""
-
-#: bprofile/forms/widgets.py:11
-msgid "weeks"
-msgstr ""
-
-#: bprofile/forms/widgets.py:12
-msgid "months"
-msgstr ""
-
-#: bprofile/forms/widgets.py:13
-msgid "years"
-msgstr ""
 
 #: bprofile/templates/base.html:36
 msgid "Log out"
@@ -221,6 +80,7 @@ msgid "You have to delete configuration manually on the filesystem."
 msgstr "Вам придется удалить конфигурацию вручную на файловой системе."
 
 #: bprofile/templates/bprofile/delete.html:17
+#: bprofile/templates/bprofile/pre_post.html:33
 #: bprofile/templates/bprofile/show.html:125
 msgid "Return"
 msgstr "Возврат"
@@ -236,7 +96,6 @@ msgstr "Настройка задания не удалась"
 
 #: bprofile/templates/bprofile/edit.html:45
 #: bprofile/templates/bprofile/gqconf.html:23
-#: bprofile/templates/bprofile/gqconf_new.html:23
 #: bprofile/templates/bprofile/new.html:29
 msgid "Save configuration"
 msgstr "Сохранить настройки"
@@ -244,7 +103,6 @@ msgstr "Сохранить настройки"
 #: bprofile/templates/bprofile/edit.html:46
 #: bprofile/templates/bprofile/edit_conf.html:27
 #: bprofile/templates/bprofile/gqconf.html:24
-#: bprofile/templates/bprofile/gqconf_new.html:24
 #: bprofile/templates/bprofile/new.html:30
 #: bprofile/templates/bprofile/new.html:37
 msgid "Cancel"
@@ -296,14 +154,11 @@ msgstr "Запись настроек не удалась"
 
 #: bprofile/templates/bprofile/gqconf.html:9
 #: bprofile/templates/bprofile/gqconf.html:10
-#: bprofile/templates/bprofile/gqconf_new.html:9
-#: bprofile/templates/bprofile/gqconf_new.html:10
 #: bprofile/templates/bprofile/list.html:105
 msgid "Quick Settings"
 msgstr "Быстрая настройка"
 
 #: bprofile/templates/bprofile/gqconf.html:17
-#: bprofile/templates/bprofile/gqconf_new.html:17
 msgid "Quick Settings error"
 msgstr "Ошибка быстрой настройки"
 
@@ -403,12 +258,20 @@ msgstr "Создать новое задание"
 msgid "Create job failed"
 msgstr "Создание задания не удалось"
 
-#: bprofile/templates/bprofile/pre_post.html:12
-#: bprofile/templates/bprofile/pre_post.html:13
+#: bprofile/templates/bprofile/pre_post.html:20
+#: bprofile/templates/bprofile/pre_post.html:21
 #: bprofile/templates/bprofile/show.html:90
 #: bprofile/templates/bprofile/show.html:91
 msgid "Backup job"
 msgstr "Задание резервного копирования"
+
+#: bprofile/templates/bprofile/pre_post.html:29
+msgid "Scripts for job"
+msgstr "Скрипты для задания"
+
+#: bprofile/templates/bprofile/pre_post.html:32
+msgid "Save"
+msgstr "Сохранить"
 
 #: bprofile/templates/bprofile/show.html:68
 msgid "Started backup"
@@ -471,53 +334,57 @@ msgid "Purge old"
 msgstr "Удалить устаревшие"
 
 #: bprofile/templates/bprofile/show.html:159
+msgid "Edit pre/post scripts"
+msgstr "Редактировать скрипты pre/post"
+
+#: bprofile/templates/bprofile/show.html:160
 msgid "Cleanup errors"
 msgstr "Очистить ошибки"
 
-#: bprofile/templates/bprofile/show.html:163
+#: bprofile/templates/bprofile/show.html:164
 msgid "Exceptions globbing list"
 msgstr "Список шаблонов-исключений"
 
-#: bprofile/templates/bprofile/show.html:166
+#: bprofile/templates/bprofile/show.html:167
 msgid "Error"
 msgstr "Ошибка"
 
-#: bprofile/templates/bprofile/show.html:171
+#: bprofile/templates/bprofile/show.html:172
 msgid "Chose file or folder"
 msgstr "Выберите файл или каталог"
 
-#: bprofile/templates/bprofile/show.html:176
+#: bprofile/templates/bprofile/show.html:177
 msgid "Add exclusion"
 msgstr "Добавить исключение"
 
-#: bprofile/templates/bprofile/show.html:177
+#: bprofile/templates/bprofile/show.html:178
 msgid "Add inclusion"
 msgstr "Добавить включение"
 
-#: bprofile/templates/bprofile/show.html:181
+#: bprofile/templates/bprofile/show.html:182
 msgid "Shell patterns '*', '?' and '[...]' may be used (read 'man duplicity')."
 msgstr ""
 "Можно использовать файловые шаблоны '*', '?' и '[...]' (читайте 'man "
 "duplicity')."
 
-#: bprofile/templates/bprofile/show.html:182
+#: bprofile/templates/bprofile/show.html:183
 msgid "The inclusions in the list should preceed exclusions."
 msgstr "Включения должны предшествовать исключениям."
 
-#: bprofile/templates/bprofile/show.html:183
+#: bprofile/templates/bprofile/show.html:184
 msgid "To exclude all by default, add '**' exclusion at the end of the list."
 msgstr ""
 "Чтобы поумолчанию все исключить, добавьте исключение '**' в конец списка."
 
-#: bprofile/templates/bprofile/show.html:190
+#: bprofile/templates/bprofile/show.html:191
 msgid "remove"
 msgstr "убрать"
 
-#: bprofile/templates/bprofile/show.html:191
+#: bprofile/templates/bprofile/show.html:192
 msgid "up"
 msgstr "вверх"
 
-#: bprofile/templates/bprofile/show.html:192
+#: bprofile/templates/bprofile/show.html:193
 msgid "down"
 msgstr "вниз"
 

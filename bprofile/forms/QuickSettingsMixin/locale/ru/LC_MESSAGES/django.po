@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-22 12:11+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:7
+msgid "Local storage"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:8
+msgid "FTP"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:9
+msgid "HSI"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:10
+msgid "Cloud Files"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:17
+msgid "sftp"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:70
+msgid "Use GPG?"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:71
+#: bprofile/forms/QuickSettingsMixin/__init__.py:79
+msgid "No"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:72
+msgid "Use key"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:73
+msgid "Use passphrase"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:78
+msgid "Use Mail?"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:80
+msgid "Yes"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:85
+msgid "Target"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:85
+msgid "Choose target type"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:91
+msgid "MAX_AGE"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:94
+msgid "MAX_FULL_BACKUPS"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:97
+msgid "MAX_FULLBKP_AGE"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:100
+msgid "VOLSIZE"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:100
+msgid "in MB"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:105
+msgid "Don't Use"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:106
+msgid "Use purge by FULL"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/__init__.py:107
+msgid "Use purge by AGE"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/fields.py:26
+msgid "host"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/fields.py:27
+msgid "port"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/fields.py:28
+msgid "path"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/forms.py:10
+msgid "MAIL_FROM"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/forms.py:17
+msgid "only errors"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/forms.py:18
+msgid "warnings and errors"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/forms.py:19
+msgid "everything"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:6
+msgid "seconds"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:7
+msgid "minutes"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:8
+msgid "hours"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:9
+msgid "days"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:10
+msgid "weeks"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:11
+msgid "months"
+msgstr ""
+
+#: bprofile/forms/QuickSettingsMixin/widgets.py:12
+msgid "years"
+msgstr ""

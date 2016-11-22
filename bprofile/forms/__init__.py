@@ -97,49 +97,13 @@ class QuickSettingsForm(forms.Form):
     )
 
 
-class TextFileField(forms.CharField):
-
-    __filefield__ = True
-
-    def __init__(self, textFile='', *args, **kwargs):
-        self.file = textFile
-        super(TextFileField, self).__init__(
-            *args, widget=forms.Textarea(), **kwargs
-        )
-
-    def readFile(self):
-        from codecs import open
-        ret = u''
-        with open(self.file, 'r', encoding='utf-8') as f:
-            ret = f.read()
-            f.close()
-        return ret
-
-    def saveFile(self, data):
-        from codecs import open
-        with open(self.file, 'w', encoding='utf-8') as f:
-            f.write(data)
-            f.close()
-            return True
-
-
-class FormWithFile(object):
-
-    def listFileFields(self):
-        return {
-            name: value for name, value in self.fields.items()
-            if getattr(type(value), '__filefield__', False)
-        }
-
-    def saveFiles(self):
-        for field in self.listFileFields().values():
-            field.saveFile(self.changed_data[field])
-
-
-class PrePostForm(forms.Form, FormWithFile):
+class PrePostForm(forms.Form):
     """ pre/post form """
-    pre = TextFileField(textFile='')
-    post = TextFileField(textFile='')
-
-    def __init__(self, initial=None, profile='', *args, **kwargs):
-        super(PrePostForm, self).__init__(*args, **kwargs)
+    pre = forms.CharField(
+        required=False, label='PRE',
+        widget=forms.Textarea()
+    )
+    post = forms.CharField(
+        required=False, label='POST',
+        widget=forms.Textarea()
+    )

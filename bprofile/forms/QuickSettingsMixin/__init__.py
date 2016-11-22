@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext as _
-from bprofile.forms.fields import MaxAgeField
+from bprofile.forms.QuickSettingsMixin.fields import MaxAgeField
 
 
 TARGET_TYPES = [
