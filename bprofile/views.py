@@ -276,7 +276,7 @@ def show_log(request, **kwargs):
     targs = {
         'logstuff': unicode(check_output(
             ("zcat", decode(kwargs['log_enc']))
-        ), encoding='utf-8'),
+        ), encoding='utf-8', errors='replace'),
         'name': kwargs['name'],
         'type': kwargs['type'],
         'date': kwargs['date'],
