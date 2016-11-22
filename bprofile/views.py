@@ -272,13 +272,9 @@ def edit_quick(request, **kwargs):
 
 @login_required()
 def show_log(request, **kwargs):
-    from bprofile import get_consolecodepage
-    from commands import getoutput
+    from subprocess import check_output
     targs = {
-        'logstuff': unicode(
-            getoutput("zcat '%s'" % decode(kwargs['log_enc'])),
-            encoding=get_consolecodepage()
-        ),
+        'logstuff': check_output(("zcat", decode(kwargs['log_enc']))),
         'name': kwargs['name'],
         'type': kwargs['type'],
         'date': kwargs['date'],
