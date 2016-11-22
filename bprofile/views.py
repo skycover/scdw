@@ -274,7 +274,9 @@ def edit_quick(request, **kwargs):
 def show_log(request, **kwargs):
     from subprocess import check_output
     targs = {
-        'logstuff': check_output(("zcat", decode(kwargs['log_enc']))),
+        'logstuff': unicode(check_output(
+            ("zcat", decode(kwargs['log_enc']))
+        ), encoding='utf-8'),
         'name': kwargs['name'],
         'type': kwargs['type'],
         'date': kwargs['date'],
