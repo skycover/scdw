@@ -25,6 +25,16 @@ from forms import *
 from bprofile.bprofile import encode, decode
 
 
+def getLastExisted(path):
+    import os
+    while not path == '/':
+        if os.path.exists(path):
+            return path
+        else:
+            path, _ = os.path.split(path)
+
+
+
 def list_files(path, dirsOnly=False):
     import os
 
@@ -57,18 +67,19 @@ def filelist(request, **kwargs):
 
     ae = kwargs['action']
     pe = kwargs['path']
+    path = getLastExisted(decode(pe))
     dirsOnly = kwargs.get('dirsOnly', False)
     pd = decode(pe)
     home = os.path.expanduser('~')
 
     targs = {
         'action': {'encoded': ae, 'decoded': decode(ae)},
-        'path': {'encoded': pe, 'decoded': pd},
-        'path_list': split_path(pd),
+        'path': {'encoded': encode(path), 'decoded': path},
+        'path_list': split_path(path),
         'root': {'encoded': encode('/'), 'decoded': '/'},
         'home': {'encoded': encode(home)},
         'documents': {'encoded': encode(home)},
-        'file_list': list_files(decode(pe), dirsOnly),
+        'file_list': list_files(path, dirsOnly),
         'dirsOnly': dirsOnly,
         'p_url': 'ListDirs' if dirsOnly else 'ListFiles'
     }
@@ -85,7 +96,7 @@ def filelist(request, **kwargs):
                     )
                 )
     else:
-        select_path_form = SelectPathForm(initial={'source': pd})
+        select_path_form = SelectPathForm(initial={'source': path})
 
     targs['select_path_form'] = select_path_form
     return render(request, 'filelist/filelist.html', targs)

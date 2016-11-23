@@ -18,8 +18,11 @@
         var custom_dateform = $('div#dateform-custom');
         var dateform = $('div#dateform');
         var dateform_input = dateform.find('select');
-        var restore_path = $('input#id_path').val() + '/{{ profile.name }}';
+        var urlListDir = $('a#restore_path');
         var urlLog = $('a#viewLog');
+        function  restore_path(withNode) {
+            return ! withNode ? $('input#id_path').val() + '/' + node_name : $('input#id_path').val()
+        }
         function changeLog(url) {
             urlLog.attr('href', url['url']);
         }
@@ -35,7 +38,7 @@
             }).on('changed.jstree', function (e, data) {
                 path = data.instance.get_path(data.node, '/');
                 node_name = data.node.text;
-                restore_path = $('input#id_path').val() + '/' + node_name;
+                // restorePath = $('input#id_path').val() + '/' + node_name;
             });
         }
         function reqFileListForDate(post) {
@@ -57,7 +60,6 @@
                     dateform_input.html('<option value="" selected>{% trans "Now" %}</option>');
                     Object.keys(msg).forEach(function (key) {
                         var cur = dateform_input.html();
-                        console.log(cur);
                         dateform_input.html(cur + '<option value="' + msg[key][0] + '">' + msg[key][1] + '</option>');
                     })
                 }
@@ -73,11 +75,8 @@
         });
         $("a#clearSelected").click(function () {
             tree.jstree(true).deselect_all(true);
-            console.log('clear data');
             path = false;
             node_name = '{{ profile.name }}';
-            restore_path = $('input#id_path').val() + '/' + '{{ profile.name }}';
-            console.log(path, node_name, restore_path);
         });
         custom_date_input.on('change', function () {
             custom_dateform.toggle();
@@ -86,14 +85,13 @@
         reqDates();
         dateform.find('a').click(reqDates);
         dateform_input.change(function () {
-            console.log('chenged');
             if ( dateform_input.val() == '') {
                 urlLog.hide()
             } else {
                 $.ajax({
                     type: "GET",
                     url: '/job/ajax/log/{{ profile.name }}/' + dateform_input.val() + '/',
-                    success: changeLog,
+                    success: changeLog
                 });
                 urlLog.show()
             }
@@ -103,7 +101,7 @@
                 var data = {
                         'date': custom_date_input.prop('checked') ? $('input#id_date[name="date"]').val() : $('select#id_date').val(),
                         'file': path ? '"' + path + '"' : path,
-                        'restore_path': '"' + restore_path + '"'
+                        'restore_path': '"' + restore_path() + '"'
                 };
                 console.log(data);
                 $.ajax({
@@ -111,11 +109,15 @@
                     url: '{% url 'StartRestoreAjax' profile.name %}',
                     data: JSON.stringify(data),
                     dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
+                    contentType: 'application/json; charset=utf-8'
                 })
             }
+            $('input#id_path').keyup(function () {
+                var urlNew = '/filelist/{{ action_url }}/' + btoa(unescape(encodeURIComponent(restore_path(true)))) + '/dirs';
+                urlListDir.attr('href', urlNew);
+            });
             $("a#startRestore").click(function () {
-                var ask = confirm('{% trans "You really want restore " %}' + (path ? '"' + path  + '"': '') + ' {% trans 'to' %} "' + restore_path + '"');
+                var ask = confirm('{% trans "You really want restore " %}' + (path ? '"' + path  + '"': '') + ' {% trans 'to' %} "' + restore_path(true) + '"');
                 if (ask) {
                     startRestore();
                     $('li#backupStated').slideDown(300).delay(1800).slideUp(300);
@@ -166,7 +168,7 @@
                 </p>
             </div>
             {% if restore %}
-                <p><a href="{% url 'ListDirs' action_url to.encoded %}">{% trans "Choose restore path" %}</a></p>
+                <p><a id='restore_path' href="{% url 'ListDirs' action_url to.encoded %}">{% trans "Choose restore path" %}</a></p>
                 {{ pathform.as_p}}
             {% endif %}
         </fieldset>
