@@ -66,8 +66,8 @@ def filelist(request, **kwargs):
     import os
 
     ae = kwargs['action']
-    pe = kwargs['path']
-    path = getLastExisted(decode(pe))
+    pe = kwargs.get('path', False)
+    path = getLastExisted(decode(pe)) if getLastExisted(decode(pe)) else '/'
     dirsOnly = kwargs.get('dirsOnly', False)
     pd = decode(pe)
     home = os.path.expanduser('~')
